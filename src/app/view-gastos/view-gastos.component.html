@@ -1,0 +1,199 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Visualizacion de gastos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div>
+                        <div class="imgPrueb">
+                            <img src="assets/sssss.png" alt>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo">
+                <div class="content">
+                    <div class="head-title">
+                        <div class="left">
+                            <div class="tabs_wrapper">
+                                <input type="radio" name="tabs" id="tab_1"
+                                    [checked]="estadoActual === 'pendiente'"
+                                    (click)="cambiarEstado('pendiente')" />
+                                <label class="tab" for="tab_1">
+                                    <span class="title">Pendientes</span>
+                                </label>
+                                <input type="radio" name="tabs" id="tab_2"
+                                    [checked]="estadoActual === 'liberado'"
+                                    (click)="cambiarEstado('liberado')" />
+                                <label class="tab" for="tab_2">
+                                    <span class="title">Comprobados</span>
+                                </label>
+                                <input type="radio" name="tabs" id="tab_3"
+                                    [checked]="estadoActual === 'revolvente'"
+                                    (click)="cambiarEstado('revolvente')" />
+                                <label class="tab" for="tab_3">
+                                    <span class="title">Revolventes</span>
+                                </label>
+                                <span class="shape"
+                                    [ngClass]="{'pendiente-shape': estadoActual === 'pendiente', 'liberado-shape': estadoActual === 'liberado','revolvente-shape': estadoActual === 'revolvente'}"></span>
+                            </div>
+                        </div>
+                        <div *ngIf='estadoActual=="revolvente"'>
+                            <h3>Recuento de gastos</h3>
+                            <div class="mountFull" *ngFor="let c of monto">
+                                <span>${{c.TotalEfectivo}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf='estadoActual=="liberado"'>
+                            <h3>Monto comprobado</h3>
+                            <div class="mountFull1">
+                                <span>${{montos}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf='estadoActual=="liberado"'>
+                            <h3>Remanente</h3>
+                            <div class="mountFull2">
+                                <span>${{remanente}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <div class="left">
+                            <form action [formGroup]="filtroForm" *ngIf='estadoActual=="liberado"'>
+                                <div class="colum">
+                                    <h3>Filtro</h3>
+                                    <div class="select-box">
+                                        <select formControlName="filtro"
+                                            type="text"
+                                            (ngModelChange)="onChangeResp($event)">
+                                            <option hidden> Selecciona
+                                                el numero
+                                                de folio </option>
+                                            <option
+                                                *ngFor="let c of cheques"
+                                                [value]="c.idBCheck">{{c.invoice}}</option>
+                                        </select>
+                                    </div>
+                                    <button *ngIf="estadoActual== 'liberado'"
+                                    type="button" class="btn-Corte"
+                                    (click)='entregaComprobados()'>Entrega a contabilidad</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <div>
+                            <h3>Recuento de gastos</h3>
+                            <div class="mountFull">
+                                <span>${{montos}}</span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th *ngIf="bandera">EfeCo</th>
+                                <th>Sucursal</th>
+                                <th>Capturista</th>
+                                <th>Responsble</th>
+                                <th>Chequera</th>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>Proveedor</th>
+                                <!-- <th>Fecha</th>  -->
+                                <th>Justificacion</th>
+                                <th>Autorizador</th>
+                                <th>Estado</th>
+                                <th>Estado de efectivo</th>
+                                <th>Comprobado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)='edit(c.Folio)' disabled
+                                *ngFor="let c of reportes ">
+                                <td>
+                                    <h5>{{c.Folio}}</h5>
+                                </td>
+                                <td *ngIf="bandera">
+                                    {{c.EfeCo}}
+                                </td>
+                                <td>
+                                    {{c.Sucursal}}
+                                </td>
+                                <td>
+                                    {{c.Capturista}}
+                                </td>
+                                <td>
+                                    {{c.Responsable}}
+                                </td>
+                                <td>
+                                    {{c.Chequera}}
+                                </td>
+                                <td>
+                                    {{c.Concepto}}
+                                </td>
+                                <td>
+                                    <h5><span>$</span>{{c.Liberado}}</h5>
+                                </td>
+                                <td>
+                                    {{c.Provedor}}
+                                </td>
+                                <td>
+                                    {{c.Justificacion}}
+                                </td>
+                                <td>
+                                    {{c.Autorizador}}
+                                </td>
+                                <td *ngIf='c.Autorizado=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Autorizado=="APROBADO"'>
+                                    <span class={{completed}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="LIBERADO"'>
+                                    <span class={{completed}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Comprobado}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="COMPROBADO"'>
+                                    <span class={{completed}}>{{c.Comprobado}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button *ngIf="estadoActual== 'revolvente'"
+                        type="button" class="btn-Corte"
+                        (click)='genCorteParcial()'>Generar corte parcial</button>
+
+                   
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>

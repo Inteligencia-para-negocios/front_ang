@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Verificacion de cortes</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Cortes</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class>Reportes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="table-data">
+                    <div class="order">
+                        <div class="head">
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>idCorte</th>
+                                    <th>Efectivo (X)</th>
+                                    <th>Importe neto</th>
+                                    <th>Monto entrega</th>
+                                    <th>Fecha de emicion</th>
+                                    <th>Estatus</th>
+                                    <th>Tesoreria</th>
+                                    <th>Contraloria</th>
+                                    <th>Direccion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of corte">
+                                    <td>{{c.idDEfx}}</td>
+                                    <td *ngIf="c.efectivoX > 0"
+                                        class="positivo">{{formatMonto(c.efectivoX)}}</td>
+                                    <td *ngIf="c.importeNeto > 0"
+                                        class="positivo">{{formatMonto(c.importeNeto)}}</td>
+                                    <td *ngIf="c.montoEfecX > 0"
+                                        class="positivo">{{formatMonto(c.montoEfecX)}}</td>
+                                    <td>{{formatFecha(c.emicionCorte)}}</td>
+                                    <td *ngIf="c.Estatus == 'ABIERTO'">
+                                        <span class={{completed}}>{{c.Estatus}}</span>
+                                    </td>
+                                    <td *ngIf='c.Estatus=="CERRADO" '>
+                                        <span class={{cerrado}}>{{c.Estatus}}</span>
+                                    </td>    
+                                    <td *ngIf="c.Tesoreria != null">
+                                        <span class={{completed}}>{{c.Tesoreria}}</span>
+                                    </td>
+                                    <td *ngIf='c.Tesoreria==null'>
+                                        <span class={{pendiente}}>PENDIENTE</span>
+                                    </td>
+                                    <td *ngIf='c.Contraloria==null'>
+                                        <span class={{pendiente}}>PENDIENTE</span>
+                                    </td>
+                                    <td *ngIf="c.Contraloria!= null ">
+                                        <span class={{completed}}>{{c.Contraloria}}</span>
+                                    </td>
+                                    <td *ngIf='c.Direccion!=null'>
+                                        <span class={{completed}}>{{c.Direccion}}</span>
+                                    </td>
+                                    <td *ngIf='c.Direccion==null'>
+                                        <span class={{pendiente}}>PENDIENTE</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

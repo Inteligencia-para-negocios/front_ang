@@ -1,0 +1,46 @@
+#content main .table-data .order table th {
+	padding-bottom: 12px;
+	font-size: 13px;
+	text-align: left;
+	border-bottom: 1px solid var(--grey);
+	padding: 0px 13px 20px 3px;
+}
+tr{
+	height: 35px;
+}
+
+td span{
+	vertical-align: center;
+}
+
+
+#content main .table-data .order table td {
+	padding: 0px 3px 0px 3px;
+	font-size: 13px;
+	text-align: left;
+	/* vertical-align: top; */
+}
+
+
+#content main .table-data .order table td .status span{
+	vertical-align: top;
+}
+
+.liberacion{
+	background-color: rgb(82, 114, 255);
+	border-style: none;
+	width: auto;
+	height: 30px;
+	vertical-align: center;
+	color: aliceblue;
+	border-radius: 10%;
+}
+
+.btn-primary{
+	color: antiquewhite;
+	background-color: var(--blue);
+	border: none;
+	width: 70px;
+	height: 25px;
+	border-radius: 0px;
+}

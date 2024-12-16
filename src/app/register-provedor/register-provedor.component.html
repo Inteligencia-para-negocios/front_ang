@@ -1,0 +1,177 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="order">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Captura de proveedores</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div>
+                        <div class="imgPrueb">
+                            <img src="assets/sssss.png" alt>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="table-data">
+            <div class="todo">
+                <div class="content">
+                 <div class="tabs_wrapper">
+                        <input type="radio" name="tabs" id="tab_1"
+                            [checked]="estadoActual === 'remision'"
+                            (click)="cambiarEstado('remision')" />
+                        <label class="tab" for="tab_1">
+                            <span class="title">Remision</span>
+                        </label>
+                        <input type="radio" name="tabs" id="tab_2"
+                            [checked]="estadoActual === 'facturados'"
+                            (click)="cambiarEstado('facturados')" />
+                        <label class="tab" for="tab_2">
+                            <span class="title">Facturados</span>
+                        </label>
+                        <span class="shape"
+                            [ngClass]="{'remision-shape': estadoActual === 'remision', 'facturados-shape': estadoActual === 'facturados'}"></span>
+                    </div> 
+                </div>
+            </div>
+        </div> -->
+        <div class="table-data"> 
+            <div class="order">
+                <div class="order1" >
+                    <span class="texto">Es contratista</span>
+                    <label class="switch">
+                        <input type="checkbox" (change)="onToggleChange($event)">
+                        <span class="slider"></span>
+                      </label>
+                    <!-- <button (click)="openSnackBar()">ES CONTRATISTA</button> -->
+                </div>
+                <section class>
+                    <form class="form" [formGroup]="registerForm">
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Razón Social</h3>
+                                <input type="text"
+                                    placeholder="Ingresa la razon social"
+                                    required
+                                    formControlName="razonSocial" />
+                            </div>
+                            <div class="input-box">
+                                <h3>RFC</h3>
+                                <input type="text"
+                                    placeholder="Ingresa el RFC" required
+                                    formControlName="rfc" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Días de crédito</h3>
+                                <input type="text"
+                                    placeholder="Ingresa en numeros los dias de credito del proveedor"
+                                    required
+                                    formControlName="diasCred" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Teléfono</h3>
+                                <input type="intiger"
+                                    placeholder="Ingrese el telefono" required
+                                    formControlName="phone" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Dirección</h3>
+                                <input type="text"
+                                    placeholder="Ingresa la direccion" required
+                                    formControlName="address" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Código postal</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el codigo postal"
+                                    required formControlName="cp" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Estado</h3>
+                                <input type="text"
+                                    placeholder="Ingresa el estado" required
+                                    formControlName="state" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Ciudad</h3>
+                                <input type="text"
+                                    placeholder="Ingresa la ciudad" required
+                                    formControlName="city" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Tipo de proveedor</h3>
+                                <div class="select-box">
+                                    <select formControlName="entidad"
+                                        type="text">
+                                        <option hidden>Provedor correspondiente
+                                            al area</option>
+                                        <option>GASTOS</option>
+                                        <option>COMPRAS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="sucess" *ngIf="registerForm.valid"
+                                (click)="registro()">Finalizar captura</button>
+                            <button class="invalid" *ngIf="!registerForm.valid"
+                                [disabled]="!registerForm.valid">Finalizar
+                                captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <!-- <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            This is the expansion title
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            This is a summary of the content
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>This is the primary content of the panel.</p>
+                </mat-expansion-panel>
+
+            </mat-accordion> -->
+
+        </div>
+    </main>
+</div>
+<!--
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head">
+                    <h3>Reportes</h3>
+                    <i class='bx bx-plus'></i>
+                    <i class='bx bx-filter'></i>
+                </div>
+                <ul class="todo-list">
+                    <li class="{{completed}}">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div> -->

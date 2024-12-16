@@ -1,0 +1,93 @@
+.objetive {
+    margin-top: 20px;
+}
+.objetive {
+  margin-top: 20px;
+}
+
+.acordeon {
+    margin-top: 20px;
+  }
+  
+  .elemento-acordeon {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+  }
+  
+  .icono {
+    margin-right: 10px;
+  }
+  
+  .descripcion {
+    flex-grow: 1;
+  }
+  
+  /* Estilos para los checkboxes */
+  input[type="checkbox"] {
+    margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
+  }
+  
+  /* Estilos para los elementos desplegables */
+  .subelementos {
+    margin-left: 30px; /* Ajusta el margen izquierdo según sea necesario */
+  }
+  
+  /* ... Tu código posterior ... */
+  
+  .mountFull span{
+    width: 180px;
+    height: 40px;
+    padding: 5px;
+    align-items: center;
+    background: var(--tag-2);
+    border-radius: 20px;
+    opacity: 1;
+    color: var(--tag-2-text);
+    font-size: 90%;
+    font-weight: bold; 
+}
+
+/* tbody{
+  font-size: 12px;
+}
+
+
+body{
+  padding:50px;
+  background:#fff;
+} */
+.wrapper{
+  width:70%;
+}
+@media(max-width:992px){
+ .wrapper{
+  width:100%;
+} 
+}
+.panel-heading {
+  padding: 0;
+	border:0;
+}
+.panel-title>a, .panel-title>a:active{
+	display:block;
+	padding:15px;
+  color:#555;
+  font-size:16px;
+  font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:1px;
+  word-spacing:3px;
+	text-decoration:none;
+}
+.panel-heading  a:before {
+   font-family: 'Glyphicons Halflings';
+   content: "\e114";
+   float: right;
+   transition: all 0.5s;
+}
+.panel-heading.active a:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+} 

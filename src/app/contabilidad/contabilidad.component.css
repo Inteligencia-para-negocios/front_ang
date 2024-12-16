@@ -1,0 +1,79 @@
+.table-fixed{
+    position: fixed;
+    overflow-y: scroll;
+    width: 85%;
+    font-size: 13px;
+}
+
+
+.btn-Corte{
+    background-color: #ffe35e;
+    border: none;
+    width: 200px;
+    height: 20px;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding: 10px;
+    align-content: space-between;
+}
+
+button {
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #e62222;
+   }
+   
+   button, button span {
+    transition: 200ms;
+   }
+   
+   button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+   }
+   
+   button .icon {
+    position: absolute;
+    border-left: 1px solid #c41b1b;
+    transform: translateX(110px);
+    height: 20px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+   
+   button svg {
+    width: 15px;
+    fill: #eee;
+   }
+   
+   button:hover {
+    background: #ff3636;
+   }
+   
+   button:hover .text {
+    color: transparent;
+   }
+   
+   button:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+   }
+   
+   button:focus {
+    outline: none;
+   }
+   
+   button:active .icon svg {
+    transform: scale(0.8);
+   }

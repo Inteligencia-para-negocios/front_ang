@@ -1,0 +1,270 @@
+/* Menu lateral*/
+#sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+	background: var(--light);
+	z-index: 2000;
+	font-family: var(--lato);
+	transition: .3s ease;
+	overflow-x: hidden;
+	scrollbar-width: none;
+	border-bottom-right-radius: 50px;
+	border-top-right-radius: 50px;
+}
+
+/* Ocultar la barra de desplazamiento vertical */
+#sidebar::-webkit-scrollbar {
+	width: 0.5em;
+	/* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo del riel de la barra de desplazamiento */
+#sidebar::-webkit-scrollbar-track {
+	background: transparent;
+	/* Fondo del riel */
+}
+
+/* Estilo del pulgar de la barra de desplazamiento */
+#sidebar::-webkit-scrollbar-thumb {
+	background-color: transparent;
+	/* Color del pulgar */
+	border-radius: 10px;
+	/* Bordes redondeados */
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.25em 0.4em;
+	font-size: 10% !;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25rem;
+	color: #fff;
+	background-color: #6c757d;
+	margin-left: 15px;
+}
+
+.badge.primary {
+	background-color: #ff2d2d;
+}
+
+.badge.secondary {
+	background-color: #079b0b;
+}
+
+
+#sidebar span {
+	font-size: 14px;
+}
+
+#sidebar::--webkit-scrollbar {
+	display: none;
+
+}
+
+#sidebar.hide {
+	width: 60px;
+}
+
+#sidebar .brand img {
+	width: 210px;
+	height: 110px;
+	margin: auto; 
+	margin-top: 20px;
+}
+
+
+#sidebar .brand {
+	font-size: 24px;
+	font-weight: 700;
+	height: 56px;
+	display: flex;
+	align-items: center;
+	color: var(--blue);
+	position: sticky;
+	top: 0;
+	left: 0;
+	background: var(--light);
+	z-index: 500;
+	padding-bottom: 20px;
+	box-sizing: content-box;
+}
+
+#sidebar .brand .bx {
+	width: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+#sidebar .side-menu {
+	width: 100%;
+	margin-top: 48px;
+}
+
+#sidebar .side-menu li {
+	height: 48px;
+	background: transparent;
+	margin-left: 6px;
+	border-radius: 48px 0 0 48px;
+	padding: 4px;
+	font-size: 12px;
+
+}
+
+#sidebar .side-menu li.active:hover {
+	background: var(--grey);
+	position: relative;
+}
+
+#sidebar .side-menu li.active::hover {
+	content: '';
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	top: -40px;
+	right: 0;
+	box-shadow: 20px 20px 0 var(--grey);
+	z-index: -1;
+}
+
+/* #sidebar .side-menu li.active::after {
+	content: '';
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	bottom: -40px;
+	right: 0;
+	box-shadow: 20px -20px 0 var(--grey);
+	z-index: -1;
+} */
+#sidebar .side-menu li a {
+	width: 100%;
+	height: 100%;
+	background: var(--light);
+	display: flex;
+	align-items: center;
+	border-radius: 48px;
+	font-size: 16px;
+	color: var(--dark);
+	white-space: nowrap;
+	overflow-x: hidden;
+}
+
+#sidebar .side-menu.top li.active a {
+	color: var(--blue) !important;
+}
+
+#sidebar.hide .side-menu li a {
+	width: calc(48px - (4px * 2));
+	transition: width .3s ease;
+}
+
+#sidebar .side-menu li a.logout {
+	color: var(--red);
+}
+
+#sidebar .side-menu.top li a:hover {
+	color: var(--blue);
+}
+
+#sidebar .side-menu li a .bx {
+	min-width: calc(60px - ((4px + 6px) * 2));
+	display: flex;
+	justify-content: center;
+}
+
+/* SIDEBAR */
+
+/* CONTENT */
+#content {
+	position: relative;
+	width: calc(100% - 280px);
+	left: 280px;
+	transition: .3s ease;
+}
+
+#sidebar.hide~#content {
+	width: calc(100% - 60px);
+	left: 60px;
+}
+
+.menu-toggle-button {
+	display: none;
+	/* Ocultar el botón en pantallas grandes */
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+	.menu-toggle-button {
+		display: block;
+		/* Mostrar el botón en pantallas pequeñas */
+	}
+
+	/* Estilo para el menú desplegable */
+	#sidebar {
+		/* Estilos anteriores para el sidebar */
+		/* ... */
+		width: 0;
+		/* Inicialmente oculto */
+	}
+
+	#sidebar.show {
+		width: 280px;
+		/* Mostrar el sidebar al hacer clic en el botón de menú */
+	}
+}
+
+#toolbar {
+	display: none;
+	/* Ocultar el toolbar en pantallas pequeñas */
+	background: var(--light);
+	padding: 10px;
+}
+
+.toolbar-button {
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+	#toolbar {
+		display: flex;
+		/* Mostrar el toolbar en pantallas pequeñas */
+	}
+}
+
+#toolbar {
+	display: none;
+	/* Ocultar el toolbar en pantallas pequeñas */
+	background: var(--light);
+	padding: 10px;
+}
+
+.toolbar-button {
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+	#toolbar {
+		display: flex;
+		/* Mostrar el toolbar en pantallas pequeñas */
+	}
+}

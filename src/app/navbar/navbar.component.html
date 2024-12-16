@@ -1,0 +1,166 @@
+<section id="sidebar">
+	<a class="brand">
+		<img src="/assets/logo.png" alt>
+		<!-- <span class="text">Pablin</span> -->
+	</a>
+	<ul class="side-menu top">
+		<li>
+			<a href="/dashboardFull">
+				<i class='bx bxs-dashboard'></i>
+				<span class="text">Dashboard</span>
+			</a>
+		</li>
+		<li>
+			<!-- *ngIf="role == 'administrador' || role == 'contralor'" -->
+			<!-- <a href="/reports">
+				<i class='bx bxs-report'></i>
+				<span class="text">Reporte de ingresos</span>
+				<span class="badge primary">C</span>
+			</a> -->
+		</li>
+		<li>
+			<!-- *ngIf="role == 'contralor'" -->
+			<!-- <a href="/detalleFex">
+				<i class='bx bxs-report'></i>
+				<span class="text">Revision de Efectivo X</span>
+			</a> -->
+			<!-- <span class="badge primary">C</span> -->
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' || role == 'registros' " -->
+			<a href="/revolvente">
+				<i class='bx bx-revision'></i>
+								<span class="text">Registro de fondo revolvente</span>
+			</a>
+			<!-- <span class="badge primary">C</span> -->
+		</li>
+		<li >
+			<!-- *ngIf="role == 'capturista' || role == 'administrador'  || role == 'registros' " -->
+			<a href="/captura-gastos">
+				<i class='bx bxs-dollar-circle'></i>
+				<span class="text">Captura de gastos</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'visualizador' || role == 'administrador' || role == 'contabilidad' " -->
+			<a href="/gastos-comprobados">
+				<i class='bx bxs-dollar-circle'></i>
+				<span class="text">Gastos comprobados</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' " -->
+			<a href="/gastos-recurrentes">
+				<i class='bx bxs-dollar-circle'></i>
+				<span class="text">Gastos recurrentes</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'visualizador' || role == 'administrador' " -->
+			<a href="/captura-cheque">
+				<i class='bx bxs-wallet'></i>
+				<span class="text">Captura de cheques</span>
+			</a>
+		</li>
+		<li>
+			<!-- *ngIf="role == '' || role == 'administrador' " -->
+			<a href="/captura-transfer">
+				<i class='bx bx-transfer'></i>
+				<span class="text">Captura de transferencias</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'capturista' || role == 'administrador' || role == 'registros' " -->
+			<a href="/view-gastos">
+				<i class='bx bx-dollar-circle'></i>
+				<span class="text">Visualizacion de gastos</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' " -->
+			<a href="/transfer">
+				<i class='bx bx-transfer'></i>
+				<span class="text">Visualizacion de transferencias</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'visualizador' || role == 'administrador' " -->
+			<a href="/view-check">
+				<i class='bx bx-wallet'></i>
+				<span class="text">Visualizacion de cheques</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' " -->
+			<a href="/auth-gastos">
+				<i class='bx bx-shield-quarter'></i>
+				<span class="text">Autorizacion de gastos</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' " -->
+			<a href="/presupuesto">
+				<i class='bx bx-money'></i>
+				<span class="text">Presupuestos</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'tesoreria' || role == 'administrador' " -->
+			<a href="/tesoreria">
+				<i class='bx bxs-coin'></i>
+				<span class="text">Tesoreria</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'user' || role == 'administrador' " -->
+			<a href="/solicitud">
+				<i class='bx bxs-user-pin'></i>
+				<span class="text">Solicitud de gastos</span>
+			</a>
+		</li>
+
+	</ul>
+	<ul class="side-menu">
+		<li >
+			<!-- *ngIf="usuarioOn == 'Desarrollador' || usuarioOn == 'Ali'" -->
+			<a href="#">
+				<i class='bx bxs-cog'></i>
+				<span class="text">Settings</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' || role == 'registros'  || role == 'capturista'" -->
+			<a href="/registro-empleado">
+				<i class='bx bxs-user-pin'></i>
+				<span class="text">Registro de empleados</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' || role == 'contabilidad'" -->
+			<a href="/contabilidad">
+				<i class='bx bxs-user-pin'></i>
+				<span class="text">Contabilidad</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'administrador' || role == 'registros' " -->
+			<a href="/registro-provedor">
+				<i class='bx bx-purchase-tag-alt'></i>
+				<span class="text">Registro de proveedores</span>
+			</a>
+		</li>
+		<li >
+			<!-- *ngIf="role == 'registros' || role == 'administrador' " -->
+			<a href="/registro-sucursal">
+				<i class='bx bx-building-house'></i>
+				<span class="text">Registro de sucursales</span>
+			</a>
+		</li>
+		<li>
+			<a href="/login" class="logout" (click)="logOut()">
+				<i class='bx bxs-log-out-circle'></i>
+				<span class="text" style="color:rgb(216, 41, 41)">Cerrar sesion</span>
+			</a>
+		</li>
+	</ul>
+</section>

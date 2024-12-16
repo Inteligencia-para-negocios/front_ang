@@ -1,0 +1,194 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Reporte de gastos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Gastos</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class>reportes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <ul class="box-info">
+                    <li (click)="redirecTo()">
+                        <i class='bx bx-money'></i>
+                        <span
+                            class="text">
+                            <h3>Verificacion</h3>
+                            <p>Revision de montos</p>
+                        </span>
+                    </li>
+                    <li (click)="redirecTo2()">
+                        <i class='bx bxs-dollar-circle'></i>
+                        <span class="text">
+                            <h3>Efectivo X</h3>
+                            <p>Detalles de efectivo</p>
+                        </span>
+                    </li>
+                </ul>
+                <div class="order">
+                    <canvas id="actyviti">{{ chartActyviti }}</canvas>
+                </div>
+            </div>
+            <div>
+                <div class="table-data">
+
+                </div>
+
+            </div>
+            <div class="table-data">
+                <div class="table-data">
+                    <div class="order table-fixed">
+                        <table>
+
+                            <thead class="todos">
+                                <tr>
+                                    <th>idCorte</th>
+                                    <th>Efectivo X</th>
+                                    <th>Diferencia X</th>
+                                    <th>Efectivo A </th>
+                                    <th>Diferencia A</th>
+                                    <th>Depositos Cheques (Bancos)</th>
+                                    <th>Otros</th>
+                                    <th>Depositos Efectivo(Bancos)</th>
+                                    <th>Importe neto</th>
+                                    <th>Fecha</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of corte">
+                                    <td>{{c.idCorte}}</td>
+                                    <td *ngIf="c.efectivoX <= 0"
+                                        class="negativo">{{formatMonto(c.efectivoX)}}</td>
+                                    <td *ngIf="c.efectivoX > 0" class="positivo">{{formatMonto(c.efectivoX)}}</td>
+
+                                    <td *ngIf="c.diferenciaX <= 0"
+                                        class="negativo">{{formatMonto(c.diferenciaX)}}</td>
+                                    <td *ngIf="c.diferenciaX > 0"
+                                        class="positivo">{{formatMonto(c.diferenciaX)}}</td>
+
+                                    <td *ngIf="c.efectivoA <= 0"
+                                        class="negativo">{{formatMonto(c.efectivoA)}}</td>
+                                    <td *ngIf="c.efectivoA > 0" class="positivo">{{formatMonto(c.efectivoA)}}</td>
+
+                                    <td *ngIf="c.diferenciaA <= 0"
+                                        class="negativo">{{formatMonto(c.diferenciaA)}}</td>
+                                    <td *ngIf="c.diferenciaA > 0"
+                                        class="positivo">{{formatMonto(c.diferenciaA)}}</td>
+
+                                    <td
+                                        *ngIf="c.depositoChequeBAzteca+c.depositoChequeBanorte+c.depositoChequeBanamex+c.depositoChequeSantander > 0"
+                                        class="positivo">
+                                        {{formatMonto(c.depositoChequeBAzteca+
+                                        c.depositoChequeBanorte+
+                                        c.depositoChequeBanamex+
+                                        c.depositoChequeSantander)}}
+                                    </td>
+                                    <td
+                                        *ngIf="c.depositoChequeBAzteca+c.depositoChequeBanorte+c.depositoChequeBanamex+c.depositoChequeSantander <= 0"
+                                        class="negativo">
+                                        {{formatMonto(c.depositoChequeBAzteca+
+                                        c.depositoChequeBanorte+
+                                        c.depositoChequeBanamex+
+                                        c.depositoChequeSantander)}}
+                                    </td>
+                                    <!-- <td *ngIf="c.depositoChequeBAzteca+c.depositoChequeBanorte+c.depositoChequeBanamex+c.depositoChequeSantander == 0" >{{
+                                        formatMonto(c.depositoChequeBAzteca+
+                                        c.depositoChequeBanorte+
+                                        c.depositoChequeBanamex+
+                                        c.depositoChequeSantander)}}
+                                    </td> -->
+                                    <td
+                                        *ngIf="c.cheques+c.tarjetaCredito+c.tarjetaDebito > 0"
+                                        class="positivo">
+                                        {{formatMonto(
+                                        c.cheques+
+                                        c.tarjetaCredito+
+                                        c.tarjetaDebito)
+                                        }}
+                                    </td>
+
+                                    <td
+                                        *ngIf="c.cheques+c.tarjetaCredito+c.tarjetaDebito <= 0"
+                                        class="negativo">
+                                        {{formatMonto(
+                                        c.cheques+
+                                        c.tarjetaCredito+
+                                        c.tarjetaDebito)
+                                        }}
+                                    </td>
+                                    <td *ngIf="c.depositoEfectivoSantanderA+
+                                    c.depositoEfectivoSantanderX+
+                                    c.depositoEfectivoBanorteA+
+                                    c.depositoEfectivoBanorteX+
+                                    c.depositoEfectivoBanamexX+
+                                    c.depositoEfectivoBanamexA+
+                                    c.depositoEfectivoBAztecaA+
+                                    c.depositoEfectivoBAztecaX > 0"
+                                        class="positivo">
+                                        {{formatMonto(
+                                        c.depositoEfectivoSantanderA+
+                                        c.depositoEfectivoSantanderX+
+                                        c.depositoEfectivoBanorteA+
+                                        c.depositoEfectivoBanorteX+
+                                        c.depositoEfectivoBanamexX+
+                                        c.depositoEfectivoBanamexA+
+                                        c.depositoEfectivoBAztecaA+
+                                        c.depositoEfectivoBAztecaX
+                                        )}}
+                                    </td>
+                                    <td *ngIf="c.depositoEfectivoSantanderA+
+                                    c.depositoEfectivoSantanderX+
+                                    c.depositoEfectivoBanorteA+
+                                    c.depositoEfectivoBanorteX+
+                                    c.depositoEfectivoBanamexX+
+                                    c.depositoEfectivoBanamexA+
+                                    c.depositoEfectivoBAztecaA+
+                                    c.depositoEfectivoBAztecaX <= 0"
+                                        class="negativo">
+                                        {{formatMonto(
+                                        c.depositoEfectivoSantanderA+
+                                        c.depositoEfectivoSantanderX+
+                                        c.depositoEfectivoBanorteA+
+                                        c.depositoEfectivoBanorteX+
+                                        c.depositoEfectivoBanamexX+
+                                        c.depositoEfectivoBanamexA+
+                                        c.depositoEfectivoBAztecaA+
+                                        c.depositoEfectivoBAztecaX
+                                        )}}
+                                    </td>
+
+                                    <td *ngIf="c.importeNeto <= 0"
+                                        class="negativo">{{formatMonto(c.importeNeto)}}</td>
+                                    <td *ngIf="c.importeNeto > 0"
+                                        class="positivo">{{formatMonto(c.importeNeto)}}</td>
+                                    <td>{{formatFecha(c.emicionCorte)}}</td>
+                                    <td *ngIf='c.idStatus==9'>
+                                        <span class={{isBloqued}}>cerrado</span>
+                                    </td>
+                                    <td *ngIf='c.idStatus==8'>
+                                        <span class={{notBloqued}}>abierto</span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

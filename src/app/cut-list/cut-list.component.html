@@ -1,0 +1,120 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Detalle de remisiones</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Tesoreria</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a>cortes parciales</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h3>Elegir corte a descontar</h3>
+                    </div>
+                    <div>
+                        <form action [formGroup]="formCheque">
+                            <div class="select-box">
+                                <select formControlName="cheque"
+                                    type="text"
+                                    (ngModelChange)="onChangeResp($event)">
+                                    <option hidden> Selecciona el numero de
+                                        folio
+                                    </option>
+                                    <option *ngFor="let c of cortes"
+                                        [value]="c.idCorte">{{formatFecha(c.emicionCorte)}}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th *ngIf>EfeCo</th>
+                                <th>Sucursal</th>
+                                <th>Capturista</th>
+                                <th>Responsble</th>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>Proveedor</th>
+                                <!-- <th>Fecha</th>  -->
+                                <th>Justificacion</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of gastosCortes">
+                                <td>
+                                    <h5>{{c.Folio}}</h5>
+                                </td>
+                                <td>
+                                    {{c.Sucursal}}
+                                </td>
+                                <td>
+                                    {{c.Capturista}}
+                                </td>
+                                <td>
+                                    {{c.Responsable}}
+                                </td>
+                                <td>
+                                    {{c.Concepto}}
+                                </td>
+                                <td>
+                                    {{formatMonto(c.EfeCo)}}
+                                </td>
+                                <td>
+                                    {{c.Provedor}}
+                                </td>
+                                <td>
+                                    {{c.Justificacion}}
+                                </td>
+
+                                <td *ngIf='c.Comprobado=="COMPROBADO"'>
+                                    <span class="open status">{{c.Comprobado}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="todo">
+                    <div class="head-title">
+                        <div class="left">
+                            <div class="lib">
+                                <h3>Suma a liberar</h3>
+                                <span class="badge">{{formatMonto(montoTotalCorteParcial)}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" (click)="descuentoCorte()"
+                                class="btn-Corte">Descontar
+                                monto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

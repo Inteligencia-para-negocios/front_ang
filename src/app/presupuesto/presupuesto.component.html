@@ -1,0 +1,194 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Presupuestos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Gastos</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active">Presupuestos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo todo2">
+                <section>
+                    <form action class="form" [formGroup]="captureForm"
+                        (submit)="onRegisterPresupuesto()">
+                        <div class="input-box">
+                            <h3>Presupuesto</h3>
+                            <input type="float"
+                                placeholder="Ingresa el nombre del presupuesto"
+                                required formControlName="presupuesto" />
+                        </div>
+                        <!-- <div class="input-box">
+                            <h3>Clabe interbancaria</h3>
+                            <input type="intiger" placeholder="Ingresa la clave interbancaria" required/>
+                        </div> -->
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Monto</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    required formControlName="monto" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Concepto</h3>
+                                <div class="select-box">
+                                    <select formControlName="concepto">
+                                        (ngModelChange)="onCaptureConcept($event)"
+                                        <option hidden *ngIf="captureForm">Selecciona
+                                            el concepto</option>
+                                        <option *ngFor="let c of conceptos"
+                                            [value]="[c.idConcept]">{{c.nombreConcept}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Fecha de inicio</h3>
+                                <input type="date" required
+                                    formControlName="fechaInicial" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Fecha de finalizacion</h3>
+                                <input type="date"
+                                    placeholder="referencia de pago" required
+                                    formControlName="fechaFinal" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="sucess" type="submit"
+                                (click)="registroPresupuesto()"
+                                >Finalizar captura</button>
+                            <button class="invalid" *ngIf="!captureForm.valid"
+                                [disabled]="!captureForm.valid">Finalizar
+                                captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div *ngIf="verifyPresp()" class="todo todo2">
+                <div class="head-title titlee">
+                    <div>
+                        <h2>Listado de presupuestos</h2>
+                    </div>
+                </div>
+                <ul class="todo-list">
+                    <li class="completed" *ngFor="let c of arrayPresupuestos">
+                        <p>{{c.presupuesto}}</p>
+                        <p>$<span>{{c.monto}}</span></p>
+                        <p>{{c.nameStatus}}</p>
+                        <p></p>
+                        <i class='bx bx-reset'></i>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="table-data">
+            <div *ngIf="verifyPresp()" class="todo todo2">
+                <div class="head-title titlee">
+                    <div>
+                        <h2>Asignacion de presupuesto</h2>
+                    </div>
+                    <div class="mountFull">
+                        <span></span>
+                    </div>
+                </div>
+                <section>
+                    <form action class="form" [formGroup]="asignacionForm"
+                        (submit)="CreateAssignment()">
+                        <div class="input-box">
+                            <h3>Presupuesto</h3>
+                            <div class="select-box">
+                                <select formControlName="idPresupuesto" (ngModelChange)="onCapturePresupuesto($event)">
+                                    <option hidden *ngIf="captureForm">Selecciona
+                                        el concepto</option>
+                                    <option *ngFor="let c of arrayPresupuestos"
+                                        [value]="c.idPresupuesto">{{c.presupuesto}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Monto</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    required formControlName="montoAsignado" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Servicio</h3>
+                                <div class="select-box">
+                                    <select formControlName="servicio"
+                                        (ngModelChange)="onCaptureService($event)">
+                                        <option hidden *ngIf="captureForm">Selecciona
+                                            el servicio</option>
+                                        <option>Carpinteria</option>
+                                        <option>Herreria</option>
+                                        <option>Electrica</option>
+                                        <option>Seguridad perimetral</option>
+                                        <option>Albañileria</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Contratista</h3>
+                                <div class="select-box">
+                                    <select formControlName="idContratista" (ngModelChange)="onCaptureContratista($event)">
+                                        <option hidden *ngIf="captureForm">Selecciona el concepto</option>
+                                        <option *ngFor="let c of arrayContratistas" [value]="c.idProvider">{{c.nameProvider}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Fecha de inicio</h3>
+                                <input type="date" required
+                                    formControlName="fechaInicio" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Fecha de finalizacion</h3>
+                                <input type="date"
+                                    placeholder="referencia de pago" required
+                                    formControlName="fechaFinal" />
+                            </div>
+                        </div>
+                      
+                    </form>
+                      <div class="column">
+                            <button class="sucess" type="submit"
+                                (click)="CreateAssignment()"
+                                *ngIf="asignacionForm.valid">Finalizar captura</button>
+                            <button class="invalid" *ngIf="!asignacionForm.valid"
+                                [disabled]="!captureForm.valid">Finalizar
+                                captura</button>
+                        </div>
+                </section>
+
+            </div>
+            <div class="todo todo2">
+                <div class="head-title titlee">
+                    <div>
+                        <h2>Asignaciones contratistas</h2>
+                    </div>
+                    <div class="mountFull">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

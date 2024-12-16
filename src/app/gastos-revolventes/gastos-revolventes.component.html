@@ -1,0 +1,192 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Gastos recurrentes</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Gastos</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active">recurrentes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo">
+                <div class="content">
+                    <div class="tabs_wrapper">
+                        <input type="radio" name="tabs" id="tab_1"
+                            [checked]="estadoActual === 'gastos'"
+                            (click)="cambiarEstado('gastos')" />
+                        <label class="tab" for="tab_1">
+                            <span class="title">Recurrentes</span>
+                        </label>
+                        <input type="radio" name="tabs" id="tab_2"
+                            [checked]="estadoActual === 'captura'"
+                            (click)="cambiarEstado('captura')" />
+                        <label class="tab" for="tab_2">
+                            <span class="title">Captura</span>
+                        </label>
+                        <span class="shape"
+                            [ngClass]="{'pendiente-shape': estadoActual === 'captura', 'liberado-shape': estadoActual === 'gastos'}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order" *ngIf="estadoActual=='captura'">
+                <section class>
+                    <form action class="form" [formGroup]="captureForm"
+                        (submit)="registroPresupuesto()">
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Numero de servicio</h3>
+                                <input type="float"
+                                    placeholder="Ingresa el folio de contrato"
+                                    required formControlName="servicio" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Servicio</h3>
+                                <div class="select-box">
+                                    <select formControlName="name">
+                                        (ngModelChange)="onCaptureConcept($event)"
+                                        <option hidden *ngIf="captureForm">Selecciona
+                                            el servicio</option>
+                                        <option>AGUA</option>
+                                        <option>LUZ</option>
+                                        <option>GAS</option>
+                                        <option>INTERNET</option>
+                                        <option>PREDIAL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Responsable</h3>
+                                <input type="string"
+                                    placeholder="Ingresa el responsable"
+                                    required formControlName="empleado">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Proveedor</h3>
+                                <div class="select-box">
+                                    <select formControlName="provedor">
+                                        <option hidden>Selecciona el proveedor</option>
+                                        <option *ngFor="let s of provider"
+                                            [value]="s.idProvider">{{s.nameProvider}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Area</h3>
+                                <div class="select-box">
+                                    <select formControlName="area">
+                                        <option hidden>Selecciona el area</option>
+                                        <option *ngFor="let s of areas"
+                                            [value]="s.idArea">{{s.nameArea}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Sucursal</h3>
+                                <div class="select-box">
+                                    <select formControlName="branch">
+                                        <option hidden>Selecciona la sucursal</option>
+                                        <option *ngFor="let s of sucursales"
+                                            [value]="s.idBranch">{{s.nameBranch}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Monto</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    required formControlName="monto" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Periodo</h3>
+                                <input type="date" required
+                                    formControlName="periodo" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="sucess" type="submit"
+                                *ngIf="captureForm.valid">Finalizar captura</button>
+                            <button class="invalid" *ngIf="!captureForm.valid"
+                                [disabled]="!captureForm.valid">Finalizar
+                                captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <div class="content-main" *ngIf="estadoActual=='gastos'">
+            <div class="card-grid">
+                <article class="card" *ngFor="let s of recurrentes">
+                    <div class="card-header">
+                        <div>
+                            <div>
+                                <h4>Folio: </h4><span>{{s.idGastoRev}}</span>
+                            </div>
+                            <div>
+                                <h4>N° Servicio:    </h4><span>{{s.NoServicio}}</span>
+                            </div>
+                        </div>
+                        <!-- <label class="toggle">
+                            <input type="checkbox"
+                                [checked]="estadosTarjetas[s.idGastoRev] === 'inactiva'"
+                                (click)="checker(s.idGastoRev, 'inactiva')">
+                            <span></span>
+                        </label> -->
+                        <label class="toggle">
+                            <input type="checkbox"
+                                [checked]="estadosTarjetas[s.idGastoRev] === 'activo'"
+                                (click)="checker(s.idGastoRev, estadosTarjetas[s.idGastoRev] === 'activo' ? 'inactiva' : 'activo')">
+                            <span></span>
+                        </label>
+                        
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                    <div class="card-body">
+                        <div class="cardSecundaryBody">
+                            <div>
+                                <label >Servicio :</label>
+                                <span>{{s.servcio}}</span>
+                                <label >Periodo :</label>
+                                <span>{{formatFecha(s.periodo)}}</span>
+                                <label>Monto :</label>
+                                <span>{{formatMonto(s.monto)}}</span>
+                            </div>
+                            <div>
+                                <label>Area :</label>
+                                <span>{{s.nameArea}}</span>
+                                <label >Sucursal :</label>
+                                <span>{{s.nameBranch}}</span>
+                                <label >Proveedor :</label>
+                                <span>{{s.nameProvider}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <!-- <a class='button'>Cacular dias</a>
+                        <a class='button'>Inhabilitar</a> -->
+                        <a class='button'>Generar pago</a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+</div>

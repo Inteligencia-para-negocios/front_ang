@@ -1,0 +1,31 @@
+#content main .table-data .order table th {
+	padding-bottom: 12px;
+	font-size: 13px;
+	text-align: left;
+	border-bottom: 1px solid var(--grey);
+	padding: 0px 13px 20px 3px;
+}
+#content main .table-data .order table td {
+	padding: 0px 13px 0px 3px;
+	font-size: 13px;
+	text-align: left;
+ 	/* vertical-align: top; */
+}
+
+#content main .table-data .order table td .status span{
+	vertical-align: center;
+}
+
+tr{
+	height: 35px;
+}
+
+td span{
+	vertical-align: center;
+
+}
+
+.imgPrueb img{
+    width: 100px;
+    height: 100px;
+}

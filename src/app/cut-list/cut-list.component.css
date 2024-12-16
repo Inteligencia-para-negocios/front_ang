@@ -1,0 +1,31 @@
+.btn-Corte{
+    background-color: #ffe35e;
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 10px;
+    align-content: space-between;
+}
+.btn-Corte:hover{
+    background-color: #d3bf5e;
+}
+
+.table-data{
+    font-size: 13px;
+}
+
+.badge{
+    background-color: var(--tag-2);
+    color: var(--tag-2-text);
+    font-weight: bold;
+    margin-left: 20px;
+    align-self: center;
+    font-size: 13px;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.lib{
+   display: flex;
+}

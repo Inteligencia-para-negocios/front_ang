@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Liberacion de efectivo</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span></span>
+                    </div>
+                    <!-- <a href="#" class="btn-download">
+                        <i class='bx bx-export'></i>
+                         <span class="text">Exportar XLS</span>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+         <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Area</th>
+                                <th>Sucursal</th>
+                                <th>Capturista</th>
+                                <th>Responsble</th>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>Provedor</th>
+                                <th>Fecha</th>
+                                <th>Justificacion</th>
+                                <th>Autorizo</th>
+                                <th>Status</th>
+                                <th>Efectivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of reportes">
+                                <td>
+                                    <h5>{{c.Folio}}</h5>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    {{c.Sucursal}}
+                                </td>
+                                <td>
+                                    {{c.Capturista}}
+                                </td>
+                                <td>
+                                    {{c.Responsable}}
+                                </td>
+                                <td>
+                                    {{c.Concepto}}
+                                </td>
+                                <td>
+                                    <h5><Span>$</Span>{{c.Liberado}}</h5>
+                                </td>
+                                <td>
+                                    {{c.Provedor}}
+                                </td>
+                                <td>
+                                    {{formatFecha(c.DateCreate)}}
+                                </td>
+                                <td>
+                                    {{c.Justificacion}}
+                                </td>
+                                <td>
+                                    {{c.Autorizador}}
+                                </td>
+                                <td *ngIf='c.Autorizado!="PENDIENTE"'>
+                                    <span class={{completed}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Autorizado==="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo!="PENDIENTE"'>
+                                    <span class={{completed}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo==="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td>
+                                    <button (click)="SolVerify(c.idResponsable,c.Folio)" type="button" class="btn-primary">
+                                        Liberar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </main>
+</div>

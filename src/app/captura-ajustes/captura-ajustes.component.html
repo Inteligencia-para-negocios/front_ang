@@ -1,0 +1,162 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Ajuste de cortes generales</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">capturas</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <div class="imgPrueb">
+                            <!-- <img src="assets/sssss.png" alt> -->
+                            <!-- <span>AliArmas</span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="table-data">
+            <div class="todo">
+                <div class="content">
+                    <div class="tabs_wrapper">
+                        <input type="radio" name="tabs" id="tab_1"
+                            [checked]="estadoActual === 'remision'"
+                            (click)="cambiarEstado('remision')" />
+                        <label class="tab" for="tab_1">
+                            <span class="title">Remision</span>
+                        </label>
+                        <input type="radio" name="tabs" id="tab_2"
+                            [checked]="estadoActual === 'facturado'"
+                            (click)="cambiarEstado('facturados')" />
+                        <label class="tab" for="tab_2">
+                            <span class="title">Facturados</span>
+                        </label>
+                        <span class="shape"
+                            [ngClass]="{'remision-shape': estadoActual === 'remision', 'facturados-shape': estadoActual === 'facturado'}"></span>
+                    </div>
+                </div>
+            </div> 
+        </div> -->
+        <div class="table-data">
+            <div class="order">
+                <section class>
+                    <form action="#" class="form" [formGroup]="captureForm">
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Sucursal</h3>
+                                <div class="select-box">
+                                    <select formControlName="idBranch"
+                                        type="text"
+                                        (ngModelChange)="onChangeSucursal($event)">
+                                        <option hidden>Sucursal a que se le
+                                            emitira el gasto</option>
+                                        <option *ngFor="let s of sucursales" [value]="s.idBranch">{{s.nameBranch}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Responsable</h3>
+                                <div class="select-box">
+                                    <select formControlName="responsable"
+                                        type="text"
+                                        (ngModelChange)="onChangeResp($event)">
+                                        <option hidden>Sucursal a que se le emitira el gasto</option>
+                                        <option *ngFor="let s of empleados" [value]="s.idEmpleado">{{s.Nombre + ' ' + s.Paterno + ' ' + s.Materno}}</option>
+                                    </select>
+                                </div>
+                                <!-- <input type="text" *ngIf="respons"
+                                    placeholder="responsable de gasto"
+                                    formControlName="responsable" required>
+                                <input type="text" *ngIf="!respons"
+                                    [value]="responsables"
+                                    (ngModelChange)="onChangeResp($event)"
+                                    formControlName="responsable" required> -->
+                            </div>
+                        </div>
+                        <div class="column">
+                            <!-- <div class="input-box">
+                                <h3>Proveedor</h3>
+                                <div class="select-box">
+                                    <select formControlName="idProvedor">
+                                        <option hidden> Provedor facturado</option>
+                                        <option *ngFor="let s of provider"
+                                            [value]="s.idProvider">{{s.nameProvider}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <!-- <div class="input-box" *ngIf="sucu">
+                                <h3>Area</h3>
+                                <div class="select-box">
+                                    <select formControlName="area">
+                                        <option hidden>Area en donde se genera
+                                            el gasto</option>
+                                        <option *ngFor="let area of areas"
+                                            [value]="area.idArea">{{area.nameArea}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Monto</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    formControlName="monto" required />
+                            </div>
+                            <div class="input-box">
+                                <h3>Cortes generales</h3>
+                                <div class="select-box">
+                                    <select formControlName="idCorteG">
+                                            <option *ngFor="let s of cortes"
+                                            [value]="s.idCorte">{{formatFecha(s.emicionCorte)}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Concepto</h3>
+                                <div class="select-box">
+                                    <select formControlName="idConcept">
+                                        <option hidden>Concepto de gasto</option>
+                                        <option *ngFor="let c of conceptos"
+                                            [value]="c.idConcept">{{c.nombreConcept}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="input-box address">
+                            <h3>Justificación</h3>
+                            <textarea type="text"
+                                placeholder="Justificacion del gasto"
+                                formControlName="justificacion" required></textarea>
+                        </div>
+                        <div class="column">
+                            <!-- <button class="cancel" (click)="cancelar()">Cancelar
+                                captura</button> -->
+                            <button class="sucess" *ngIf="captureForm.valid"
+                                (click)="capturaGasto()">Finalizar captura</button>
+                            <button class="invalid" *ngIf="!captureForm.valid"
+                                 (click)="capturaGasto()">Finalizar
+                                captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Compras</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">Compras</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <a href="#" class="btn-download">
+                        <i class='bx bx-export'></i>
+                        <span class="text">Exportar XLS</span>
+                    </a> -->
+                </div>
+                <!-- <div>
+                    <ul>
+                        <li> <input type="file" name="documento"
+                                formControlName="documento" id=""></li>
+                        <li> <input type="date" name="fecha"
+                                formControlName="fecha" id=""></li>
+                        <li> <input type="date" name="fecha2"
+                                formControlName="fecha2" id=""></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo">
+                <ul class="todo-list">
+                    <li class="{{completed}}">
+                        <p>Todo List</p>
+                        <!-- <i class='bx bx-dots-vertical-rounded'></i> -->
+                    </li>
+                </ul>
+            </div>
+            <div class="todo">
+                <h1>Seleccionar XLS</h1>
+                <!-- el atributo de accept es para filtrar los archivos que necesitamos -->
+                <form action [formGroup]="excelForm" class='upload'>
+                    <input
+                        (ngModelChange)="onChangeSucursal($event)"
+                        id type="file"
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        formControlName="archivo" />
+                </form>
+            </div>
+        </div>
+        <app-report-a></app-report-a>
+        <!--
+        <app-report-b></app-report-b>
+        <app-report-c></app-report-c> -->
+
+    </main>
+</div>

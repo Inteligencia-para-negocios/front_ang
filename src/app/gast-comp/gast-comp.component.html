@@ -1,0 +1,143 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Gastos comprobados</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="imgPrueb">
+                            <img src="assets/sssss.png" alt>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="todo">
+                        <div class="content">
+                            <div class="head-title">
+                                <div class="left">
+                                    <form action [formGroup]="formCheque">
+                                        <h3>Filtro</h3>
+                                        <div class="select-box">
+                                            <select formControlName="cheque"
+                                                type="text"
+                                                (ngModelChange)="onChangeResp($event)">
+                                                <option hidden> Selecciona
+                                                    el numero
+                                                    de folio </option>
+                                                <option
+                                                    *ngFor="let c of cheques"
+                                                    [value]="c.idBCheck">{{c.invoice}}</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button *ngIf="bandera"
+                                    type="button" (click)="entregaContabilidad()" class="btn-Corte">Entrega a
+                                    contabilidad</button>
+                                <div>
+                                    <h3>Recuento de gastos</h3>
+                                    <div class="mountFull">
+                                        <span>${{montos}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>EfeCo</th>
+                                <th>Sucursal</th>
+                                <th>Capturista</th>
+                                <th>Responsble</th>
+                                <th>Chequera</th>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>Proveedor</th>
+                                <th>Justificacion</th>
+                                <th>Autorizador</th>
+                                <th>Estado</th>
+                                <th>Estado de efectivo</th>
+                                <th>Comprobado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let c of gastosComp ">
+                                <td>
+                                    <h5>{{c.Folio}}</h5>
+                                </td>
+                                <td>
+                                    {{c.EfeCo}}
+                                </td>
+                                <td>
+                                    {{c.Sucursal}}
+                                </td>
+                                <td>
+                                    {{c.Capturista}}
+                                </td>
+                                <td>
+                                    {{c.Responsable}}
+                                </td>
+                                <td>
+                                    {{c.Chequera}}
+                                </td>
+                                <td>
+                                    {{c.Concepto}}
+                                </td>
+                                <td>
+                                    <h5><span>$</span>{{c.Liberado}}</h5>
+                                </td>
+                                <td>
+                                    {{c.Provedor}}
+                                </td>
+                                <td>
+                                    {{c.Justificacion}}
+                                </td>
+                                <td>
+                                    {{c.Autorizador}}
+                                </td>
+                                <td *ngIf='c.Autorizado=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Autorizado=="APROBADO"'>
+                                    <span class={{completed}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="LIBERADO"'>
+                                    <span class={{completed}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Comprobado}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="COMPROBADO"'>
+                                    <span class={{completed}}>{{c.Comprobado}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,124 @@
+/* .slider {
+    height: 100%;
+    overflow: hidden;
+}
+
+.slider ul {
+    display: flex;
+    animation: cambio 20s infinite alternate linear;
+    width: 400%;
+}
+
+.slider li {
+    width: 100%;
+    list-style: none;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+} */
+
+
+.slider {
+    position: relative;
+    height: 100vh; /* Establecer la altura al 100% de la altura de la ventana */
+    overflow: hidden;
+    background: #ffff;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+   
+}
+
+.slider ul {
+    display: flex;
+    animation: cambio 50s infinite alternate linear;
+    width: 1000%;
+    height: 100%; /* Asegurar que el ul ocupe toda la altura del contenedor */
+}
+
+.slider li {
+    width: 15%; /* Cambiar el ancho a 15% para acomodar las imágenes en la fila */
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centrar el contenido horizontalmente */
+    align-items: center; /* Centrar el contenido verticalmente */
+}
+
+.slider img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Mantener la imagen dentro del contenedor sin distorsionarla */
+}
+
+@keyframes cambio {
+    0% {
+        margin-left: 0;
+    }
+    5.263157894736842% {
+        margin-left: 0;
+    }
+    10.526315789473685% {
+        margin-left: -100%;
+    }
+    15.789473684210527% {
+        margin-left: -100%;
+    }
+    21.05263157894737% {
+        margin-left: -200%;
+    }
+    26.31578947368421% {
+        margin-left: -200%;
+    }
+    31.57894736842105% {
+        margin-left: -300%;
+    }
+    36.84210526315789% {
+        margin-left: -300%;
+    }
+    42.10526315789474% {
+        margin-left: -400%;
+    }
+    47.36842105263158% {
+        margin-left: -400%;
+    }
+    52.63157894736842% {
+        margin-left: -500%;
+    }
+    57.89473684210527% {
+        margin-left: -500%;
+    }
+    63.1578947368421% {
+        margin-left: -600%;
+    }
+    68.42105263157895% {
+        margin-left: -600%;
+    }
+    73.6842105263158% {
+        margin-left: -700%;
+    }
+    78.94736842105263% {
+        margin-left: -700%;
+    }
+    84.21052631578947% {
+        margin-left: -800%;
+    }
+    89.47368421052632% {
+        margin-left: -800%;
+    }
+    94.73684210526316% {
+        margin-left: -900%;
+    }
+    100% {
+        margin-left: -900%; /* Cambiado a -900% para acomodar las imágenes */
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+    .slider, .slider ul, .slider li, .slider img {
+        height: 90vh;
+    }
+}

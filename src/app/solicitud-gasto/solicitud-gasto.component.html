@@ -1,0 +1,214 @@
+<app-navbar></app-navbar>
+<div id="content">
+  <main>
+    <div class="table-data">
+      <div class="todo">
+        <div class="head-title">
+          <div class="left">
+            <h1>Solicitud de gasto</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="/dashboardfull">Dashboard</a>
+              </li>
+              <li><i class='bx bx-chevron-right'></i></li>
+              <li>
+                <a class="active" href>Solicitud</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-data">
+      <div class="todo">
+        <div class="content">
+          <div class="head-title">
+            <div class="left">
+              <div class="tabs_wrapper">
+                <input type="radio" name="tabs" id="tab_1"
+                  [checked]="estadoActual === 'viaticos'"
+                  (click)="cambiarEstado('viaticos')" />
+                <label class="tab" for="tab_1">
+                  <span class="title">Viaticos</span>
+                </label>
+                <input type="radio" name="tabs" id="tab_2"
+                  [checked]="estadoActual === 'rutas'"
+                  (click)="cambiarEstado('rutas')" />
+                <label class="tab" for="tab_2">
+                  <span class="title">Rutas</span>
+                </label>
+                <!-- <input type="radio" name="tabs" id="tab_3"
+                  [checked]="estadoActual === 'obras'"
+                  (click)="cambiarEstado('obras')" />
+                <label class="tab" for="tab_3">
+                  <span class="title">Obras</span>
+                </label> -->
+                <span class="shape"
+                  [ngClass]="{'pendiente-shape': estadoActual === 'viaticos', 'liberado-shape': estadoActual === 'rutas'}"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-data">
+      <div class="order">
+        <section>
+          <form action="#" class="form" [formGroup]="captureForm">
+            <div class="column">
+              <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Tipo de fastr</h3>
+                <div class="select-box">
+                  <select formControlName="sucursal">
+                    <option hidden>Selecciona el presupuesto</option>
+                    <option *ngFor="let c of sucursales"
+                      [value]="[c.idBranch]">{{c.nameBranch}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box" *ngIf="estadoActual=='viaticos'">
+                <h3>Sucursal destino</h3>
+                <div class="select-box">
+                  <select formControlName="sucursalDestino">
+                    <option hidden>Selecciona el concepto</option>
+                    <option *ngFor="let c of conceptos"
+                      [value]="[c.idConcept]">{{c.nombreConcept}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box" *ngIf="estadoActual=='viaticos'">
+                <h3>Numero acompañante</h3>
+                <input type="number"
+                  placeholder="ingresa el numero de acompanantes" required
+                  formControlName="provedor" />
+              </div>
+              <div class="input-box"
+                *ngIf="estadoActual=='rutas'">
+                <h3>Ruta</h3>
+                <div class="select-box">
+                  <select formControlName="ruta">
+                    <option hidden>Selecciona el concepto</option>
+                    <option *ngFor="let c of conceptos"
+                      [value]="[c.idConcept]">{{c.nombreConcept}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box"
+                *ngIf="estadoActual == 'rutas' || estadoActual == 'viaticos'">
+                <h3>Dias</h3>
+                <input type="number" placeholder="dias de ausencia" required
+                  formControlName="provedor" />
+              </div>
+              <!-- <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Fecha inicial</h3>
+                <input type="date" placeholder="dias de ausencia" required
+                  formControlName="provedor" />
+              </div> -->
+              <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Fecha de gasto</h3>
+                <input type="date" placeholder="dias de ausencia" required
+                  formControlName="fechaDgasto" />
+              </div>
+            </div>
+            <div class="column">
+              <div class="input-box"
+                *ngIf="estadoActual=='obras'">
+                <h3>Area</h3>
+                <div class="select-box">
+                  <select formControlName="area">
+                    <option hidden>Selecciona el concepto</option>
+                    <option *ngFor="let c of areas"
+                      [value]="[c.idArea]">{{c.nameArea}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box"
+                *ngIf="estadoActual=='obras'">
+                <h3>Encargado</h3>
+                <div class="select-box">
+                  <select formControlName="area">
+                    <option hidden>Selecciona el encargado</option>
+                    <option *ngFor="let s of empleados"
+                      [value]="[s.idEmpleado]">{{s.Nombre +
+                        ' ' + s.Paterno + ' ' + s.Materno}}</option>
+                  </select>
+                </div>
+              </div>
+              <!-- <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Concepto</h3>
+                <div class="select-box">
+                  <select formControlName="ruta">
+                    <option hidden>Selecciona el presupuesto</option>
+                    <option *ngFor="let c of conceptos"
+                      [value]="[c.idConcept]">{{c.nombreConcept}}</option>
+                  </select>
+                </div>
+              </div> -->
+            </div>
+            <div class="column">
+              <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Contratista</h3>
+                <div class="select-box">
+                  <select formControlName="ruta">
+                    <option hidden>Selecciona el presupuesto</option>
+                    <option *ngFor="let c of arrayContratistas"
+                      [value]="[]">{{c.nameProvider}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box" *ngIf="estadoActual=='obras'">
+                <h3>Asignaciones</h3>
+                <div class="select-box">
+                  <select formControlName="asignacion">
+                    <option hidden>Selecciona el presupuesto</option>
+                    <option *ngFor="let c of asignaciones"
+                      [value]="[c.idAsignacionP]">{{c.montoAsignado }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-box">
+                <h3>Efectivo solicitado</h3>
+                <input type="intiger" placeholder="Efectivo solicitado" required
+                  formControlName="efectivoSol"  (ngModelChange)="verifyMounts($event)"/>
+              </div>
+              
+            </div>
+            <div class="column">
+              <div class="input-box" *ngIf="estadoActual=='tarjeta'">
+                <h3>Transferencia</h3>
+                <div class="select-box">
+                  <select formControlName="transferencia">
+                    <option hidden>Selecciona el concepto</option>
+                    <option *ngFor="let c of arrayPresupuestos"
+                      [value]="[c.idPresupuesto]">{{c.presupuesto}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="input-box" *ngIf="estadoActual=='viaticos'">
+                <h3>Actividades</h3>
+                <div class="select-box">
+                  <select formControlName="transferencia">
+                    <option hidden>Selecciona el concepto</option>
+                  
+                  </select>
+                </div>
+              </div>
+              <div class="input-box address">
+                <h3>Justificante</h3>
+                <input type="intiger"
+                  placeholder="Razón por la que se realiza el gasto" required
+                  formControlName="justificacion" />
+              </div>
+            </div>
+
+            <div class="column" (click)="solicitudGasto()">
+              <button class="sucess">Finalizar captura</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>

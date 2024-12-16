@@ -1,0 +1,115 @@
+<div id="content">
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+        <div class="tooltip top">
+            <span class="tiptext">Texto del tooltip</span>
+        </div>
+        <ul class="box-info">
+            <li (click)="reCapt()">
+                <i class='bx bxs-calendar-check'></i>
+                <span class="text">
+                    <h3>Captura de gastos</h3>
+                    <p>Nuevo gasto</p>
+                </span>
+            </li>
+            <!-- <li (click)="reAuth()">
+                <i class='bx bxs-shield'></i>
+                <span class="text">
+                    <h3>Autorizacion de gastos</h3>
+                    <p>Gastos</p>
+                </span>
+            </li> -->
+            <li (click)="reGast()">
+                <i class='bx bxs-dollar-circle'></i>
+                <span class="text">
+                    <h3>Revision de gastos</h3>
+                    <p>Total de gastos</p>
+                </span>
+            </li>
+        </ul>
+        <!-- <ul class="box-info">
+            <li>
+                <i class='bx bxs-calendar-check' ></i>
+                <span class="text">
+                    <h3>1020</h3>
+                    <p>New Order</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-group' ></i>
+                <span class="text">
+                    <h3>2834</h3>
+                    <p>Visitors</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-dollar-circle' ></i>
+                <span class="text">
+                    <h3>$2543</h3>
+                    <p>Total Sales</p>
+                </span>
+            </li>
+        </ul> -->
+        <div class="table-data">
+            <div class="order">
+                <div class="head ">
+                    <div>
+                        <h5>Tipo de gasto
+                            <div class="tooltip top">
+                                <i class=' bx bx-info-circle'></i>
+                                <span class="tiptext">Grafica informativa que muestra el gasto por concepto y cuantos usuarios han gastado por ese concepto</span>
+                            </div>
+                        </h5>
+
+                    </div>
+                </div>
+                <div>
+                    <canvas id="type">{{ chartType }}</canvas>
+                </div>
+            </div>
+            <div class="order">
+                <div class="head">
+                    <h5>Flujo de caja
+                        <div class="tooltip top">
+                            <i class=' bx bx-info-circle'></i>
+                            <span class="tiptext">Efectivo que se tiene en caja disponible y el efectivo que se ha gastado</span>
+                        </div>
+                    </h5>
+                </div>
+                <div class="efectivo-caja">
+                    <div>
+                        <h3>$53,294 <span>Deposito</span></h3>
+                        <div>
+                            <div class="animated-progress progress-blue">
+                                <span data-progress=""></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>$3,843 <span>Remanente</span></h3>
+                        <div>
+                            <div class="animated-progress progress-blue">
+                                <span data-progress="45"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class="table-data">
+            <div class="todo">
+                <div class="head">
+                    <h5>Actividad de gastos <i class='bx bx-info-circle'></i></h5>
+                </div>
+                <ul class="todo-list">
+                    <canvas  id="actyviti" >{{ chartActyviti }}</canvas>
+                </ul>
+            </div>
+        </div> -->
+    </main>
+</div>

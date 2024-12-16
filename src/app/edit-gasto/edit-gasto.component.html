@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Comprobacion de efectivo</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Inicio</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="/view-gastos">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="imgPrueb">
+                            <img src="assets/sssss.png" alt>
+                            <!-- <span>AliArmas</span> -->
+                        </div>
+                    </div>
+                    <!-- <div>
+                        <span></span>
+                    </div> -->
+                    <!-- <a href="#" class="btn-download">
+                        <i class='bx bx-export'></i>
+                         <span class="text">Exportar XLS</span>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <section class>
+                    <form action="#" class="form" [formGroup]="captureForm" (submit)="changeState()">
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Sucursal</h3>
+                                <input type="text"  formControlName="sucursal" [disabled]="true">
+                            </div>
+                            <div class="input-box">
+                                <h3>Responsable</h3>
+                                <input type="text"  formControlName="responsable" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Proveedor</h3>
+                                <input type="text"  formControlName="provedor" [disabled]="true">
+                            </div>
+                            <div class="input-box">
+                                <h3>Area</h3>
+                                <input type="text"  formControlName="area" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Efectivo liberado</h3>
+                                <input type="text"  formControlName="efectivoLib" [disabled]="true">
+
+                            </div>
+                            <div class="input-box">
+                                <h3>Efectivo comprobado</h3>
+                                <input type="text" formControlName="efeCo">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Concepto</h3>
+                                <input type="text" formControlName="concepto" [disabled]="true">
+                            </div>              
+                            <div class="input-box" *ngIf="!isEmptys">
+                                <h3>Cheque</h3>
+                                <input type="text" formControlName="cheque" [disabled]="true">
+                            </div>
+                            <div class="input-box" *ngIf="!isEmptyd">
+                                <h3>Revolvente</h3>
+                                <input type="text" formControlName="revolvente" [disabled]="true">
+                            </div>
+                        </div>
+                        <div class="input-box address">
+                            <h3>Justificacion</h3>
+                            <input type="text" formControlName="justificacion" [disabled]="true">
+                        </div>
+                        <div class="column" *ngIf="!captureForm">
+                            <button class="sucess"  type="submit">Finalizar confirmacion</button>
+                        </div>
+                        <div class="column" *ngIf="captureForm">
+                            <button class="invalid">Finalizar confirmacion</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+    </main>
+</div>

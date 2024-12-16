@@ -1,0 +1,214 @@
+<app-navbar></app-navbar>
+<div id="content">
+  <main>
+    <div class="table-data">
+      <div class="todo">
+        <div class="head-title">
+          <div class="left">
+            <h1>Detalle de efectivo</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a>Gastos</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class>reportes</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="table-data">
+        <div class="order">
+          <div class="todo">
+            <div class="head-title">
+              <div class="left">
+                <form action [formGroup]="formCorte">
+                  <h3>Selecciona el corte general</h3>
+                  <div class="select-box">
+                    <select
+                      formControlName="corte"
+                      type="text"
+                      (ngModelChange)="getDetalleEfex($event)">
+                      <option hidden>Selecciona el numero de folio</option>
+                      <option *ngFor="let c of corte" [value]="c.idCorte">
+                        {{ formatFecha(c.emicionCorte) }}
+                      </option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div>
+                <h3>Sumatoria de ajustes</h3>
+                <div class="mountFull">
+                  <span>{{formatMonto(montoAjuste)}}</span>
+                </div>
+              </div>
+              <div>
+                <h3>Sumatoria de Cortes parciales</h3>
+                <div class="mountFull">
+                  <span>{{formatMonto(montoCorteParcial)}}</span>
+                </div>
+              </div>
+              <div>
+                <h3>Efectivo X</h3>
+                <div class="mountFull">
+                  <span>{{formatMonto(monto)}}</span>
+                </div>
+                <h3>Efectivo a Entregar</h3>
+                <div class="mountFull">
+                  <span>{{formatMonto(monto-montoResta-montoCorteParcial)}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-data">
+          <div class="order">
+            <div class="head">
+              <h4>Detalle Efectivo X</h4>
+            </div>
+            <div class="acordeon">
+              <div *ngFor="let elemento of ajusteCorte">
+                <div class="elemento-acordeon">
+                  <!-- Aquí puedes usar elemento.icono, elemento.descripcion, etc. según tus datos reales -->
+                  <span>{{ elemento.idCorteParcial }}</span>
+                  <span><h4>{{formatMonto(elemento.montoCorteParcial)}}</h4></span>
+                  <div class="table-data">
+                    <div class="order">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Folio</th>
+                            <th>EfeCo</th>
+                            <th>Sucursal</th>
+                            <th>Capturista</th>
+                            <th>Responsble</th>
+                            <th>Chequera</th>
+                            <th>Concepto</th>
+                            <th>Importe</th>
+                            <th>Proveedor</th>
+                            <!-- <th>Fecha</th>  -->
+                            <th>Justificacion</th>
+                            <!-- <th>Estado</th>
+                            <th>Estado de efectivo</th>
+                            <th>Comprobado</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr disabled
+                            *ngFor="let c of detalleEfx ">
+                            <ng-container
+                              *ngIf="c.idCorteParcial === elemento.idCorteParcial">
+                              <td>
+                                <h5>{{c.Folio}}</h5>
+                              </td>
+                              <td>
+                                {{c.EfeCo}}
+                              </td>
+                              <td>
+                                {{c.Sucursal}}
+                              </td>
+                              <td>
+                                {{c.Capturista}}
+                              </td>
+                              <td>
+                                {{c.Responsable}}
+                              </td>
+                              <td>
+                                {{c.Chequera}}
+                              </td>
+                              <td>
+                                {{c.Concepto}}
+                              </td>
+                              <td>
+                                <h5><span>$</span>{{c.Liberado}}</h5>
+                              </td>
+                              <td>
+                                {{c.Provedor}}
+                              </td>
+                              <td>
+                                {{c.Justificacion}}
+                              </td>
+                              <!-- <td>
+                                {{c.Autorizador}}
+                              </td> -->
+                              <!-- <td *ngIf='c.Autorizado=="PENDIENTE"'>
+                                <span class={{pending}}>{{c.Autorizado}}</span>
+                              </td>
+                              <td *ngIf='c.Autorizado=="APROBADO"'>
+                                <span class={{completed}}>{{c.Autorizado}}</span>
+                              </td>
+                              <td *ngIf='c.Efectivo=="PENDIENTE"'>
+                                <span class={{pending}}>{{c.Efectivo}}</span>
+                              </td>
+                              <td *ngIf='c.Efectivo=="LIBERADO"'>
+                                <span class={{completed}}>{{c.Efectivo}}</span>
+                              </td>
+                              <td *ngIf='c.Comprobado=="PENDIENTE"'>
+                                <span class={{pending}}>{{c.Comprobado}}</span>
+                              </td>
+                              <td *ngIf='c.Comprobado=="COMPROBADO"'>
+                                <span class={{completed}}>{{c.Comprobado}}</span>
+                              </td> -->
+                            </ng-container>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="elemento.seleccionado" class="subelementos">
+                  <ul>
+                    <li *ngFor="let subelemento of elemento.subelementos">{{
+                      subelemento }}</li>
+                  </ul>
+                </div>
+                
+
+              </div>
+
+            </div>
+            <div>
+              <div class="todo todo2">
+                <ul class="todo-list">
+                  <li class="completed" *ngFor="let c of ajusteTesoreria">
+                    <p>{{c.nombreConcept}}<p>
+                        <p>$<span>{{c.monto}}</span></p>
+                        <p>{{c.usuario}}</p>
+                        <p>{{c.justificacion}}</p>
+                        <p>
+                          {{c.Responsable}}
+                        </p>
+                        <i class='bx bx-reset'></i>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="order">
+              <div class="todo">
+                <div class="head-title">
+                  <div class="left">
+                    <div class="lib">
+                      <h3>Suma a liberar</h3>
+                      <span class="badge">{{formatMonto(monto-montoResta-montoCorteParcial)}}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <button (click)="detectUser()" type="button"
+                      class="btn-Corte">Entrega de efectivo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </main>
+    </div>

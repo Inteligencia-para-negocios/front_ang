@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Transferencias capturadas</h1>
+                <ul class="breadcrumb">
+                    <!-- <li>
+                        <a href="">Dashboard</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <!-- <h3>Filtros</h3>
+                        <div class="filtro">
+                             <mat-form-field appearance="fill">
+                                <mat-label>Fecha</mat-label>
+                                <mat-select>
+                                    <mat-option value="option">Option</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Tipo</mat-label>
+                                <mat-select>
+                                    <mat-option value="option">Option</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Folio</mat-label>
+                                <mat-select>
+                                    <mat-option value="option">Option</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>
+                                    Cuenta
+                                </th>
+                                <th>Destinatario</th>
+                                <th>Importe</th>
+                                <th>Referencia</th>
+                                <th>Capturista</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let t of transferencias">
+                                <td>
+                                    <h5>{{t.idTransfer}}</h5>
+                                </td>
+                                <td>
+                                    {{t.account}}
+                                </td>
+                                <td>
+                                    {{t.addressee}}
+                                </td>
+                                <td>
+                                    <h5><Span>$</Span>{{t.amount}}</h5>
+                                </td>
+                                <td>
+                                    {{t.reference}}
+                                </td>
+                                <td>
+                                    {{t.nameUser}}
+                                </td>
+                                <td>
+                                    {{t.dateCreate}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

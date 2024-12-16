@@ -1,0 +1,11 @@
+#content main .table-data .order table th {
+	padding-bottom: 12px;
+	font-size: 13px;
+	text-align: left;
+	border-bottom: 1px solid var(--grey);
+}
+#content main .table-data .order table td {
+	padding: 16px 0px;
+	font-size: 13px;
+	text-align: left;
+}

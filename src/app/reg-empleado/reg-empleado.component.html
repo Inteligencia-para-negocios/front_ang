@@ -1,0 +1,228 @@
+
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Registro de empleados</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <div class="order">
+                    <!-- <div class="head-title">
+                        <div class="left ">
+                            <h3>Datos de empleado</h3><br>
+                        </div>
+                    </div> -->
+                    <section>
+                        <form action="#" class="form" [formGroup]="captureForm"
+                            (submit)="registro()">
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>Nombre(s)</h4>
+                                    <input type="text" formControlName="nombre">
+                                </div>
+                                <div class="input-box">
+                                    <h4>Apellido Paterno</h4>
+                                    <input type="text" formControlName="paterno">
+                                </div>
+
+                                <div class="input-box">
+                                    <h4>Apellido Materno</h4>
+                                    <input type="text" formControlName="materno">
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>CURP <div class="tooltip top">
+                                            <i class=' bx bx-info-circle'></i>
+                                            <span class="tiptext">Clave Única de
+                                                Registro de Población</span>
+                                        </div></h4>
+                                    <input type="text" formControlName="curp">
+                                </div>
+                                <div class="input-box">
+                                    <h4>RFC <div class="tooltip top">
+                                            <i class=' bx bx-info-circle'></i>
+                                            <span class="tiptext">Registro
+                                                Federal
+                                                del Contribuyente</span>
+                                        </div></h4>
+                                    <input type="text" formControlName="rfc">
+                                </div>
+                                <div class="input-box">
+                                    <h4>NSS <div class="tooltip top">
+                                            <i class=' bx bx-info-circle'></i>
+                                            <span class="tiptext">Numero de
+                                                seguro
+                                                social</span>
+                                        </div></h4>
+                                    <input type="text" formControlName="nss">
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>Fecha de nacimiento</h4>
+                                    <input type="date"
+                                        formControlName="fechaNacimiento">
+                                </div>
+                                <div class="input-box">
+                                    <h3>Sexo</h3>
+                                    <div class="select-box">
+                                        <select formControlName="sexo">
+                                            <option hidden>Selecciona</option>
+                                            <option>FEMENINO</option>
+                                            <option>MASCULINO</option>
+                                            <option>PREFIERO NO DECIRLO</option>
+                                            <option>BINARIO</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <h4>Estado civil</h4>
+                                    <div class="select-box">
+                                        <select formControlName="estado_civil">
+                                            <option hidden>Selecciona</option>
+                                            <option>SOLTERO(A)</option>
+                                            <option>CASADO(A)</option>
+                                            <option>UNION LIBRE</option>
+                                            <option>DIVORCIADO(A)</option>
+                                            <option>VIUDO(A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>Celular</h4>
+                                    <input type="text" formControlName="celular">
+                                </div>
+                                <div class="input-box">
+                                    <h4>Direccion</h4>
+                                    <input type="text"
+                                        formControlName="direccion">
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>Colonia</h4>
+                                    <input type="text" formControlName="colonia">
+                                </div>
+                                <div class="input-box">
+                                    <h4>Municipio</h4>
+                                    <input type="text"
+                                        formControlName="municipio">
+                                </div>
+                                <div class="input-box">
+                                    <h4>Estado</h4>
+                                    <input type="text" formControlName="estado">
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+            <div class="order">
+                <section>
+                    <form action="#" class="form" [formGroup]="captureForm">
+                        <div class="column">
+                            <div class="input-box">
+                                <h4>Tipo licencia</h4>
+                                <input type="text"
+                                    formControlName="tipoLicencia">
+                            </div>
+                            <div class="input-box">
+                                <h4>Numero de licencia</h4>
+                                <input type="text"
+                                    placeholder
+                                    required
+                                    formControlName="numLicencia" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h4>Fecha de vencimiento</h4>
+                                <input type="date"
+                                    formControlName="fechaVencimiento">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h4>Puesto</h4>
+                                <div class="select-box">
+                                    <select formControlName="idPuesto">
+                                        <option *ngFor="let c of puestos" [value]="c.idPuesto">{{c.puesto}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h4> Sucursal </h4>
+                                <div class="select-box">
+                                    <select formControlName="idSucursal">
+                                        <option hidden>Selecciona la sucursal</option>
+                                        <option *ngFor="let c of sucursales" [value]="c.idBranch">{{c.nameBranch}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+
+                        </div>
+                        <div class="form">
+                            <div class="input-box">
+                                <h4>Nombre del familiar</h4>
+                                <input type="text"
+                                    formControlName="nombreFamiliar">
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <h4>Relacion</h4>
+                                    <div class="select-box">
+                                        <select formControlName="relacion">
+                                            <option hidden>Selecciona</option>
+                                            <option>MADRE</option>
+                                            <option>PADRE</option>
+                                            <option>HERMANO(A)</option>
+                                            <option>TIO(A)</option>
+                                            <option>AMIGO(A)</option>
+                                            <option>OTRO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <h4>Celular Familiar</h4>
+                                    <input type="text"
+                                        formControlName="celularFamiliar">
+                                </div>
+                                <!-- <div class="input-box">
+                                <h4>Estado civil</h4>
+                                <input type="text"
+                                    formControlName="estado_civil">
+                            </div> -->
+                            </div>
+                        </div>
+                    </form>
+
+                </section>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <div class>
+                    <button type="submit" class="sucess" (click)="registro()">
+                        Finalizar captura
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>

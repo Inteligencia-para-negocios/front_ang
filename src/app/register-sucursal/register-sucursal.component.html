@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Captura de sucursales</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <section class="">
+                    <form action="#" [formGroup]="registerForm" class="form">
+                        <div class="input-box">
+                            <h3>Sucursal</h3>
+                            <input type="intiger" placeholder="Nombre de la sucursal" required formControlName="sucursal"/>
+                        </div>
+                        <div class="input-box">
+                            <h3>Sede</h3>
+                            <input type="intiger" placeholder="Ingrese si es foranea o local" required formControlName="sede"/>
+                        </div>
+
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Estado</h3>
+                                <input type="intiger" placeholder="Ingresa el monto" required formControlName="state"/>
+                            </div>
+                            <div class="input-box">
+                                <h3>Ruta</h3>
+                                <input type="intiger" placeholder="Ingresa el monto" required formControlName="route"/>
+                            </div>
+                        </div>
+                        <div class="input-box address">
+                            <h3>Direccion</h3>
+                            <input type="intiger" placeholder="Ingresa el monto" required formControlName="address"/>
+                        </div>
+                        <div class="column">
+                            <button class="sucess" (click)="registroSucursal()">Finalizar captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+

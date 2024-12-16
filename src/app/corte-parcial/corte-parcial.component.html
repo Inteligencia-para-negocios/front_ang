@@ -1,0 +1,145 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Cortes parciales</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Gastos</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class>reportes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Corte Parcial</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody  *ngFor="let c of cortes">
+                            <!-- *ngIf="c.nameStatus == 'PAGADO'" -->
+                            <tr  (click)='listCorteRedirecTo(c.numCorte)'  >
+                                <td>
+                                    <h5>{{c.idCorteParcial}}</h5>
+                                </td>
+                                <td>
+                                    {{c.numCorte}}
+                                </td>
+                                <td>
+                                    {{c.usuario}}
+                                </td>
+                                <td>
+                                    {{formatFecha(c.dateCreate)}}
+                                </td>
+                                 <td *ngIf='c.nameStatus=="PAGADO"'>
+                                    <span class="open status">{{c.nameStatus}}</span>
+                                </td>
+                                <td *ngIf='c.nameStatus=="PENDIENTE"'>
+                                    <span class="pendiente status">{{c.nameStatus}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </main>
+</div>
+
+<!-- <div class="">
+    <section class="task-list current">
+        <ul>
+            <li>
+                 First Check 
+                <div class="checkbox">
+                    <div class="check">
+                        <input type="checkbox" name="task_00">
+                        <div class="check-container">
+                            <div class="check-off"></div>
+                            <div class="check-on"><i></i></div>
+                        </div>
+                    </div>
+                    <div class="label">
+                        <mark>Document Name</mark>
+                        <br>
+                        <time datetime="05-12-2016">12 March
+                            2016 - h 9:30 am</time>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="checkbox">
+                    <div class="check">
+                        <input type="checkbox" name="task_00">
+                        <div class="check-container">
+                            <div class="check-off"></div>
+                            <div class="check-on"><i></i></div>
+
+                        </div>
+                    </div>
+                    <div class="label">
+                        <mark>Document Name</mark>
+                        <br>
+                        <time datetime="05-12-2016">12 March
+                            2016 - h 9:30 am</time>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="checkbox">
+                    <div class="check">
+                        <input type="checkbox" name="task_01">
+                        <div class="check-container">
+                            <div class="check-off"></div>
+                            <div class="check-on"><i></i></div>
+
+                        </div>
+                    </div>
+                    <div class="label">
+                        <mark>Another Document which takes more
+                            than one line</mark>
+                        <br>
+                        <time datetime="05-12-2016">12 March
+                            2016</time>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="checkbox">
+                    <div class="check">
+                        <input type="checkbox" name="task_02">
+                        <div class="check-container">
+                            <div class="check-off"></div>
+                            <div class="check-on"><i></i></div>
+
+                        </div>
+                    </div>
+                    <div class="label">
+                        <mark>Document Name</mark>
+                        <br>
+                        <time datetime="05-12-2016">12 March
+                            2016</time>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+</div> -->

@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Autorización de gastos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="/dashboardfull">Dashboard</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href>Autorización de gastos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="imgPrueb">
+                        <img src="assets/sssss.png" alt="">
+                    </div>           
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Sucursal</th>
+                                <th>Capturista</th>
+                                <th>Responsble</th>
+                                <th>Chequera</th>
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>Proveedor</th>
+                                <th>Justificacion</th>
+                                <th>Estado</th>
+                                <th>Estado de efectivo</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                            <tbody>
+                                <tr *ngFor="let r of reportes">
+                                    <td>
+                                        <h5>{{r.Folio}}</h5>
+                                    </td>
+                                    <td>
+                                        {{r.Sucursal}}
+                                    </td>
+                                    <td>
+                                        {{r.Capturista}}
+                                    </td>
+                                    <td>
+                                        {{r.Responsable}}
+                                    </td>
+                                    <td>
+                                        {{r.Chequera}}
+                                    </td>
+                                    <td>
+                                        {{r.Concepto}}
+                                    </td>
+                                    <td>
+                                        <h5><span>$</span>{{r.Liberado}}</h5>
+                                    </td>
+                                    <td>
+                                        {{r.Provedor}}
+                                    </td>
+                                    <td>
+                                        {{r.Justificacion}}
+                                    </td>
+                                    <td *ngIf='r.Autorizado=="PENDIENTE"'>
+                                        <span class={{pending}}>{{r.Autorizado}}</span>
+                                    </td>
+                                    <td *ngIf='r.Autorizado=="APROBADO"'>
+                                        <span class={{completed}}>{{r.Autorizado}}</span>
+                                    </td>
+                                    <td *ngIf='r.Efectivo=="PENDIENTE"'>
+                                        <span class={{pending}}>{{r.Efectivo}}</span>
+                                    </td>
+                                    <td *ngIf='r.Efectivo=="LIBERADO"'>
+                                        <span class={{completed}}>{{r.Efectivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="input-box" [formGroup]="auth">
+                                            <div class="select-box">
+                                                <select type="text"
+                                                    formControlName="status" 
+                                                    (ngModelChange)="onChangeSucursal($event,r.Folio,r.idResponsable)">
+                                                    <option hidden>Estatus</option>
+                                                    <option *ngFor="let c of status" [value]="c.idStatus">{{c.nameStatus}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

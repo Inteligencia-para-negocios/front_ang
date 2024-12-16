@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Cheques capturados</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">capturas</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>N&#176; Chequera</th>
+                                <th>Asignado</th>
+                                <th>Monto</th>
+                                <th>Remanente</th>
+                                <th>Remanente Virtual</th>
+                                <th>Concepto</th>
+                                <th>Capturista</th>
+                                <th>Fecha</th>
+                                <th>Capturista</th>
+                                <th>Contabilidad</th>
+                                <th>Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)='edit(c.idBCheck)' disabled
+                                *ngFor="let c of cheques">
+                                <td>
+                                    <h5>{{c.invoice}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{c.checkbook}}</h5>
+                                </td>
+                                <td>
+                                    {{c.usuario}}
+                                </td>
+                                <td>
+                                    <h5>{{formatMonto(c.amount)}}</h5>
+                                </td>
+                                <td>
+                                    {{formatMonto(c.remanente)}}
+                                </td>
+                                <td>
+                                    {{formatMonto(c.remanenteVirtual)}}
+                                </td>
+                                <td>
+                                    {{c.reference}}
+                                </td>
+                                <td>
+                                    {{c.Nombre}}
+                                </td>
+                                <td>
+                                    {{formatFecha(c.dateCreate)}}
+                                </td>
+                                <td *ngIf="c.Capturista == 'ENTREGADO'">
+                                    <span class={{completed}}>{{c.Capturista}}</span>
+                                </td>
+                                <td *ngIf='c.Capturista=="PENDIENTE"'>
+                                    <span class={{pendiente}}>{{c.Capturista}}</span>
+                                </td>
+                                <td *ngIf='c.Capturista==null'>
+                                    <span class={{pendiente2}}>PENDIENTE</span>
+                                </td>
+                                <td *ngIf="c.Contabilidad== 'COMPROBADO' ">
+                                    <span class={{completed}}>{{c.Contabilidad}}</span>
+                                </td>
+                                <td *ngIf='c.Contabilidad=="PENDIENTE"'>
+                                    <span class={{pendiente}}>{{c.Contabilidad}}</span>
+                                </td>
+                                <td *ngIf='c.Contabilidad==null'>
+                                    <span class={{pendiente2}}>PENDIENTE</span>
+                                </td>
+                                <td *ngIf="c.Estatus == 'ABIERTO'">
+                                    <span class={{completed}}>{{c.Estatus}}</span>
+                                </td>
+                                <td *ngIf='c.Estatus=="CERRADO" '>
+                                    <span class={{cerrado}}>{{c.Estatus}}</span>
+                                </td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

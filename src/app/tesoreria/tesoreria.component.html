@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Tesoreria</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">vista</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span></span>
+                    </div>
+                    <!-- <a href="#" class="btn-download">
+                        <i class='bx bx-export'></i>
+                         <span class="text">Exportar XLS</span>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <ul class="box-info">
+                    <li class="hoverme"   (click)="redirectCorte()">
+                        <i class='bx bx-dollar'></i>
+                        <span class="text">
+                            <h3>Cortes parciales</h3>
+                            <p>Recibo de vales de cortes parciales</p>
+                        </span>
+                    </li>
+                  
+                    <!-- </li> -->
+                    <li class="hoverme1"  (click)="redirectLibero()">
+                        <i class='bx bxs-shield'></i>
+                        <span class="text">
+                            <h3>Liberacion de efectivo</h3>
+                            <p>Gastos autorizados</p>
+                        </span>
+                    </li>
+                    <li class="hoverme2"  (click)="redirectRebi()">
+                        <i class='bx bxs-shield'></i>
+                        <span class="text">
+                            <h3>Cortes Generales</h3>
+                            <p>Recepcion de cortes</p>
+                        </span>
+                    </li>
+                    <li class="hoverme1"  (click)="redirect4()">
+                        <i class='bx bxs-shield'></i>
+                        <span class="text">
+                            <h3>Captura</h3>
+                            <p>Capturas de ajustes de cortes</p>
+                        </span>
+                    </li>
+                    <li class="hoverme2"  (click)="redirect5()">
+                        <i class='bx bxs-shield'></i>
+                        <span class="text">
+                            <h3>Efectivo X</h3>
+                            <p>Detalle de efectivo X</p>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <div class="head ">
+                    <div>
+                        <h5>Cortes parciales
+                            <div class="tooltip top">
+                                <i class=' bx bx-info-circle'></i>
+                                 <span class="tiptext">Cortes parciales del efectivo X de acuerdo al corte</span> 
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div>
+                    <canvas id="type">{{ myChart }}</canvas>
+                </div>
+            </div>
+            <div class="order">
+                <div class="head ">
+                    <div>
+                        <h5>Liberacion de gastos
+                            <div class="tooltip top">
+                                <i class=' bx bx-info-circle'></i>
+                                <span class="tiptext">Grafica informativa del estado de las liberaciones de efectivo</span>
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div>
+                    <canvas id="pie">{{ piecito }}</canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
