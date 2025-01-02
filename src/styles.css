@@ -303,7 +303,7 @@ body {
 	padding: 0 16px;
 	height: 100%;
 	border: none;
-	background: var(--grey);
+	/* background: var(--grey); */
 	border-radius: 36px 0 0 36px;
 	outline: none;
 	width: 100%;
@@ -862,7 +862,7 @@ option {
 
 .form :where(.input-box input, .select-box) {
 	position: relative;
-	height: 50px;
+	height: 45px;
 	width: 100%;
 	outline: none;
 	font-size: 1rem;
@@ -979,7 +979,6 @@ textarea {
 	resize: none;
 }
 
-
 .sucess {
 	height: 55px;
 	width: 100%;
@@ -1008,8 +1007,6 @@ textarea {
 	border-radius: 40px;
 }
 
-
-
 /*Responsive*/
 @media screen and (max-width: 500px) {
 	#content {
@@ -1028,13 +1025,11 @@ textarea {
 	}
 }
 
-
 .todo2 .todo-list {
 	width: 100px;
 	height: 500px;
 	overflow-y: scroll;
 }
-
 
 .todo-list {
 	margin-top: 30px;
@@ -1047,8 +1042,6 @@ textarea {
 }
 
 /* wrappers */
-
-
 .content .tabs_wrapper {
     display: flex;
     align-items: center;

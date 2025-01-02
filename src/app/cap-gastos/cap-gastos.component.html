@@ -6,7 +6,7 @@
             <div class="todo">
                 <div class="head-title">
                     <div class="left">
-                        <h1>Captura de gastos</h1>
+                        <h1>Comprobacion de gastos</h1>
                         <ul class="breadcrumb">
                             <li>
                                 <a href="#">Home</a>
@@ -15,13 +15,11 @@
                             <li>
                                 <a class="active" href="#">capturas</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="table-data">
             <div class="todo">
                 <div class="content">
@@ -33,8 +31,8 @@
                             <span class="title">Remision</span>
                         </label>
                         <input type="radio" name="tabs" id="tab_2"
-                            [checked]="estadoActual === 'facturado'"
-                            (click)="cambiarEstado('facturados')" />
+                            [checked]="estadoActual === 'recurrente'"
+                            (click)="cambiarEstado('recurrente')" />
                         <label class="tab" for="tab_2">
                             <span class="title">Facturados</span>
                         </label>
@@ -52,44 +50,13 @@
                 <section class>
                     <form action="#" class="form" [formGroup]="captureForm">
                         <div class="column">
-                            <!-- <div class="input-box">
-                                <h3>Sucursal</h3>
-                                <div class="select-box">
-                                    <select formControlName="idBranch"
-                                        type="text"
-                                        (ngModelChange)="onChangeSucursal($event)">
-                                        <option hidden>Sucursal a que se le
-                                            emitira el gasto</option>
-                                        <option *ngFor="let s of sucursales" [value]="s.idBranch">{{s.nameBranch}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <h3>Responsable</h3>
-                                <div class="select-box">
-                                    <select formControlName="responsable"
-                                        type="text"
-                                        (ngModelChange)="onChangeResp($event)">
-                                        <option hidden>Sucursal a que se le emitira el gasto</option>
-                                        <option *ngFor="let s of empleados" [value]="s.idEmpleado">{{s.Nombre + ' ' + s.Paterno + ' ' + s.Materno}}</option>
-                                    </select>
-                                </div>
-                                 <input type="text" *ngIf="respons"
-                                    placeholder="responsable de gasto"
-                                    formControlName="responsable" required>
-                                <input type="text" *ngIf="!respons"
-                                    [value]="responsables"
-                                    (ngModelChange)="onChangeResp($event)"
-                                    formControlName="responsable" required> 
-                            </div> -->
+                        
                         </div>
                         <div class="column">
                             <div class="input-box">
-                                <h3>Sucursal</h3>
+                                <h3>Clasificacion de partida</h3>
                                 <div class="select-box">
-                                    <select formControlName="idBranch"
-                                        type="text"
-                                        (ngModelChange)="onChangeSucursal($event)">
+                                    <select formControlName="clasificacion" type="text">
                                         <option hidden>Sucursal a que se le
                                             emitira el gasto</option>
                                         <option *ngFor="let s of sucursales"
@@ -98,9 +65,9 @@
                                 </div>
                             </div>
                             <div class="input-box">
-                                <h3>Responsable</h3>
+                                <h3>Partida</h3>
                                 <div class="select-box">
-                                    <select formControlName="responsable"
+                                    <select formControlName="partida"
                                         type="text"
                                         (ngModelChange)="onChangeResp($event)">
                                         <option hidden>Sucursal a que se le
@@ -110,13 +77,6 @@
                                             ' ' + s.Paterno + ' ' + s.Materno}}</option>
                                     </select>
                                 </div>
-                                <!-- <input type="text" *ngIf="respons"
-                                    placeholder="responsable de gasto"
-                                    formControlName="responsable" required>
-                                <input type="text" *ngIf="!respons"
-                                    [value]="responsables"
-                                    (ngModelChange)="onChangeResp($event)"
-                                    formControlName="responsable" required> -->
                             </div>
                         </div>
                         <div class="column">
@@ -130,13 +90,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="input-box"  *ngIf="estadoActual=='facturados'">
-                                <h3>Folio factura</h3>
+                            <div class="input-box" >
+                                <h3>Empresa solicitante</h3>
                                 <input type="text"
                                     placeholder=""
-                                    formControlName="factura" required>
+                                    formControlName="empresaSol" required>
                             </div>
-                            <div class="input-box" *ngIf="sucu">
+                            <div class="input-box" >
+                                <h3>Fuente de financiamiento</h3>
+                                <input type="text"
+                                    placeholder=""
+                                    formControlName="financiamiento" required>
+                            </div>
+                            <div class="input-box" >
                                 <h3>Area</h3>
                                 <div class="select-box">
                                     <select formControlName="area">
@@ -147,51 +113,37 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="input-box">
+                                <h3>Tipo de pago</h3>
+                                <div class="select-box">
+                                    <select formControlName="tipoDeGasto">
+                                        <option hidden>Cheque de asignacion</option>
+                                       
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="column">
                             <div class="input-box">
-                                <h3>Efectivo liberado</h3>
+                                <h3>Efectivo solicitado</h3>
                                 <input type="intiger"
                                     placeholder="Ingresa el monto"
-                                    formControlName="efectivoLib" required />
+                                    formControlName="efectivoSol" required />
                             </div>
-                            <div *ngIf="estadoActual=='facturados'"
-                                class="input-box">
-                                <h3>Cheques</h3>
-                                <div class="select-box">
-                                    <select formControlName="cheque"
-                                        (ngModelChange)="verifyPercentage($event)">
-                                        <option hidden>Cheque de asignacion</option>
-                                        <option *ngFor="let s of cheques"
-                                            [value]="s.idBCheck">{{[s.invoice,
-                                            s.reference]}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div *ngIf="estadoActual == 'remision'"
-                                class="input-box">
-                                <h3>Revolvente</h3>
-                                <div class="select-box">
-                                    <select formControlName="idRevolvente">
-                                        <option *ngFor="let s of revolventes"
-                                            [value]="s.idRevol">{{[s.folio,
-                                            s.monto]}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
                             <div class="input-box">
-                                <h3>Concepto</h3>
+                                <h3>Efectivo Comprobado</h3>
                                 <div class="select-box">
-                                    <select formControlName="idConcept">
-                                        <option hidden>Concepto de gasto</option>
-                                        <option *ngFor="let c of conceptos"
-                                            [value]="c.idConcept">{{c.nombreConcept}}</option>
+                                    <select formControlName="efectivoComprobado">
+                                        <option hidden>Cheque de asignacion</option>
+                                       
                                     </select>
                                 </div>
                             </div>
-
+                             <label for="file-input" class="drop-container">
+                            <span class="drop-title">Drop files here</span>
+                            or
+                            <input type="file" accept="image/*" required="" id="file-input" formControlName="comprobante">
+                          </label>
                         </div>
                         <div class="input-box address">
                             <h3>Justificación</h3>
@@ -200,8 +152,6 @@
                                 formControlName="justificacion" required></textarea>
                         </div>
                         <div class="column">
-                            <!-- <button class="cancel" (click)="cancelar()">Cancelar
-                                captura</button> -->
                             <button class="sucess" *ngIf="captureForm.valid"
                                 (click)="capturaGasto()">Finalizar captura</button>
                             <button class="invalid" *ngIf="!captureForm.valid"

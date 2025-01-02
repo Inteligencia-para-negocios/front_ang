@@ -1,93 +1,33 @@
-<!-- <img class="wave" src="/assets/wave1.png"> -->
-<!-- <div class="container">
-	<div class="img">
-		<img src="/assets/Accountant-pana.png">
-	</div>
-	<div class="login-content">
-		<form action="post" [formGroup]="loginForm" (submit)="login()">
-			<img src="/assets/LogoPab1.png">
-			<h2 class="title">Bienvenido</h2>
-			<div class="logn-input">
-				<div class="input-div one">
-					<div class="div">
-						<mat-form-field appearance="outline">
-							<mat-label>Usuario</mat-label>
-							<input matInput placeholder="ingrese el nombre" formControlName="usuario">
-							<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-						</mat-form-field>
-					</div>
-				</div>
-				<div class="input-div pass">
-					<div class="div">
-						<mat-form-field appearance="outline">
-							<mat-label>Clave</mat-label>
-							<input matInput [type]="hide ? 'password' : 'text'"
-								placeholder="ingrese la clave" formControlName="pass">
-							<button mat-icon-button matSuffix (click)="hide= !hide"
-								[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-								<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-							</button>
-						</mat-form-field>
-					</div>
-				</div>
-			</div>
-			<input *ngIf="loginForm.valid"	 type="submit" class="btn"
-				value="Login">
-		</form>
-	</div>
-</div> -->
+<div id="login-page">
 
-<div class="main-wrapper">
-	<div class="account-content">
-		<div class="login-wrapper">
-			<div class="login-content">
-				<form target="frame_enviar" method="post" action="php/inicio_sesion.php" enctype="multipart/form-data" id="login_session_m">
-					<div class="login-userset">
-						<div class="login-logo">
-							<img src="assets/img/nbi/NBI - Logo Oficial - trazo .png" alt="img">
-						</div>
-						<div class="login-userheading">
-							<h3>Inicio de Sesión</h3>
-							<h4>Por favor, ingrese los datos de su cuenta</h4>
-						</div>
-					<div class="form-login">
-							<label>Usuario</label>
-							<div class="form-addons">
-								<input type="text" placeholder="Ingrese su usuario" id="login_name" name="login_name">
-								<img src="assets/img/icons/mail.svg" alt="img">
-							</div>
-						</div>
-						<div class="form-login">
-							<label>Contraseña</label>
-							<div class="pass-group">
-								<input type="password" class="pass-input" placeholder="Capture su contraseña" id="login_pw" name="login_pw">
-								<span class="fas toggle-password fa-eye-slash"></span>
-							</div>
-						</div>
-
-						<div class="form-login">
-							<div class="alreadyuser">
-								<h4 id="msjRequire"></h4>
-							</div>
-						</div>
-
-						<div class="form-login">
-							<div class="alreadyuser">
-								<h4><a href="#" class="hover-a">¿Olvidaste tu contraseña?</a></h4>
-							</div>
-						</div>
-						<div class="form-login">
-							<a class="btn btn-login" href="javascript:login_sesion_m();">Entrar</a>
-						</div>
-
-					</div>
-
-				</form>
-				<iframe id="frame_enviar" name="frame_enviar" frameborder="0" style="display:none"></iframe>
-			</div>
-			<div class="login-img">
-				<img src="assets/img/nbi/NBI - Logo Oficial - Reducido - Fondo Degradado Azul.png" alt="img">
-			</div>
+	<div class="login">
+		<div class="boxs">
+			<img src="/assets/icono.png" alt="">
 		</div>
+		<h2 class="login-title">Inicio de sesion</h2>
+		<p class="notice">Ingresa para acceder al sistema</p>
+		<form class="form-login">
+			<label for="email">E-mail</label>
+			<div class="input-email">
+				<i class="fas fa-envelope icon"></i>
+				<input type="email" name="email" placeholder="Enter your e-mail" required>
+			</div>
+			<label for="password">Password</label>
+			<div class="input-password">
+				<i class="fas fa-lock icon"></i>
+				<input type="password" name="password" placeholder="Enter your password" required>
+			</div>
+			<div class="checkbox">
+				<label for="remember">
+					<input type="checkbox" name="remember">
+					Remember me
+				</label>
+			</div>
+			<button type="submit" (click)="login()"><i class="fas fa-door-open"></i>Iniciar sesion</button>
+		</form>
+		<a href="#">Forgot your password?</a>
+	</div>
+	<div class="background">
+		<img src="/assets/LGIN.png" alt="">
 	</div>
 </div>

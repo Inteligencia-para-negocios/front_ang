@@ -33,41 +33,37 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.auth.sigin(this.loginForm.value).pipe(
-      timeout(5000) // 5000 milisegundos = 5 segundos
-    ).subscribe(
-      (response: any) => {
-        console.log("Obteniendo validacion de servidor -> ", response)
-        const token = response.token
-        console.log(token)
-        if (token) {
-          sessionStorage.setItem("auth_token", token)
-          this.user = jwtDecode(token)// 
-          console.log("USUARIO : : : : : : : ", this.user)
-          sessionStorage.setItem("idUser",this.user['usuario']['idUser'])
-          sessionStorage.setItem("usuario",this.user['usuario']['usuario'])
-          sessionStorage.setItem("rol",this.user['usuario']['nameRole'])
-          localStorage.setItem("idUser",this.user['usuario']['idUser'])
-          localStorage.setItem("usuario",this.user['usuario']['usuario'])
-          localStorage.setItem("rol",this.user['usuario']['nameRole'])
-
-
-
-
+    // this.auth.sigin(this.loginForm.value).pipe(
+    //   timeout(5000) // 5000 milisegundos = 5 segundos
+    // ).subscribe(
+      // (response: any) => {
+        // console.log("Obteniendo validacion de servidor -> ", response)
+        // const token = response.token
+        // console.log(token)
+        // if (token) {
+        //   sessionStorage.setItem("auth_token", token)
+        //   this.user = jwtDecode(token)// 
+        //   console.log("USUARIO : : : : : : : ", this.user)
+        //   sessionStorage.setItem("idUser",this.user['usuario']['idUser'])
+        //   sessionStorage.setItem("usuario",this.user['usuario']['usuario'])
+        //   sessionStorage.setItem("rol",this.user['usuario']['nameRole'])
+        //   localStorage.setItem("idUser",this.user['usuario']['idUser'])
+        //   localStorage.setItem("usuario",this.user['usuario']['usuario'])
+        //   localStorage.setItem("rol",this.user['usuario']['nameRole'])
           this.router.navigate(['/dashboardFull'])
-        }
-      },
-      (error) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: error.error.title,
-          text: error.error.message,
-          showConfirmButton: false,
-          timer: 3000
-        });
-      }
-    );
+        // }
+      // },
+    //   (error) => {
+    //     Swal.fire({
+    //       position: 'center',
+    //       icon: 'error',
+    //       title: error.error.title,
+    //       text: error.error.message,
+    //       showConfirmButton: false,
+    //       timer: 3000
+    //     });
+    //   }
+    // );
   }
 
 
