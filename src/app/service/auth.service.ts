@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -32,43 +32,28 @@ export class AuthService {
     })
   }
 
-  login(usuario: string, pass: string) {
-    const headers = new HttpHeaders({
-      'accept': 'application/json',
-      'content-type': 'application/json'
-    })
-    this.httpClient.post(`${environment.baseUrl}/login/`, {
-      usuario,
-      pass
-    }, {
-      headers: headers
-    }).pipe(
-      // this.toast.observe({
-      //   loading: 'Iniciando sesión',
-      //   success: '¡Bienvenido!',
-      //   error: 'Las credenciales no coinciden'
-      // })
-    ).subscribe({
-      next: (r: any) => {
-        const token = r.access_token
-        const usuasrio = r.usuario
-        if (token) {
-          sessionStorage.setItem("auth_token", token)
-          console.log("ssss", usuasrio)
-        }
-      },
-      error: (err) => {
-        /**Error
-         * {
-              "statusCode": 400,
-              "message": "Email already exists",
-              "error": "Bad Request"
-            }
-         */
-        console.log(err)
-      }
-    })
-  }
+  // login(usuario: string, pass: string) {
+  //   const headers = new HttpHeaders({
+  //     'accept': 'application/json',
+  //     'content-type': 'application/json'
+  //   })
+  //   this.httpClient.get(`${environment.baseUrl}/Usuarios/login/`, {
+  //     usuario,
+  //     pass
+  //   }.subscribe({
+  //     next: (r: any) => {
+  //       const token = r.access_token
+  //       const usuasrio = r.usuario
+  //       if (token) {
+  //         sessionStorage.setItem("auth_token", token)
+  //         console.log("ssss", usuasrio)
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   })
+  // }
 
   getToken() {
     return this.auth_token
@@ -97,9 +82,9 @@ export class AuthService {
 
 
 
-  sigin(usuario: any): Observable<any[]> {
-    let url = `${environment.baseUrl}login`;
-    return this.httpClient.post<any[]>(url, usuario);
+  sigin(usuario: any):  Observable<HttpEvent<any[]>> {
+    let url = `${environment.baseUrl}Usuarios/login`;
+    return this.httpClient.get<any[]>(url,usuario);
   }
 }
 

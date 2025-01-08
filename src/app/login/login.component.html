@@ -6,16 +6,16 @@
 		</div>
 		<h2 class="login-title">Inicio de sesion</h2>
 		<p class="notice">Ingresa para acceder al sistema</p>
-		<form class="form-login">
+		<form class="form-login" [formGroup]="loginForm">
 			<label for="email">E-mail</label>
 			<div class="input-email">
 				<i class="fas fa-envelope icon"></i>
-				<input type="email" name="email" placeholder="Enter your e-mail" required>
+				<input type="email" name="email" placeholder="Enter your e-mail" required formControlName="usuario">
 			</div>
 			<label for="password">Password</label>
 			<div class="input-password">
 				<i class="fas fa-lock icon"></i>
-				<input type="password" name="password" placeholder="Enter your password" required>
+				<input type="password" name="password" placeholder="Enter your password" required formControlName="clave">
 			</div>
 			<div class="checkbox">
 				<label for="remember">
@@ -25,9 +25,10 @@
 			</div>
 			<button type="submit" (click)="login()"><i class="fas fa-door-open"></i>Iniciar sesion</button>
 		</form>
-		<a href="#">Forgot your password?</a>
+		<!-- <a href="#">Forgot your password?</a> -->
 	</div>
 	<div class="background">
 		<img src="/assets/LGIN.png" alt="">
 	</div>
 </div>
+
