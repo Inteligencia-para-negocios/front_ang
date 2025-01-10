@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 
 
   readLocally() {
-    const token = sessionStorage.getItem('auth_token')
+    const token = this.auth.getToken()
     if (token) {
       this.auth_token = token ? token : ""
       console.log("read locally: ", this.auth_token)
@@ -70,36 +70,4 @@ export class LoginComponent implements OnInit {
       console.log(token)
     }
   }
-
-  readUser(user: any) {
-    const role = user.role
-    console.log(role)
-  }
-
-
-  // login() {
-  //   console.log(this.loginForm.value)
-  //   this.auth.login(this.loginForm.value).pipe(
-  //   ).subscribe(
-  //     (response) => {
-  //       Swal.fire({
-  //         position: 'center',
-  //         icon: 'success',
-  //         title: 'Cheque registrado',
-  //         showConfirmButton: false,
-  //         timer: 1500
-  //       });
-  //     },
-  //     (error) => {
-  //       Swal.fire({
-  //         position: 'center',
-  //         icon: 'error',
-  //         title: error.error.title,
-  //         text: error.error.mesagge,
-  //         showConfirmButton: false,
-  //         timer: 3000
-  //       });
-  //     }
-  //   );
-  // }
 }

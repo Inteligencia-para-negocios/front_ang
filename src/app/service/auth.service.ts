@@ -5,6 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { User2 } from '../../models/interface'
+import { Router } from '@angular/router';
+import areIntervalsOverlappingWithOptions from 'date-fns/esm/fp/areIntervalsOverlappingWithOptions/index.js';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,11 @@ export class AuthService {
   private access_token:string | undefined
   public user: User2 | undefined
 
-  private auth_token : string | undefined
+  private auth_token : string | null |undefined
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router :Router
   ) {
     
   }
@@ -58,13 +61,12 @@ export class AuthService {
 
 
   /**
-   * Obtiene el token almacenado en LocalStorage
+   * Obtiene el token almacenado en SessionStorage
    * @returns String `Bearer [TOKEN]`
    */
-  get accessToken(){
-    const t = localStorage.getItem('oat') // oAuth Access Token
-    // this.access_token = t
-    return this.access_token
+  accessToken(){
+    let t = sessionStorage.getItem('auth_token')
+    return t
   }
 
   /**
@@ -84,25 +86,27 @@ export class AuthService {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Access-Control-Allow-Origin':'*',
-        'Authorization': `Bearer ${this.accessToken}`
+        'Authorization': `Bearer ${this.getToken()}`
       })
-    };
-    
-    const pet = await this.http.get(`${environment.baseUrl}/auth/logout`, httpOptions).toPromise() as any
-    if(pet){
-      // this.access_token = null
-      localStorage.removeItem('oat')
-    }
-    return pet
+    };    
+    this.http.get(`${environment.baseUrl}Usuarios/logOut`, httpOptions).subscribe({
+      next: (data: any) => {
+        console.log(data)
+        const token = data.status
+        if (token == 200) {
+          sessionStorage.removeItem("auth_token")
+        }
+      }
+    })
   }
 
   updateProfile(){
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Access-Control-Allow-Origin':'*',
-        'Authorization': `Bearer ${this.accessToken}`
+        'Authorization': `Bearer ${this.getToken()}`
       })
-    };
+    };  
     const pet = this.http.post(`${environment.baseUrl}/auth/update`, httpOptions).toPromise() as any
   }
 
@@ -111,26 +115,14 @@ export class AuthService {
     return new HttpHeaders({
       "accept": "application/json",
       "content-type": "application/json",
-      "authorization": (this.auth_token) ? `Bearer ${this.auth_token}` : '',
+      "authorization": (this.getToken()) ? `Bearer ${this.accessToken()}` : '',
     })
   }
 
-  // login(usuario: User2,) {
-  //   const headers = new HttpHeaders({
-  //     'accept': 'application/json',
-  //     'content-type': 'application/json'
-  //   })
-  // }
-
   getToken() {
-    return this.auth_token
+    return this.accessToken()
   }
 
-  /*
-    Esta funcion de codigo para enviar 
-    el codigo recibe un numero entero no repetido
-    cual sera el id del empleado responsable
-  */
   sendCodeTwilio(id : any){
     let url = `${environment.baseUrl}verify/getCelEmpleado`;
     return this.http.post<any[]>(url,id);
@@ -139,11 +131,6 @@ export class AuthService {
   verifyCodeTwilio(verify : any){
     let url = `${environment.baseUrl}verify/verifyCode`;
     return this.http.post<any[]>(url,verify);
-  }
-
-  sigin(usuario: any):  Observable<HttpEvent<any[]>> {
-    let url = `${environment.baseUrl}Usuarios/login`;
-    return this.http.get<any[]>(url,usuario);
   }
 }
 

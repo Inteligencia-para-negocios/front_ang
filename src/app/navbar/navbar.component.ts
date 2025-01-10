@@ -13,20 +13,17 @@ export class NavbarComponent {
 
   usuarioOn: String | null | undefined
   role: string | null | undefined;
-
-
   constructor(
     private _router : Router,
     private auth: AuthService
     ){}
-
     
-  token : any
+    
   isMenuOpen: boolean = false;
 
 
   ngOnInit(){
-    this.getRole()
+    
   }
 
   toggleMenu(): void {
@@ -48,7 +45,8 @@ export class NavbarComponent {
     
   }
 
-  logOut(){
-    this.auth.logout()
+  async logOut(){
+    await this.auth.logout()
+    this.home()
   }
 }

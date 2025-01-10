@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Router } from '@angular/router';
 import { UtilService } from '../service/util.service';
+import { AuthService } from '../service/auth.service';
+import { LoginComponent } from '../login/login.component';
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
@@ -14,8 +16,7 @@ export class DashboardAdminComponent {
   notCompleted:any = 'not-completed'
   
 
-  constructor(private router:Router,    private _UTIL_SERVICE_ : UtilService
-    ){ }
+  constructor(private router:Router,    private _UTIL_SERVICE_ : UtilService){ }
 
   ngOnInit(): void {
     this.chartActyvitiCash();

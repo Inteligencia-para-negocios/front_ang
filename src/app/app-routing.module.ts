@@ -51,6 +51,9 @@ const routes: Routes = [
   //pantalla de administracion de caracter de superusuario.
   {
     path: 'dashboardFull', component: DashboardAdminComponent,
+    canActivate: [AuthGuard], data: {
+    roles: ['ADMINISTRADOR']
+   }
   }
   // canActivate: [AuthGuard], data: {
   //   roles: ['administrador', 'visualizador', 'capturista', 'tesoreria', 'registros','contralor','contabilidad']
@@ -70,9 +73,9 @@ const routes: Routes = [
   ,
   {
     path: 'revolvente', component: GastoRevComponent
-    // , canActivate: [AuthGuard], data: {
-    //   roles: ['administrador', 'registros']
-    //}
+    , canActivate: [AuthGuard], data: {
+       roles: ['administrador', 'registros']
+    }
   },
   //pantalla de administracion de caracter de capturista/Finanzas.
   {
