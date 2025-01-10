@@ -10,6 +10,13 @@ export interface Sucursal {
     ubicacion: String
 }
 
+
+export interface User2{
+    usuario :  String,
+    clave : String 
+}
+
+
 export interface Role {
     idRole: number,
     nameRole: string,

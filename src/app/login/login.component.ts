@@ -6,20 +6,19 @@ import Swal from 'sweetalert2';
 import { timeout } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 import { UtilService } from '../service/util.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 
 })
+
 export class LoginComponent implements OnInit {
   auth_token: string | undefined;
   usuario: any;
   public user : any
-
-  constructor(private router: Router, private auth: AuthService,    private _UTIL_SERVICE_ : UtilService
-    ) { }
-
+  constructor(private router: Router, private auth: AuthService, private _UTIL_SERVICE_ : UtilService) { }
   hide = true;
 
   loginForm = new FormGroup({
@@ -32,36 +31,30 @@ export class LoginComponent implements OnInit {
     this._UTIL_SERVICE_.verificarVentanaActiva()
   }
 
-  login() {
-    this.auth.sigin(this.loginForm.value).pipe(
-      timeout(5000) // 5000 milisegundos = 5 segundos
-    ).subscribe(
-      (response: any) => {
-        console.log("Obteniendo validacion de servidor -> ", response)
-        const token = response.token
-        console.log(token)
-        if (token) {
-          sessionStorage.setItem("auth_token", token)
-          this.user = jwtDecode(token)// 
-          console.log("USUARIO : : : : : : : ", this.user)
-          // sessionStorage.setItem("idUser",this.user['usuario']['idUser'])
-          // sessionStorage.setItem("usuario",this.user['usuario']['usuario'])
-          // sessionStorage.setItem("rol",this.user['usuario']['nameRole'])
-          // localStorage.setItem("idUser",this.user['usuario']['idUser'])
-          this.router.navigate(['/dashboardFull'])
-        }
+
+
+  login(){
+    console.log("usuarios :", this.loginForm.value);
+    this.auth.login(this.loginForm.value).subscribe({
+      next: (data: any) => {
+        const token = data.token
+          if (token) {
+            sessionStorage.setItem("auth_token", token)
+            console.log("ssss", token)
+            this.router.navigate(['/dashboardFull']) 
+          }
       },
-      (error) => {
-        Swal.fire({
+        error(err) {
+          console.error(err);
+          Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'error',
-          text: error.sqlMessage,
+          title: err.error.sqlMessage,
           showConfirmButton: false,
           timer: 3000
-        });
-      }
-    );
+        }); 
+      },
+    })
   }
 
 
@@ -73,6 +66,8 @@ export class LoginComponent implements OnInit {
       console.log("read locally: ", this.auth_token)
       this.router.navigate(['/dashboardFull'])
       // if (usuario) this.usuario = JSON.parse(usuario)
+    }else{
+      console.log(token)
     }
   }
 

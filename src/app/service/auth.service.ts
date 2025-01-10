@@ -2,27 +2,110 @@
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { User2 } from '../../models/interface'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private access_token:string | undefined
+  public user: User2 | undefined
 
-  private auth_token: string = "";
-  private profile: any = null
-
-  // public shippngAddressError:boolean = false
+  private auth_token : string | undefined
 
   constructor(
-    private httpClient: HttpClient,
+    private http: HttpClient
   ) {
-    // this.readLocally()
-    // setTimeout(() => { this.readLocally() }, 1500)
+    
   }
+
+  /*
+   *
+   * Conecta a la API para verificar la vigencia de la sesión, si el token existe se crea una `instancia de usuario`, en caso contrario regresa `null`
+   * @returns Promise
+   */
+
+
+  private async checkSession(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Authorization': `Bearer ${this.accessToken}`
+      })
+    };
+
+    const pet = await this.http.post(`${environment.baseUrl}Usuarios/login`, {}, httpOptions).toPromise()
+    if(pet){
+      this.user
+    }
+
+    return this.user
+    
+  }
+
+  /** 
+   * Validar si existe una sesión activa al entrar a la app
+   * 
+   * @returns User
+   */
+   get session(){
+    console.log("checando sesion....")
+    return this.checkSession()
+  }
+
+
+  /**
+   * Obtiene el token almacenado en LocalStorage
+   * @returns String `Bearer [TOKEN]`
+   */
+  get accessToken(){
+    const t = localStorage.getItem('oat') // oAuth Access Token
+    // this.access_token = t
+    return this.access_token
+  }
+
+  /**
+   * Iniciar sesión y obtener token Bearer
+   * @param usuario  
+   * @param clave 
+   * @returns Promise
+   */
+
+  login(usuario: any) {
+    let url = `${environment.baseUrl}Usuarios/login`;
+    return this.http.post(url,usuario);
+  }
+  
+
+  async logout(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Authorization': `Bearer ${this.accessToken}`
+      })
+    };
+    
+    const pet = await this.http.get(`${environment.baseUrl}/auth/logout`, httpOptions).toPromise() as any
+    if(pet){
+      // this.access_token = null
+      localStorage.removeItem('oat')
+    }
+    return pet
+  }
+
+  updateProfile(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Authorization': `Bearer ${this.accessToken}`
+      })
+    };
+    const pet = this.http.post(`${environment.baseUrl}/auth/update`, httpOptions).toPromise() as any
+  }
+
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -32,26 +115,10 @@ export class AuthService {
     })
   }
 
-  // login(usuario: string, pass: string) {
+  // login(usuario: User2,) {
   //   const headers = new HttpHeaders({
   //     'accept': 'application/json',
   //     'content-type': 'application/json'
-  //   })
-  //   this.httpClient.get(`${environment.baseUrl}/Usuarios/login/`, {
-  //     usuario,
-  //     pass
-  //   }.subscribe({
-  //     next: (r: any) => {
-  //       const token = r.access_token
-  //       const usuasrio = r.usuario
-  //       if (token) {
-  //         sessionStorage.setItem("auth_token", token)
-  //         console.log("ssss", usuasrio)
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.log(err)
-  //     }
   //   })
   // }
 
@@ -59,11 +126,6 @@ export class AuthService {
     return this.auth_token
   }
 
-
-  logout() {
-    sessionStorage.clear()    // sessionStorage.removeItem('customer_data')
-    // this.profile = null
-  }
   /*
     Esta funcion de codigo para enviar 
     el codigo recibe un numero entero no repetido
@@ -71,20 +133,17 @@ export class AuthService {
   */
   sendCodeTwilio(id : any){
     let url = `${environment.baseUrl}verify/getCelEmpleado`;
-    return this.httpClient.post<any[]>(url,id);
+    return this.http.post<any[]>(url,id);
   }
 
   verifyCodeTwilio(verify : any){
     let url = `${environment.baseUrl}verify/verifyCode`;
-    return this.httpClient.post<any[]>(url,verify);
+    return this.http.post<any[]>(url,verify);
   }
-
-
-
 
   sigin(usuario: any):  Observable<HttpEvent<any[]>> {
     let url = `${environment.baseUrl}Usuarios/login`;
-    return this.httpClient.get<any[]>(url,usuario);
+    return this.http.get<any[]>(url,usuario);
   }
 }
 
