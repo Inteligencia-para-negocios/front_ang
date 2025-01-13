@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { AreaService } from '../service/area.service';
 import { ProviderService } from '../service/provider.service';
 import Swal from 'sweetalert2';
-
+import jwtDecode from 'jwt-decode';
 
 
 @Component({
@@ -25,14 +25,17 @@ export class SolicitudGastoComponent implements OnInit {
   flag: boolean | undefined
   empleados: Empleado[] | undefined;
 
-  public sucursales: Sucursal[] = [];
+  //public sucursales: Sucursal[] = [];
   public areas: Area[] = [];
   public conceptos: Concept[] = [];
   public provider: Provedor[] = [];
   public arrayPresupuestos: Presupuesto[] = [];
   public arrayContratistas: Provedor[] = [];
-  public asignaciones: any[] = []
-
+  public asignaciones: any[] = [];
+  
+  // mio de sotelo
+  public sucursales: any[] = [];
+  public encargado: any[] = [];
   constructor(
     private _formBuider: FormBuilder,
 
@@ -51,7 +54,16 @@ export class SolicitudGastoComponent implements OnInit {
     justificacion: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    //mio de sotelo 
+    const login = sessionStorage.getItem('auth_token');
+    if (login){
+      const tokenD: any = jwtDecode(login);
+      console.log(tokenD);
+      this.sucursales = [tokenD.empresa];
+      this.encargado = [tokenD.nombre];
+    }
+  }
 
   // solicitudGasto() {
   //   console.log("---> ", this.captureForm.value);

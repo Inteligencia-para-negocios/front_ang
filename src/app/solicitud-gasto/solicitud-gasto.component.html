@@ -27,9 +27,9 @@
               <div class="input-box">
                 <h3>Empresa</h3>
                 <div class="select-box">
-                  <select formControlName="empresa">
-                    <option hidden>Selecciona la empresa</option>
-                    <option *ngFor="let c of sucursales" [value]="[c.idBranch]">{{c.nameBranch}}</option>
+                  <select formControlName="empresa" >
+                    
+                    <option *ngFor="let c of sucursales" [selected]="">{{c}}</option>
                   </select>
                 </div>
               </div>
@@ -38,7 +38,7 @@
                 <div class="select-box">
                   <select formControlName="area">
                     <option hidden>Selecciona el concepto</option>
-                    <option *ngFor="let c of areas" [value]="[c.idArea]">{{c.nameArea}}</option>
+                    <!-- <option *ngFor="let c of areas" [value]="0">No existe atributo</option> -->
                   </select>
                 </div>
               </div>

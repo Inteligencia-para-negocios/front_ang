@@ -38,9 +38,10 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe({
       next: (data: any) => {
         const token = data.token
+        console.log(token);
+        
           if (token) {
             sessionStorage.setItem("auth_token", token)
-            console.log("ssss", token)
             this.router.navigate(['/dashboardFull']) 
           }
       },

@@ -31,8 +31,10 @@ export class AuthGuard  {
     if (token) {
       try {
         this.tokenD = jwtDecode(token);  // Decodificar el token
-        const userRole = this.tokenD['usuario_rol'];  // Obtener el rol del usuario desde el token
+        const userRole=this.tokenD['usuario_rol']==undefined?this.tokenD['puesto']:this.tokenD['usuario_rol'];  // Obtener el rol del usuario desde el token
         // Verificar si el usuario tiene uno de los roles requeridos
+        console.log("este es el rol", userRole);
+        
         const hasRequiredRoles = requiredRoles.includes(userRole);
 
         console.log("hasRequiredRoles -> ", hasRequiredRoles);

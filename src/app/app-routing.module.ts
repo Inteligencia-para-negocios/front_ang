@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: 'dashboardFull', component: DashboardAdminComponent,
     canActivate: [AuthGuard], data: {
-    roles: ['ADMINISTRADOR']
+    roles: ['ADMINISTRADOR', 'Gerente']
    }
   }
   // canActivate: [AuthGuard], data: {
