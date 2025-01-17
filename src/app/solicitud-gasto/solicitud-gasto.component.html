@@ -29,7 +29,7 @@
                 <div class="select-box">
                   <select formControlName="empresa">
                     <option hidden>Selecciona la empresa</option>
-                    <option *ngFor="let c of sucursales" [value]="[c.idBranch]">{{c.nameBranch}}</option>
+                    <!-- <option *ngFor="let c of sucursales" [value]="[c.idBranch]">{{c.nameBranch}}</option> -->
                   </select>
                 </div>
               </div>
@@ -63,19 +63,27 @@
                   </select>
                 </div>
               </div>
+              <div class="input-box">
+                <h3>Partida</h3>
+                <div class="select-box">
+                    <select formControlName="partida"
+                        type="text"
+                        (ngModelChange)="onChangeResp($event)">
+                        <option hidden>Selecciona la partida</option>
+                        <option *ngFor="let p of partidas"
+                            [value]="p.idPartida">{{p.nombre}}</option>
+                    </select>
+                </div>
+            </div>
                 <div class="input-box">
                 <h3>Clasificacion</h3>
                 <div class="select-box">
                   <select formControlName="clasificacion">
-                    <option hidden>Selecciona el concepto</option>
-                    <option *ngFor="let c of conceptos" [value]="[c.idConcept]">{{c.nombreConcept}}</option>
+                    <option hidden>Selecciona la clasificacion</option>
+                    <option *ngFor="let c of clasificaciones" [value]="[c.idClasificacion]">{{c.nombre}}</option>
                   </select>
                 </div>
               </div>
-              <div class="input-box">
-                <h3>Partida</h3>
-                <input type="text" placeholder="dias de ausencia" formControlName="partida" />
-              </div> 
             </div>
             <div class="column">
               <div class="input-box">

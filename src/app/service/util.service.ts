@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Puesto, Presupuesto, Status } from 'src/models/interface';
+import { Puesto, Presupuesto, Status, Partida } from 'src/models/interface';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UtilService {
   private ventanaActualID: string | null = null;
   private ventanasAbiertas: Window[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
     this.ventanasAbiertas.push(window);
 
     // Escuchar eventos para manejar el cierre de ventanas
@@ -95,6 +96,14 @@ export class UtilService {
     let url = `${environment.baseUrl}doc/leerExcel`;
     return this.http.post<any[]>(url, ruta);
   }
+
+
+  getPartida():Observable<Partida[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Partidas`;
+    return this.http.get<Partida[]>(url,{headers});
+  }
+
 
   setCodigo(data: string) {
     this.codigo = data;

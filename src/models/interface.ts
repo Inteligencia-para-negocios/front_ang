@@ -11,6 +11,11 @@ export interface Sucursal {
 }
 
 
+export interface Partida{
+    idPartida : string,
+    nombre: string
+}
+
 export interface User2{
     usuario :  String,
     clave : String 

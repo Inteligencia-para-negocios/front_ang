@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
-
+  async logOut(){
+    await this.auth.logout()
+  }
 
   readLocally() {
     const token = this.auth.getToken()

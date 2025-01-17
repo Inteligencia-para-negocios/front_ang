@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { User2 } from '../../models/interface'
 import { Router } from '@angular/router';
 import areIntervalsOverlappingWithOptions from 'date-fns/esm/fp/areIntervalsOverlappingWithOptions/index.js';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,11 @@ export class AuthService {
     return this.user
     
   }
+
+
+ 
+
+
 
   /** 
    * Validar si existe una sesión activa al entrar a la app
@@ -100,23 +106,20 @@ export class AuthService {
     })
   }
 
-  updateProfile(){
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
-        'Authorization': `Bearer ${this.getToken()}`
-      })
-    };  
-    const pet = this.http.post(`${environment.baseUrl}/auth/update`, httpOptions).toPromise() as any
-  }
 
 
-  getHeaders(): HttpHeaders {
+
+  getHeaders() {
+    const token = this.getToken();
+    if (!token) {
+      console.error("Token no encontrado");
+      // Podrías redirigir al usuario a la página de login si es necesario
+    }
     return new HttpHeaders({
       "accept": "application/json",
       "content-type": "application/json",
-      "authorization": (this.getToken()) ? `Bearer ${this.accessToken()}` : '',
-    })
+      "authorization": token ? `Bearer ${token}` : '',
+    });
   }
 
   getToken() {

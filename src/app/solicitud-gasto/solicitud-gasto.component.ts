@@ -8,6 +8,9 @@ import { HttpClient } from '@angular/common/http';
 import { AreaService } from '../service/area.service';
 import { ProviderService } from '../service/provider.service';
 import Swal from 'sweetalert2';
+import { ClassificationService } from '../service/classification.service';
+import { UtilService } from '../service/util.service';
+import { UserService } from '../service/user.service';
 
 
 
@@ -25,7 +28,8 @@ export class SolicitudGastoComponent implements OnInit {
   flag: boolean | undefined
   empleados: Empleado[] | undefined;
 
-  public sucursales: Sucursal[] = [];
+  public partidas: any[] = [];
+  public clasificaciones : any [] = [];
   public areas: Area[] = [];
   public conceptos: Concept[] = [];
   public provider: Provedor[] = [];
@@ -35,10 +39,16 @@ export class SolicitudGastoComponent implements OnInit {
 
   constructor(
     private _formBuider: FormBuilder,
-
+    private clasftion: ClassificationService,
     private area: AreaService,
+    private util : UtilService,
+    private user: UserService
   ) { }
-
+  
+  ngOnInit(): void {
+    this.getPartidas()
+    this.user.getUser()
+  }
   captureForm = new FormGroup({
     clasificacion: new FormControl('', [Validators.required]),
     concepto: new FormControl('', [Validators.required]),
@@ -51,11 +61,59 @@ export class SolicitudGastoComponent implements OnInit {
     justificacion: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit(): void { }
 
   // solicitudGasto() {
   //   console.log("---> ", this.captureForm.value);
   // }
+
+  getClasificacionesPorPartida(){
+    
+  }
+  
+
+  getPartidas(){
+    this.util.getPartida().subscribe({
+      next: (data: any) => {
+        console.log(data)
+          this.partidas = data
+          console.log(this.partidas)
+        },
+        error(err) {
+              console.error(err);
+              Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: err.error.sqlMessage,
+              showConfirmButton: false,
+              timer: 3000
+            }); 
+          },
+        })
+  }
+
+  async onChangeResp(resp: string) {
+    (await this.clasftion.getAllClasificaciones(resp)).subscribe({
+      next: (data: any) => {
+        console.log('Datos recibidos:', data); // Depuración de la respuesta
+        this.clasificaciones = data; // Asignando los datos a la variable
+        console.log('Clasificaciones:', this.clasificaciones); // Verificando el valor de 'partidas'
+      },
+      error: (err) => {
+        console.error('Error al obtener clasificaciones:', err);
+        // Manejo de error con Swal
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err?.error?.sqlMessage || 'Error desconocido',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      }
+     });
+  }
+
+
+
 
   verifyMounts(monto: Number) {
     console.log("Monto solicitado -> ", monto)

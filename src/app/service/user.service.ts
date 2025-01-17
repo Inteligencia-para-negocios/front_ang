@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/models/interface';
-
+import jwtDecode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  User: any
 
   constructor(private http: HttpClient) { }
 
@@ -16,22 +17,26 @@ export class UserService {
     return this.http.get<User[]>(`${environment.baseUrl}users/get`);
   }
 
-  // get_all(){
-  //   return this.http.get(`${environment.baseUrl}branch/get`)
-  // }
+  getUser(){
+    const token = sessionStorage.getItem('auth_token');
+    if(token){
+      const User = jwtDecode(token)
+      console.log(User)
+      const idUser = this.User['id_usuario']
+      return idUser
+    }else{
+      return false
+    }
+  }
 
-  // getById(id:any): Observable<any>{
-  //   let url = `${environment.baseUrl}/branch/getById/${id}`;
-  //   return this.http.get<any>(url);
-  // }
+  //permisos segun el usuario
+  getPermisos(){
 
-  // crear(sucursal:any): Observable<void>{
-  //   let url = `${environment.baseUrl}/branch/create`;
-  //   return this.http.post<void>(url,sucursal);
-  // }
+  }
 
-  // eliminar(id:any):Observable<void>{
-  //   let url = `${environment.baseUrl}/branch/delete/${id}`;
-  //   return this.http.delete<void>(url);
-  // }
+  getVistas(){}
+
+  getUsuarioDetalle(){}
+
+ 
 }
