@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Presupuestos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a>Gastos</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active">Presupuestos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-data fixed">
+            <div class="todo todo2">
+                <section>
+                    <form action class="form" [formGroup]="captureForm"
+                        (submit)="onRegisterPresupuesto()">
+                        <div class="input-box">
+                            <h3>Nombre presupuesto</h3>
+                            <input type="float"
+                                placeholder="Ingresa el nombre del presupuesto"
+                                required formControlName="nombre" />
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Monto</h3>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    required formControlName="monto" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Empresa</h3>
+                                <div class="select-box">
+                                    <select formControlName="empresa">
+                                        (ngModelChange)="onCaptureConcept($event)"
+                                        <option hidden *ngIf="captureForm">Selecciona
+                                            el concepto</option>
+                                        <option *ngFor="let c of empresas"
+                                            [value]="[c.nombre]">{{c.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Fecha de inicio</h3>
+                                <input type="date" required
+                                    formControlName="fechaInicial" />
+                            </div>
+                            <div class="input-box">
+                                <h3>Fecha de finalizacion</h3>
+                                <input type="date"
+                                    placeholder="referencia de pago" required
+                                    formControlName="fechaFinal" />
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="sucess" *ngIf="captureForm.valid" type="submit" 
+                                (click)="registroPresupuesto()"
+                                >Finalizar captura</button>
+                            <button class="invalid" *ngIf="!captureForm.valid"
+                                [disabled]="!captureForm.valid">Finalizar
+                                captura</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="todo todo2">
+                <div class="head-title titlee">
+                    <div>
+                        <h2>Listado de presupuestos</h2>
+                    </div>
+                </div>
+                <ul class="todo-list">
+                    <li class="completed" *ngFor="let c of arrayPresupuestos">
+                        <p>{{c.nombre}}</p>
+                        <p><span>{{formatMonto(c.montoSolicitado)}}</span></p>
+                        <p>{{formatFecha(c.fechaFinal)}}</p>
+                        <p></p>
+                        <i class='bx bx-reset'></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+

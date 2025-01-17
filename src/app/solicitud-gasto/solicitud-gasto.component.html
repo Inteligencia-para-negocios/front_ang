@@ -26,31 +26,15 @@
             <div class="column">
               <div class="input-box">
                 <h3>Empresa</h3>
-                <div class="select-box">
-                  <select formControlName="empresa">
-                    <option hidden>Selecciona la empresa</option>
-                    <!-- <option *ngFor="let c of sucursales" [value]="[c.idBranch]">{{c.nameBranch}}</option> -->
-                  </select>
-                </div>
+                <input type="intiger" placeholder="Empresa asignada" required formControlName="empresa" />
               </div>
               <div class="input-box">
                 <h3>Area</h3>
-                <div class="select-box">
-                  <select formControlName="area">
-                    <option hidden>Selecciona el concepto</option>
-                    <option *ngFor="let c of areas" [value]="[c.idArea]">{{c.nameArea}}</option>
-                  </select>
-                </div>
+                <input type="intiger" placeholder="area asignada" required formControlName="area" />
               </div>
               <div class="input-box">
                 <h3>Encargado</h3>
-                <div class="select-box">
-                  <select formControlName="encargado">
-                    <option hidden>Selecciona el encargado</option>
-                    <option *ngFor="let s of empleados" [value]="[s.idEmpleado]">{{s.Nombre +
-                      ' ' + s.Paterno + ' ' + s.Materno}}</option>
-                  </select>
-                </div>
+                <input type="intiger" placeholder="responsable del area" required formControlName="empleado" />
               </div>
             </div>
             <div class="column">
@@ -66,16 +50,13 @@
               <div class="input-box">
                 <h3>Partida</h3>
                 <div class="select-box">
-                    <select formControlName="partida"
-                        type="text"
-                        (ngModelChange)="onChangeResp($event)">
-                        <option hidden>Selecciona la partida</option>
-                        <option *ngFor="let p of partidas"
-                            [value]="p.idPartida">{{p.nombre}}</option>
-                    </select>
+                  <select formControlName="partida" type="text" (ngModelChange)="onChangeResp($event)">
+                    <option hidden>Selecciona la partida</option>
+                    <option *ngFor="let p of partidas" [value]="p.idPartida">{{p.nombre}}</option>
+                  </select>
                 </div>
-            </div>
-                <div class="input-box">
+              </div>
+              <div class="input-box">
                 <h3>Clasificacion</h3>
                 <div class="select-box">
                   <select formControlName="clasificacion">
@@ -100,9 +81,9 @@
                   </select>
                 </div> -->
               </div>
-             
+
             </div>
-            
+
             <div class="column">
               <div class="input-box address">
                 <h3>Justificante</h3>

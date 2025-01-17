@@ -105,6 +105,8 @@ import { ContabilidadComponent } from './contabilidad/contabilidad.component';
 import { SplashVerifyComponent } from './splash-verify/splash-verify.component';
 import { PublicidadVerifyComponent } from './publicidad-verify/publicidad-verify.component';
 import { DashPrespComponent } from './dash-presp/dash-presp.component';
+import { AsignacionPresupuestoComponent } from './asignacion-presupuesto/asignacion-presupuesto.component';
+import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.component';
 
 
 @NgModule({
@@ -153,6 +155,8 @@ import { DashPrespComponent } from './dash-presp/dash-presp.component';
     SplashVerifyComponent,
     PublicidadVerifyComponent,
     DashPrespComponent,
+    AsignacionPresupuestoComponent,
+    NewPresupuestoComponent,
   ],
   imports: [
     FormsModule,

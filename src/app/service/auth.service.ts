@@ -50,11 +50,6 @@ export class AuthService {
     
   }
 
-
- 
-
-
-
   /** 
    * Validar si existe una sesión activa al entrar a la app
    * 

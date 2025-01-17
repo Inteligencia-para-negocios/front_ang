@@ -104,6 +104,12 @@ export class UtilService {
     return this.http.get<Partida[]>(url,{headers});
   }
 
+  
+  getEmpresas():Observable<Partida[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Empresas`;
+    return this.http.get<Partida[]>(url,{headers});
+  }
 
   setCodigo(data: string) {
     this.codigo = data;

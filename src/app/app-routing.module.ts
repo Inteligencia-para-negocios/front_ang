@@ -38,6 +38,8 @@ import { RepPrespComponent } from './rep-presp/rep-presp.component';
 import { ContabilidadComponent } from './contabilidad/contabilidad.component';
 import { PublicidadVerifyComponent } from './publicidad-verify/publicidad-verify.component';
 import { SplashVerifyComponent } from './splash-verify/splash-verify.component';
+import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.component';
+import { AsignacionPresupuestoComponent } from './asignacion-presupuesto/asignacion-presupuesto.component';
 
 
 
@@ -51,31 +53,19 @@ const routes: Routes = [
   //pantalla de administracion de caracter de superusuario.
   {
     path: 'dashboardFull', component: DashboardAdminComponent
-    // canActivate: [AuthGuard], data: {
-    // roles: ['ADMINISTRADOR']
-   //}
+    ,canActivate: [AuthGuard], data: {
+    roles: ['ADMINISTRADOR']
+   }
   }
   // canActivate: [AuthGuard], data: {
   //   roles: ['administrador', 'visualizador', 'capturista', 'tesoreria', 'registros','contralor','contabilidad']
   // }
   ,
   {
-    path: 'captura-ajustes', component: CapturaAjustesComponent,
-  }
-  // canActivate: [AuthGuard], data: {
-  //roles: ['administrador','tesoreria',]
-  //}
-  ,
-  {
-    path: 'revision', component: ReciboEfeXComponent,
-  }
-  //   
-  ,
-  {
     path: 'revolvente', component: GastoRevComponent
-    // , canActivate: [AuthGuard], data: {
-    //    roles: ['administrador', 'registros']
-    // }
+    ,canActivate: [AuthGuard], data: {
+       roles: ['administrador', 'registros']
+    }
   },
   //pantalla de administracion de caracter de capturista/Finanzas.
   {
@@ -157,30 +147,31 @@ const routes: Routes = [
     //   roles: ['administrador']
     // }
   },
-  // {
-  //   path: 'liberacion', component: AuthTesoreriaComponent, 
-  // canActivate: [AuthGuard], data: {
-  // //     roles: ['tesoreria', 'administrador']
-  // //   }
-  // },
-  // {
-  //   path: 'cortes-parciales', component: CorteParcialComponent, 
-  // canActivate: [AuthGuard], data: {
-  // //     roles: ['tesoreria', 'administrador']
-  // //   }
-  // },
+  
+  {
+    path: 'create', component: NewPresupuestoComponent, 
+  canActivate: [AuthGuard], data: {
+      roles: ['ADMINISTRADOR']
+    }
+  },
+  {
+    path: 'asignacion', component: AsignacionPresupuestoComponent, 
+  canActivate: [AuthGuard], data: {
+      roles: ['ADMINISTRADOR']
+    }
+  },
   {
     path: 'presupuesto', component: PresupuestoComponent,
-    // canActivate: [AuthGuard], data: {
-    //   roles: ['administrador',]
-    // }
+    canActivate: [AuthGuard], data: {
+      roles: ['ADMINISTRADOR',]
+    }
   },
-  {
-    path: 'asignacion', component: RepPrespComponent,
-    // canActivate: [AuthGuard], data: {
-    //   roles: ['administrador',]
-    // }
-  },
+  // {
+  //   path: 'asignacion', component: RepPrespComponent,
+  //   // canActivate: [AuthGuard], data: {
+  //   //   roles: ['administrador',]
+  //   // }
+  // },
   {
     path: 'solicitud', component: SolicitudGastoComponent,
     // canActivate: [AuthGuard], data: {
