@@ -212,7 +212,7 @@ getEmpresas(){
       nombre: 'presupuesto Prueva'
     };
     this._presupuesto.getPresupuestoByX(filtro).subscribe(response =>{
-      console.log(response);
+      console.log("on Change",response);
     })
   }
 

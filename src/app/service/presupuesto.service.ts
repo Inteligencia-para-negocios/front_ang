@@ -33,6 +33,7 @@ export class PresupuestoService {
     Object.keys(objeto).forEach(key => {
       params = params.set(key, objeto[key]);
     });
+    console.log(params);
     return this.http.get<any[]>(url,{headers, params});
   }
 
