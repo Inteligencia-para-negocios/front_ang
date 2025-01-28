@@ -33,8 +33,7 @@ export class PresupuestoService {
     Object.keys(objeto).forEach(key => {
       params = params.set(key, objeto[key]);
     });
-    
-    return this.http.post<any[]>(url,{params},{headers});
+    return this.http.get<any[]>(url,{headers, params});
   }
 
   postDetalle(objeto : any):Observable<any[]>{
