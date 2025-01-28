@@ -35,7 +35,7 @@
                         <div class="input-box">
                             <h3>Presupuestos</h3>
                             <div class="select-box">
-                                <select formControlName="idP        resupuesto" (ngModelChange)="onCapturePresupuesto($event)">
+                                <select formControlName="idPresupuesto" (ngModelChange)="onCapturePresupuesto($event)">
                                     <option hidden *ngIf="asignacionForm">Selecciona el presupuesto</option>
                                     <option *ngFor="let c of arrayPresupuestos" [value]="[c.idPresupuesto]">{{c.nombre}}
                                     </option>
