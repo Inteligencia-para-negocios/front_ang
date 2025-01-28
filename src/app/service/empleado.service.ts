@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Area, Provedor } from 'src/models/interface';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,12 @@ import { Area, Provedor } from 'src/models/interface';
 export class EmpleadoService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   getAll(): Observable<Provedor[]> {
-    let url = `${environment.baseUrl}empleados/get`;
-    return this.http.get<Provedor[]>(url);
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Empleados`;
+    return this.http.get<Provedor[]>(url,{headers});
   }
 
   getById(id: any): Observable<Provedor[]> {

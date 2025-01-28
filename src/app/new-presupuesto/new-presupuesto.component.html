@@ -43,10 +43,8 @@
                                 <div class="select-box">
                                     <select formControlName="empresa">
                                         (ngModelChange)="onCaptureConcept($event)"
-                                        <option hidden *ngIf="captureForm">Selecciona
-                                            el concepto</option>
-                                        <option *ngFor="let c of empresas"
-                                            [value]="[c.nombre]">{{c.nombre}}</option>
+                                        <option hidden *ngIf="captureForm">Selecciona la empresa</option>
+                                        <option *ngFor="let c of empresas" [value]="[c.nombre]">{{c.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -54,8 +52,7 @@
                         <div class="column">
                             <div class="input-box">
                                 <h3>Fecha de inicio</h3>
-                                <input type="date" required
-                                    formControlName="fechaInicial" />
+                                <input type="date" required formControlName="fechaInicio" />
                             </div>
                             <div class="input-box">
                                 <h3>Fecha de finalizacion</h3>
@@ -76,6 +73,7 @@
                 </section>
             </div>
             <div class="todo todo2">
+                
                 <div class="head-title titlee">
                     <div>
                         <h2>Listado de presupuestos</h2>

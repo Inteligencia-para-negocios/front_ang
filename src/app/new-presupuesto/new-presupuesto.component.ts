@@ -53,7 +53,7 @@ export class NewPresupuestoComponent {
   captureForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     monto: new FormControl('', [Validators.required]),
-    fechaInicial: new FormControl('', [Validators.required]),
+    fechaInicio: new FormControl('', [Validators.required]),
     fechaFinal: new FormControl('', [Validators.required]),
     empresa: new FormControl('', Validators.required)
   })
@@ -104,7 +104,7 @@ export class NewPresupuestoComponent {
         this.captureForm = this._formBuider.group({
           nombre: new FormControl('', [Validators.required]),
           monto: new FormControl('', [Validators.required]),
-          fechaInicial: new FormControl('', [Validators.required]),
+          fechaInicio: new FormControl('', [Validators.required]),
           fechaFinal: new FormControl('', [Validators.required]),
           empresa: new FormControl(this.empresas[0], Validators.required),
         })
@@ -141,9 +141,9 @@ export class NewPresupuestoComponent {
               }); 
             },
           })
-    }
+  }
 
-    getPresupuestos(){
+  getPresupuestos(){
       this._presupuesto.getPresupuesto().subscribe({
         next: (data: any) => {
           console.log(data)
@@ -161,7 +161,7 @@ export class NewPresupuestoComponent {
               }); 
             },
           })
-    }
+  }
 
   onRegisterPresupuesto() {
     console.log(this.captureForm.value)

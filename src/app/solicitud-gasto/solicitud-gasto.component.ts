@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { ClassificationService } from '../service/classification.service';
 import { UtilService } from '../service/util.service';
 import { UserService } from '../service/user.service';
+import { PresupuestoService } from '../service/presupuesto.service';
 
 
 
@@ -42,7 +43,8 @@ export class SolicitudGastoComponent implements OnInit {
     private clasftion: ClassificationService,
     private area: AreaService,
     private util : UtilService,
-    private user: UserService
+    private user: UserService,
+    private presp: PresupuestoService
   ) { }
   
   ngOnInit(): void {
@@ -112,8 +114,9 @@ export class SolicitudGastoComponent implements OnInit {
      });
   }
 
-
-
+  async verfyPresupuesto(){
+   
+  }
 
   verifyMounts(monto: Number) {
     console.log("Monto solicitado -> ", monto)

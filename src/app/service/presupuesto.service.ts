@@ -14,21 +14,33 @@ export class PresupuestoService {
     private auth: AuthService
   ) { }
 
-
   asignacion(objet : any): Observable<any[]> {
-    let url = `${environment.baseUrl}presp/asigned`;
-    return this.http.post<any[]>(url, objet);
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    return this.http.post<any[]>(url,objet,{headers});
   }
 
   getPresupuesto():Observable<any[]>{
       const headers = this.auth.getHeaders();
       let url = `${environment.baseUrl}Presupuestos`;
       return this.http.get<any[]>(url,{headers});
-    }
+  }
+
+  getPresupuestoByX(objeto : any):Observable<any[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Presupuestos/filtro`;
+    return this.http.post<any[]>(url,objeto,{headers});
+  }
+
+  postDetalle(objeto : any):Observable<any[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}`;
+    return this.http.post<any[]>(url,objeto,{headers});
+  }
 
   create(objet : any): Observable<any[]> {
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Presupuestos/create`;
+    let url = `${environment.baseUrl}Presupuestos/`;
     return this.http.post<any[]>(url, objet, {headers});
   }
 

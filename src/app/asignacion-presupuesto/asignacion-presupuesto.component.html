@@ -1,12 +1,11 @@
 <app-navbar></app-navbar>
-
 <div id="content">
     <main>
         <div class="table-data">
             <div class="todo">
                 <div class="head-title">
                     <div class="left">
-                        <h1>Presupuestos</h1>
+                        <h1>Asignacion de presupuestos</h1>
                         <ul class="breadcrumb">
                             <li>
                                 <a>Gastos</a>
@@ -20,93 +19,117 @@
                 </div>
             </div>
         </div>
-      
+
         <div class="table-data">
             <div class="todo todo2">
-                <div class="head-title titlee">
+                <!-- <div class="head-title titlee">
                     <div>
                         <h2>Asignacion de presupuesto</h2>
                     </div>
                     <div class="mountFull">
                         <span></span>
                     </div>
-                </div>
+                </div> -->
                 <section>
-                    <form action class="form" [formGroup]="asignacionForm"
-                        (submit)="CreateAssignment()">
+                    <form action class="form" [formGroup]="asignacionForm">
                         <div class="input-box">
-                            <h3>Presupuesto</h3>
+                            <h3>Presupuestos</h3>
                             <div class="select-box">
-                                
+                                <select formControlName="idP        resupuesto" (ngModelChange)="onCapturePresupuesto($event)">
+                                    <option hidden *ngIf="asignacionForm">Selecciona el presupuesto</option>
+                                    <option *ngFor="let c of arrayPresupuestos" [value]="[c.idPresupuesto]">{{c.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Partida</h3>
+                                <div class="select-box">
+                                    <select formControlName="partida">
+                                        <option hidden *ngIf="asignacionForm">Selecciona la partida</option>
+                                        <option *ngFor="let p of partidas" [value]="[p.nombre]">{{p.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <h3>Monto autorizado</h3>
+                                <input type="text" formControlName="monto">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Responsable</h3>
+                                <div class="select-box">
+                                    <select formControlName="responsable">
+                                        <option hidden *ngIf="asignacionForm">Selecciona el presupuesto</option>
+                                        <option *ngFor="let r of responsables" [value]="[r.nombre]">{{r.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <h3>Empresa asignada</h3>
+                                <div class="select-box">
+                                    <select formControlName="empresa">
+                                        <option hidden *ngIf="asignacionForm">Selecciona la empresa</option>
+                                        <option *ngFor="let r of empresas" [value]="[r.nombre]">{{r.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="column">
+                        <button class="sucess" type="submit" 
+                        *ngIf="asignacionForm.valid"
+                        (click)="registroAsign()"
+                        >Finalizar captura
+                        </button>
+                        <button class="invalid" *ngIf="!asignacionForm.valid">Finalizar
+                            captura
+                        </button>
+                    </div>
+                </section>
+            </div>
+            <div class="todo todo2">
+                <section>
+                    <form action class="form"  [formGroup]="presupuestoForm" >
+                        <div class="column">
+                            <div class="input-box">
+                                <h3>Nombre presupuesto</h3>
+                                <input type="float"  placeholder="Nombre del presupuesto" required
+                                    formControlName="nombrePresp"/>
+                            </div>
+                            <div class="input-box">
+                                <h3>Solicitante</h3>
+                                <input type="text" placeholder="Empleado que solicita" required formControlName="responsablePresp" /> 
                             </div>
                         </div>
                         <div class="column">
                             <div class="input-box">
                                 <h3>Monto</h3>
-                                <input type="intiger"
-                                    placeholder="Ingresa el monto"
-                                    required formControlName="montoAsignado" />
+                                <input type="intiger" placeholder="Monto solicitado" required formControlName="montoPresp" />
                             </div>
                             <div class="input-box">
-                                <h3>Servicio</h3>
-                                <div class="select-box">
-                                    <select formControlName="servicio"
-                                        (ngModelChange)="onCaptureService($event)">
-                                        <option>Selecciona
-                                            el servicio</option>
-                                        <option>Carpinteria</option>
-                                        <option>Herreria</option>
-                                        <option>Electrica</option>
-                                        <option>Seguridad perimetral</option>
-                                        <option>Albañileria</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <h3>Contratista</h3>
-                                <div class="select-box">
-                                    <select formControlName="idContratista" (ngModelChange)="onCaptureContratista($event)">
-                                        <option >Selecciona el concepto</option>
-                                        <option *ngFor="let c of arrayContratistas" [value]="c.idProvider">{{c.nameProvider}}</option>
-                                    </select>
-                                </div>
+                                <h3>Empresa</h3>
+                                <input type="text" placeholder="Empresa solicitante" required formControlName="empresaPresp" >
                             </div>
                         </div>
                         <div class="column">
                             <div class="input-box">
                                 <h3>Fecha de inicio</h3>
-                                <input type="date" required
-                                    formControlName="fechaInicio" />
+                                <input type="text" required formControlName="fechaInicioPresp" placeholder="Fecha incial" />
                             </div>
                             <div class="input-box">
                                 <h3>Fecha de finalizacion</h3>
-                                <input type="date"
-                                    placeholder="referencia de pago" required
-                                    formControlName="fechaFinal" />
+                                <input type="text" required formControlName="fechaFinalPresp" placeholder="Fecha final"/>
                             </div>
                         </div>
-                      
+                       
                     </form>
-                      <div class="column">
-                            <button class="sucess" type="submit"
-                                (click)="CreateAssignment()"
-                                *ngIf="asignacionForm.valid">Finalizar captura</button>
-                            <!-- <button class="invalid" *ngIf="!asignacionForm.valid"
-                                [disabled]="!captureForm.valid">Finalizar
-                                captura</button> -->
-                        </div>
                 </section>
-
-            </div>
-            <div class="todo todo2">
-                <div class="head-title titlee">
-                    <div>
-                        <h2>Asignaciones contratistas</h2>
-                    </div>
-                    <div class="mountFull">
-                        <span></span>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
