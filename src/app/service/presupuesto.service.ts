@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
@@ -27,9 +27,14 @@ export class PresupuestoService {
   }
 
   getPresupuestoByX(objeto : any):Observable<any[]>{
-    const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuestos/filtro`;
-    return this.http.post<any[]>(url,objeto,{headers});
+    const headers = this.auth.getHeaders();
+    let params = new HttpParams();
+    Object.keys(objeto).forEach(key => {
+      params = params.set(key, objeto[key]);
+    });
+    
+    return this.http.post<any[]>(url,{params},{headers});
   }
 
   postDetalle(objeto : any):Observable<any[]>{
