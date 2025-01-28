@@ -207,12 +207,20 @@ getEmpresas(){
   }
 
   onCapturePresupuesto(selectPresupuesto: any) {
-    const filtro = {
-      idPresupuesto: "PRE-4ca41836-2dde-42c4-beb7-3334a7ccbe14",
-      nombre: 'presupuesto Prueva'
-    };
-    this._presupuesto.getPresupuestoByX(filtro).subscribe(response =>{
-      console.log("on Change",response);
+    const objet = {
+      idPresupuesto : selectPresupuesto
+    }
+    this._presupuesto.getPresupuestoByX(objet).subscribe({
+      next: (data: any) => {
+        this.presupuestoForm.patchValue({
+          nombrePresp: (data[0].nombre),
+          montoPresp:(this.formatMonto(data[0].montoSolicitado)),
+          empresaPresp: (data[0].empresa),//this.formatFecha()
+          fechaInicioPresp: (data[0].fechaInicio),
+          fechaFinalPresp: (this.formatFecha(data[0].fechaFinal)),//this.formatFecha()
+          responsablePresp: (data[0].solicitante)
+        })
+      }
     })
   }
 
