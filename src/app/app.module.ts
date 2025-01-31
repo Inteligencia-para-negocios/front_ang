@@ -81,7 +81,7 @@ import { ReportBComponent } from './report-b/report-b.component';
 import { ReportCComponent } from './report-c/report-c.component';
 import { EditGastoComponent } from './edit-gasto/edit-gasto.component';
 import { SolicitudGastoComponent } from './solicitud-gasto/solicitud-gasto.component';
-import { PresupuestoComponent } from './presupuesto/presupuesto.component';
+import { PresupuestoComponent } from './prespuestos/presupuesto/presupuesto.component';
 import { AuthTesoreriaComponent } from './auth-tesoreria/auth-tesoreria.component';
 import { SplashComponent } from './splash/splash.component';
 import { ModalAuthComponent } from './modal-auth/modal-auth.component';
@@ -105,8 +105,9 @@ import { ContabilidadComponent } from './contabilidad/contabilidad.component';
 import { SplashVerifyComponent } from './splash-verify/splash-verify.component';
 import { PublicidadVerifyComponent } from './publicidad-verify/publicidad-verify.component';
 import { DashPrespComponent } from './dash-presp/dash-presp.component';
-import { AsignacionPresupuestoComponent } from './asignacion-presupuesto/asignacion-presupuesto.component';
-import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.component';
+import { AsignacionPresupuestoComponent } from './prespuestos/asignacion-presupuesto/asignacion-presupuesto.component';
+import { NewPresupuestoComponent } from './prespuestos/new-presupuesto/new-presupuesto.component';
+import { ListPrespComponent } from './prespuestos/list-presp/list-presp.component';
 
 
 @NgModule({
@@ -157,6 +158,8 @@ import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.compo
     DashPrespComponent,
     AsignacionPresupuestoComponent,
     NewPresupuestoComponent,
+    ListPrespComponent,
+    
   ],
   imports: [
     FormsModule,
@@ -213,7 +216,8 @@ import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.compo
     PortalModule,
     ScrollingModule,
     DialogModule,
-    PdfViewerModule
+    PdfViewerModule,
+    
   ],
   providers: [
     ViewGastosComponent,

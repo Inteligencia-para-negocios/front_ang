@@ -149,4 +149,19 @@ export class UtilService {
   //   return this.ventanaActual;
   // }
 
+  formatMonto(monto: number): string {
+    return `$${monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+  }
+
+  formatFecha(fechaISO: string): string {
+    const parsedDate = new Date(fechaISO);
+    const day = parsedDate.getDate().toString().padStart(2, '0') ;
+    const monthNames = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+    const monthIndex = parsedDate.getMonth();
+    const monthName = monthNames[monthIndex];
+    const year = parsedDate.getFullYear().toString();
+    return `${day}/${monthName}/${year}`;
+  }
+
+
 }

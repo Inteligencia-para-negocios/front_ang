@@ -20,9 +20,8 @@ export class UserService {
   getUser(){
     const token = sessionStorage.getItem('auth_token');
     if(token){
-      const User = jwtDecode(token)
-      console.log(User)
-      const idUser = this.User['id_usuario']
+      this.User = jwtDecode(token)
+      const idUser = this.User
       return idUser
     }else{
       return false

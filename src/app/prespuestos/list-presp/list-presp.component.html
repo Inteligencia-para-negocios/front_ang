@@ -1,0 +1,155 @@
+<app-navbar></app-navbar>
+
+<div id="content">
+    <main>
+        <div class="table-data">
+            <div class="todo">
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Listado de presupuestos</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="/">Dashboard</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a href="">prespuestos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div>
+                        <div class="imgPrueb">
+                            <img src="assets/sssss.png" alt>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="todo">
+                <div class="content">
+                    <div class="head-title">
+                        <div class="left">
+                            <div class="tabs_wrapper">
+                                <input type="radio" name="tabs" id="tab_1" [checked]="estadoActual === 'pendiente'"
+                                    (click)="cambiarEstado('pendiente')" />
+                                <label class="tab" for="tab_1">
+                                    <span class="title">Pendientes</span>
+                                </label>
+                                <input type="radio" name="tabs" id="tab_2" [checked]="estadoActual === 'Autorizado'"
+                                    (click)="cambiarEstado('autorizados')" />
+                                <label class="tab" for="tab_2">
+                                    <span class="title">Autorizados</span>
+                                </label>
+                                <!-- <input type="radio" name="tabs" id="tab_3" [checked]="estadoActual === 'revolvente'"
+                                    (click)="cambiarEstado('revolvente')" />
+                                <label class="tab" for="tab_3">
+                                    <span class="title">Revolventes</span>
+                                </label> -->
+                                <span class="shape"
+                                    [ngClass]="{'pendiente-shape': estadoActual === 'pendiente', 'liberado-shape': estadoActual === 'autorizados'}"></span>
+                            </div>
+                        </div>
+                        <!-- <mat-form-field>
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field> -->
+                        <!-- <div *ngIf='estadoActual=="revolvente"'>
+                            <h3>Recuento de gastos</h3>
+                            <div class="mountFull" *ngFor="let c of monto">
+                                <span>${{c.TotalEfectivo}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf='estadoActual=="liberado"'>
+                            <h3>Monto comprobado</h3>
+                            <div class="mountFull1">
+                                <span>${{montos}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf='estadoActual=="liberado"'>
+                            <h3>Remanente</h3>
+                            <div class="mountFull2">
+                                <span>${{remanente}}</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="table-data">
+                <div class="order">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Responsble</th>
+                                <th>Empresa</th>
+                                <th>Partida</th>
+                                <th>Monto solicitado</th>
+                                <th>Monto Autorizado</th>
+                                <th *ngIf='bandera'>Autorizador</th>
+                                <th>Fecha</th>
+                                <th>Estatus</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)='edit(c.Folio)' disabled *ngFor="let c of presupuestos">
+                                <td>
+                                    <h5>{{c+1}}</h5>
+                                </td>
+                                <td>
+                                    {{c.presupuesto}}
+                                </td>
+                                <td>
+                                    {{c.responsable}}
+                                </td>
+                                <td>
+                                    {{c.partida}}
+                                </td>
+                                <td>
+                                    {{_util.formatMonto(c.montoAsignado)}}
+                                </td>
+                                <td>
+                                    {{_util.formatMonto(c.montoAsignado)}}
+                                </td>
+                                <td *ngIf='bandera'>
+                                    {{c.aturizador}}
+                                </td>
+                                <td>
+                                    {{_util.formatFecha(c.createdAt)}}
+                                </td>
+                                <td *ngIf='c.estatus=="PENDIENTE"'>
+                                    <span class={{pending}}>{{"PENDIENTE"}}</span>    
+                                </td>
+                                <td *ngIf='c.Autorizado=="APROBADO"'>
+                                    <span class={{completed}}>{{c.Autorizado}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Efectivo=="LIBERADO"'>
+                                    <span class={{completed}}>{{c.Efectivo}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="PENDIENTE"'>
+                                    <span class={{pending}}>{{c.Comprobado}}</span>
+                                </td>
+                                <td *ngIf='c.Comprobado=="COMPROBADO"'>
+                                    <span class={{completed}}>{{c.Comprobado}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <mat-paginator [length]="pages"  [hidePageSize]="true"
+                     showFirstLastButtons [pageSizeOptions]="[5, 10, 25, 100]">
+                    </mat-paginator>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>

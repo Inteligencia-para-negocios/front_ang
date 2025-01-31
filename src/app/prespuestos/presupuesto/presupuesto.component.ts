@@ -106,5 +106,9 @@ export class PresupuestoComponent implements OnInit {
     this.router.navigate(['asignacion']);
 
   }
+
+  showPresp(){
+    this.router.navigate(['listap']);
+  }
  
 }

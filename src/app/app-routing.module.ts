@@ -17,7 +17,7 @@ import { DepComprasComponent } from './dep-compras/dep-compras.component';
 import { AuthGuard } from './service/auth-guard.service';
 import { EditGastoComponent } from './edit-gasto/edit-gasto.component';
 import { AuthTesoreriaComponent } from './auth-tesoreria/auth-tesoreria.component';
-import { PresupuestoComponent } from './presupuesto/presupuesto.component';
+import { PresupuestoComponent } from './prespuestos/presupuesto/presupuesto.component';
 import { SolicitudGastoComponent } from './solicitud-gasto/solicitud-gasto.component';
 import { RegEmpleadoComponent } from './reg-empleado/reg-empleado.component';
 import { UnautorizedComponent } from './unautorized/unautorized.component';
@@ -38,8 +38,9 @@ import { RepPrespComponent } from './rep-presp/rep-presp.component';
 import { ContabilidadComponent } from './contabilidad/contabilidad.component';
 import { PublicidadVerifyComponent } from './publicidad-verify/publicidad-verify.component';
 import { SplashVerifyComponent } from './splash-verify/splash-verify.component';
-import { NewPresupuestoComponent } from './new-presupuesto/new-presupuesto.component';
-import { AsignacionPresupuestoComponent } from './asignacion-presupuesto/asignacion-presupuesto.component';
+import { NewPresupuestoComponent } from './prespuestos/new-presupuesto/new-presupuesto.component';
+import { AsignacionPresupuestoComponent } from './prespuestos/asignacion-presupuesto/asignacion-presupuesto.component';
+import { ListPrespComponent } from './prespuestos/list-presp/list-presp.component';
 
 
 
@@ -56,11 +57,13 @@ const routes: Routes = [
     ,canActivate: [AuthGuard], data: {
     roles: ['ADMINISTRADOR']
    }
-  }
-  // canActivate: [AuthGuard], data: {
-  //   roles: ['administrador', 'visualizador', 'capturista', 'tesoreria', 'registros','contralor','contabilidad']
-  // }
-  ,
+  },
+  {
+    path: 'listap', component: ListPrespComponent
+    ,canActivate: [AuthGuard], data: {
+    roles: ['ADMINISTRADOR']
+   }
+  },
   {
     path: 'revolvente', component: GastoRevComponent
     ,canActivate: [AuthGuard], data: {

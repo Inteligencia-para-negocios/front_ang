@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -7,15 +7,22 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PresupuestoService {
+export class PresupuestoService implements OnInit {
 
+  ngOnInit() {
+    this.getHeaders()
+  }
   constructor(
     private http: HttpClient,
     private auth: AuthService
   ) { }
+  public headers: any
 
+  getHeaders(){
+   
+  }
   asignacion(objet : any): Observable<any[]> {
-    const headers = this.auth.getHeaders();
+    let headers = this.headers
     let url = `${environment.baseUrl}Presupuesto/Detalle`;
     return this.http.post<any[]>(url,objet,{headers});
   }
@@ -50,8 +57,9 @@ export class PresupuestoService {
   }
 
   getList(): Observable<any[]>{
-    let url = `${environment.baseUrl}presp/getAsigned`;
-    return this.http.get<any[]>(url);
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    return this.http.get<any[]>(url,{headers});
   }
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { faHouse, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-navbar',
@@ -39,8 +40,12 @@ export class NavbarComponent {
     this.usuarioOn = sessionStorage.getItem('usuario') || localStorage.getItem('usuario')
     console.log('U ------>', this.usuarioOn)
   }
+  hidden = false;
 
-  
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+
   verify(){
     
   }

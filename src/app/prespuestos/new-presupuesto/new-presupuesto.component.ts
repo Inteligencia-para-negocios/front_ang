@@ -3,12 +3,12 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Concept, Presupuesto, Provedor } from 'src/models/interface';
-import { CapGastos } from '../service/cap-gastos.service';
-import { UtilService } from '../service/util.service';
+import { CapGastos } from '../../service/cap-gastos.service';
+import { UtilService } from '../../service/util.service';
 import Swal from 'sweetalert2';
 import { timeout } from 'rxjs';
-import { ProviderService } from '../service/provider.service';
-import { PresupuestoService } from '../service/presupuesto.service';
+import { ProviderService } from '../../service/provider.service';
+import { PresupuestoService } from '../../service/presupuesto.service';
 
 @Component({
   selector: 'app-new-presupuesto',

@@ -49,7 +49,7 @@ export class SolicitudGastoComponent implements OnInit {
   
   ngOnInit(): void {
     this.getPartidas()
-    this.user.getUser()
+    this.getDatosEmpleado()
   }
   captureForm = new FormGroup({
     clasificacion: new FormControl('', [Validators.required]),
@@ -67,6 +67,11 @@ export class SolicitudGastoComponent implements OnInit {
   // solicitudGasto() {
   //   console.log("---> ", this.captureForm.value);
   // }
+
+
+  getDatosEmpleado(){
+    console.log(this.user.getUser());
+  }
 
   getClasificacionesPorPartida(){
     

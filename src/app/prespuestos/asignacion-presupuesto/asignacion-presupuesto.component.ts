@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Concept, Presupuesto, Provedor } from 'src/models/interface';
 
 import Swal from 'sweetalert2';
-import { PresupuestoService } from '../service/presupuesto.service';
-import { UtilService } from '../service/util.service';
-import { EmpleadoService } from '../service/empleado.service';
+import { PresupuestoService } from '../../service/presupuesto.service';
+import { UtilService } from '../../service/util.service';
+import { EmpleadoService } from '../../service/empleado.service';
 import { timeout } from 'rxjs';
 @Component({
   selector: 'app-asignacion-presupuesto',

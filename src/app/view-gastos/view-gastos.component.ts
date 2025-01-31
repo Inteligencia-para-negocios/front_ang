@@ -78,6 +78,7 @@ export class ViewGastosComponent implements OnInit {
       }
     );
   }
+  
   cambiarEstado(nuevoEstado: string) {
     this.estadoActual = nuevoEstado;
     if (this.estadoActual === 'pendiente') {
@@ -311,9 +312,3 @@ export class ViewGastosComponent implements OnInit {
   }
 }
 
-
-/**
- * @author
- * Plasticos Pablin S.A DE C.V
- * 
- */

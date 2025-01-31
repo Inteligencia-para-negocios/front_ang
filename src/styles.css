@@ -49,7 +49,8 @@ li {
 	--yellow: #ffd858;
 	--light-yellow: #FFF2C6;
 	--orange: #f79438;
-	--notCompleted: #ffe35e;
+	--notCompleted: #ffe45ea9;
+	--notCompletedFont: #b18700;
 	--cerrado: #dd0022;
 	--light-orange: #FFE0D3;
 	--body-bg-color: #e5ecef;
@@ -580,7 +581,7 @@ body {
 
 #content main .table-data .order table tr td .status.pending {
 	background: var(--notCompleted);
-	color: #575757;
+	color: var(--notCompletedFont);
 }
 
 #content main .table-data .order table tr td .status.cerrado {
