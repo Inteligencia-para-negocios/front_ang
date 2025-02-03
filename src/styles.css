@@ -930,6 +930,18 @@ option {
 	font-size: 1rem;
 }
 
+
+.select-box1 > select {
+	outline: none;
+	border: none;
+	color: #ffffff;
+	font-size: 1rem;
+	padding: 6px 16px;
+	border-radius: 50px;
+	background: var(--tag-3);
+	color: var(--tag-3-text);
+}
+
 .sucess {
 	height: 55px;
 	width: 100%;

@@ -62,4 +62,11 @@ export class PresupuestoService implements OnInit {
     return this.http.get<any[]>(url,{headers});
   }
 
+
+  updateDetalle(objeto: any) {
+    let url = `${environment.baseUrl}Presupuesto/Detalle/`;
+    const headers = this.auth.getHeaders();
+    return this.http.put<any[]>(url,objeto,{headers});
+  }
+
 }

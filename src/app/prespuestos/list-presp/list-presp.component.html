@@ -31,23 +31,23 @@
                     <div class="head-title">
                         <div class="left">
                             <div class="tabs_wrapper">
-                                <input type="radio" name="tabs" id="tab_1" [checked]="estadoActual === 'pendiente'"
-                                    (click)="cambiarEstado('pendiente')" />
+                                <input type="radio" name="tabs" id="tab_1" [checked]="estadoActual === 'PENDIENTE'"
+                                    (click)="cambiarEstado('PENDIENTE')" />
                                 <label class="tab" for="tab_1">
                                     <span class="title">Pendientes</span>
                                 </label>
-                                <input type="radio" name="tabs" id="tab_2" [checked]="estadoActual === 'Autorizado'"
-                                    (click)="cambiarEstado('autorizados')" />
+                                <input type="radio" name="tabs" id="tab_2" [checked]="estadoActual === 'AUTORIZADO'"
+                                    (click)="cambiarEstado('AUTORIZADO')" />
                                 <label class="tab" for="tab_2">
                                     <span class="title">Autorizados</span>
                                 </label>
-                                <!-- <input type="radio" name="tabs" id="tab_3" [checked]="estadoActual === 'revolvente'"
-                                    (click)="cambiarEstado('revolvente')" />
+                                <input type="radio" name="tabs" id="tab_3" [checked]="estadoActual === 'RECHAZADO'"
+                                    (click)="cambiarEstado('RECHAZADO')" />
                                 <label class="tab" for="tab_3">
-                                    <span class="title">Revolventes</span>
-                                </label> -->
+                                    <span class="title">Rechazados</span>
+                                </label>
                                 <span class="shape"
-                                    [ngClass]="{'pendiente-shape': estadoActual === 'pendiente', 'liberado-shape': estadoActual === 'autorizados'}"></span>
+                                    [ngClass]="{'pendiente-shape': estadoActual === 'PENDIENTE', 'liberado-shape': estadoActual === 'AUTORIZADO','rechazado-shape': estadoActual === 'RECHAZADO'}"></span>
                             </div>
                         </div>
                         <!-- <mat-form-field>
@@ -98,9 +98,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr (click)='edit(c.Folio)' disabled *ngFor="let c of presupuestos">
+                            <tr (click)='edit(c.folio)' disabled *ngFor="let c of presupuestos">
                                 <td>
-                                    <h5>{{c+1}}</h5>
+                                    <h5>{{1}}</h5>
                                 </td>
                                 <td>
                                     {{c.presupuesto}}
@@ -125,6 +125,27 @@
                                 </td>
                                 <td *ngIf='c.estatus=="PENDIENTE"'>
                                     <span class={{pending}}>{{"PENDIENTE"}}</span>    
+                                </td>
+                                <td *ngIf='c.estatus=="RECHAZADO"'>
+                                    <span class={{rechaced}}>{{"RECHAZADO"}}</span>    
+                                </td>
+                                <td *ngIf='c.estatus=="AUTORIZADO"'>
+                                    <span class={{completed}}>{{"AUTORIZADO"}}</span>    
+                                </td>
+                                <td>
+                                    <div class="input-box" [formGroup]="auth">
+                                        <div class="select-box1">
+                                            <select type="text"
+                                                formControlName="status" 
+                                                (ngModelChange)="onChangeEstatus(c.idDetallePresupuesto,$event)">
+                                                <option hidden>{{c.estatus}}</option>
+                                                <option >PENDIENTE</option>
+                                                <option >AUTORIZADO</option>
+                                                <option >RECHAZADO</option>
+                                                <!-- <option *ngFor="let c of status" [value]="c.idStatus">{{c.nameStatus}}</option> -->
+                                            </select>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td *ngIf='c.Autorizado=="APROBADO"'>
                                     <span class={{completed}}>{{c.Autorizado}}</span>
