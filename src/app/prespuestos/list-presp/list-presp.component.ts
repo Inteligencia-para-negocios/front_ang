@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PresupuestoService } from 'src/app/service/presupuesto.service';
 import { UtilService } from 'src/app/service/util.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-list-presp',
   templateUrl: './list-presp.component.html',
@@ -22,7 +23,7 @@ export class ListPrespComponent implements OnInit{
   public pages: any;
   celular: any;
   
-  constructor(private _presp : PresupuestoService, public _util: UtilService,   private twilio: AuthService
+  constructor(private _presp : PresupuestoService, public _util: UtilService,   private twilio: AuthService, private _user: UserService
   ){}
   estadoActual: string = 'PENDIENTE'; // Estado inicial, puedes cambiarlo según tus necesidades
   bandera: boolean | undefined
@@ -61,9 +62,37 @@ export class ListPrespComponent implements OnInit{
   }
     
   onChangeEstatus(idEstatus:any,selectedEstatus: any) {
-    let objeto = {
-      id: idEstatus,
+    const objeto = {
+      idPresupuestoD: idEstatus,
       estatus: selectedEstatus
+    }
+
+    if(selectedEstatus == "AUTORIZADO"){
+      this._presp.authDetalle(objeto).subscribe({
+        next: (data: any) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            background: "#d6ede2",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500
+          });
+          console.log(data.message);
+          // resolve("TE DOY PURA VRGA"); // Resolvemos la Promesa con el valor de this.celular
+        },
+        error: (error: any) => {
+          Swal.fire({
+            position: 'top-right',
+            background: '#f5dcdc',
+            title: error.error.message,
+            showConfirmButton: false,
+            timer: 2500
+          });
+          console.log(error.error.message)
+          // reject(error); // Rechazamos la Promesa en caso de error
+        }
+      });
     }
     console.log("Estatus",objeto)
     this._presp.updateDetalle(objeto).pipe().subscribe({

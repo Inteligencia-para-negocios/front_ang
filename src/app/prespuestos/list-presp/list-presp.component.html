@@ -87,8 +87,9 @@
                         <thead>
                             <tr>
                                 <th>Folio</th>
+                                <th>Nombre</th>
                                 <th>Responsble</th>
-                                <th>Empresa</th>
+                                <!-- <th>Empresa</th> -->
                                 <th>Partida</th>
                                 <th>Monto solicitado</th>
                                 <th>Monto Autorizado</th>
@@ -100,7 +101,7 @@
                         <tbody>
                             <tr (click)='edit(c.folio)' disabled *ngFor="let c of presupuestos">
                                 <td>
-                                    <h5>{{1}}</h5>
+                                    <h5>{{c.folio}}</h5>
                                 </td>
                                 <td>
                                     {{c.presupuesto}}
@@ -118,7 +119,7 @@
                                     {{_util.formatMonto(c.montoAsignado)}}
                                 </td>
                                 <td *ngIf='bandera'>
-                                    {{c.aturizador}}
+                                    {{c.autorizador}}
                                 </td>
                                 <td>
                                     {{_util.formatFecha(c.createdAt)}}
@@ -132,7 +133,7 @@
                                 <td *ngIf='c.estatus=="AUTORIZADO"'>
                                     <span class={{completed}}>{{"AUTORIZADO"}}</span>    
                                 </td>
-                                <td>
+                                <td *ngIf="c.estatus != 'AUTORIZADO '">
                                     <div class="input-box" [formGroup]="auth">
                                         <div class="select-box1">
                                             <select type="text"

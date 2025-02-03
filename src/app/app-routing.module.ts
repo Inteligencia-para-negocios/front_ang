@@ -213,9 +213,9 @@ const routes: Routes = [
   ,
   {
     path: 'contabilidad', component: ContabilidadComponent,
-    // canActivate: [AuthGuard], data: {
-    //   roles: ['administrador','contabilidad']
-    // }
+    canActivate: [AuthGuard], data: {
+      roles: ['ADMINISTRADOR']
+    }
   }
 
   //{
