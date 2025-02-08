@@ -86,6 +86,13 @@ export class UtilService {
     return this.http.get<any[]>(url);
   }
 
+  getTipoGasto(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/GASTO`;
+    return this.http.get<Partida[]>(url,{headers});
+  }
+
+
 
   getStatus1(): Observable<Status[]> {
     let url = `${environment.baseUrl}status/get2`;

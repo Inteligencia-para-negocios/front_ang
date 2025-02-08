@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,13 @@ import jwtDecode from 'jwt-decode';
 export class UserService {
 
   User: any
+
+  httpOptions = {
+        headers: new HttpHeaders({ 
+          'Access-Control-Allow-Origin':'*',
+          'Authorization': `Bearer ${sessionStorage.getItem("auth_token")}`
+        })
+    };
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +42,9 @@ export class UserService {
 
   getVistas(){}
 
-  getUsuarioDetalle(){}
+  getUsuarioDetalle(): Observable<any[]> {
+    let url = `${environment.baseUrl}Empleados/data`
+    return this.http.get<any[]>(url, this.httpOptions);
+  }
 
- 
 }

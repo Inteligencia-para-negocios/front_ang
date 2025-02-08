@@ -7,13 +7,11 @@ import { Area, Concept, Empleado, Presupuesto, Provedor, Sucursal, } from 'src/m
 import { HttpClient } from '@angular/common/http';
 import { AreaService } from '../service/area.service';
 import { ProviderService } from '../service/provider.service';
-import Swal from 'sweetalert2';
 import { ClassificationService } from '../service/classification.service';
 import { UtilService } from '../service/util.service';
 import { UserService } from '../service/user.service';
 import { PresupuestoService } from '../service/presupuesto.service';
-
-
+import { ErrorHandlerService } from '../service/error-handler.service';
 
 @Component({
   selector: 'app-solicitud-gasto',
@@ -37,6 +35,7 @@ export class SolicitudGastoComponent implements OnInit {
   public arrayPresupuestos: Presupuesto[] = [];
   public arrayContratistas: Provedor[] = [];
   public asignaciones: any[] = []
+  public tipoGastos: any[] = []
 
   constructor(
     private _formBuider: FormBuilder,
@@ -44,12 +43,14 @@ export class SolicitudGastoComponent implements OnInit {
     private area: AreaService,
     private util : UtilService,
     private user: UserService,
-    private presp: PresupuestoService
+    private presp: PresupuestoService,
+    private errorHandler: ErrorHandlerService
   ) { }
   
   ngOnInit(): void {
     this.getPartidas()
     this.getDatosEmpleado()
+    this.getTipoGasto()
   }
   captureForm = new FormGroup({
     clasificacion: new FormControl('', [Validators.required]),
@@ -57,45 +58,39 @@ export class SolicitudGastoComponent implements OnInit {
     partida: new FormControl('', [Validators.required]),
     efectivoSol: new FormControl('', [Validators.required]),
     presupuesto: new FormControl('', [Validators.required]),
-    empresa: new FormControl(''),
-    area: new FormControl('', [Validators.required]),
+    empresa: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    area: new FormControl({ value: '', disabled: true }, [Validators.required]),
     encargado: new FormControl({ value: '', disabled: true }, [Validators.required]),
     justificacion: new FormControl('', [Validators.required]),
+    tipoGasto: new FormControl('', [Validators.required])
   });
 
-
-  // solicitudGasto() {
-  //   console.log("---> ", this.captureForm.value);
-  // }
-
-
   getDatosEmpleado(){
-    console.log(this.user.getUser());
-  }
-
-  getClasificacionesPorPartida(){
-    
-  }
-  
-
-  getPartidas(){
-    this.util.getPartida().subscribe({
+    this.user.getUsuarioDetalle().subscribe({
       next: (data: any) => {
-        console.log(data)
-          this.partidas = data
-          console.log(this.partidas)
-        },
-        error(err) {
-              console.error(err);
-              Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: err.error.sqlMessage,
-              showConfirmButton: false,
-              timer: 3000
-            }); 
-          },
-        })
+        this.captureForm.controls.empresa.setValue(data[0].empresa);
+        this.captureForm.controls.area.setValue(data[0].area);
+        this.captureForm.controls.encargado.setValue(data[0].nombre);
+      },
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      }
+    });
+
+  }
+
+  getPartidas() {
+    this.util.getPartida().subscribe({
+      next: (data: any) => {this.partidas = data;},
+      error: (err) => {this.errorHandler.handleError(err);}
+    });
+  }
+
+  getTipoGasto() {
+    this.util.getTipoGasto().subscribe({
+      next: (data: any) => {this.tipoGastos = data;},
+      error: (err) => {this.errorHandler.handleError(err);}
+    });
   }
 
   async onChangeResp(resp: string) {
@@ -106,15 +101,7 @@ export class SolicitudGastoComponent implements OnInit {
         console.log('Clasificaciones:', this.clasificaciones); // Verificando el valor de 'partidas'
       },
       error: (err) => {
-        console.error('Error al obtener clasificaciones:', err);
-        // Manejo de error con Swal
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: err?.error?.sqlMessage || 'Error desconocido',
-          showConfirmButton: false,
-          timer: 3000
-        });
+        this.errorHandler.handleError(err);
       }
      });
   }
@@ -144,15 +131,8 @@ export class SolicitudGastoComponent implements OnInit {
         encargado: new FormControl({ value: '', disabled: true }, [Validators.required]),
         justificacion: new FormControl('', [Validators.required]),
       })
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se ha registrado la solicitud',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      this.errorHandler.handleError('Se ha registrado la solicitud');
     } else {
-      console.log("facturados para ver en contabilidad")
       this._formBuider.group({
         clasificacion: new FormControl('', [Validators.required]),
         concepto: new FormControl('', [Validators.required]),
@@ -164,13 +144,7 @@ export class SolicitudGastoComponent implements OnInit {
         encargado: new FormControl({ value: '', disabled: true }, [Validators.required]),
         justificacion: new FormControl('', [Validators.required]),
       })
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se ha registrado la solicitud',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      this.errorHandler.handleError('Se ha registrado la solicitud');
     }
   }
 }

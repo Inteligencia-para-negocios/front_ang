@@ -48,7 +48,6 @@ pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
     empresa: new FormControl('', [Validators.required]) 
   })
 
-
   presupuestoForm = new FormGroup({
     nombrePresp: new FormControl({value: "",disabled: true}),
     montoPresp: new FormControl({value: "",disabled: true}),

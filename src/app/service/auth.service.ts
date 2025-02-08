@@ -66,8 +66,7 @@ export class AuthService {
    * @returns String `Bearer [TOKEN]`
    */
   accessToken(){
-    let t = sessionStorage.getItem('auth_token')
-    return t
+    return sessionStorage.getItem('auth_token');
   }
 
   /**

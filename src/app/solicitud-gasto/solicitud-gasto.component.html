@@ -34,7 +34,7 @@
               </div>
               <div class="input-box">
                 <h3>Encargado</h3>
-                <input type="intiger" placeholder="responsable del area" required formControlName="empleado" />
+                <input type="intiger" placeholder="responsable del area" required formControlName="encargado" />
               </div>
             </div>
             <div class="column">
@@ -71,6 +71,15 @@
                 <h3>Efectivo solicitado</h3>
                 <input type="intiger" placeholder="Efectivo solicitado" required formControlName="efectivoSol"
                   (ngModelChange)="verifyMounts($event)" />
+              </div>
+              <div class="input-box">
+                <h3>Tipo de Gasto</h3>
+                <div class="select-box">
+                  <select formControlName="tipoGasto">
+                    <option hidden>Selecciona la clasificacion</option>
+                    <option *ngFor="let g of tipoGastos" [value]="[g.idCatalogo]">{{g.nombre}}</option>
+                  </select>
+                </div>
               </div>
               <div class="input-box">
                 <!-- <h3>Asignaciones</h3>
