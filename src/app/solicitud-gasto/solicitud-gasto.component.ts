@@ -32,7 +32,7 @@ export class SolicitudGastoComponent implements OnInit {
   public areas: Area[] = [];
   public conceptos: Concept[] = [];
   public provider: Provedor[] = [];
-  public arrayPresupuestos: Presupuesto[] = [];
+  public presupuestos: any[] = [];
   public arrayContratistas: Provedor[] = [];
   public asignaciones: any[] = []
   public tipoGastos: any[] = []
@@ -48,9 +48,9 @@ export class SolicitudGastoComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.getPartidas()
     this.getDatosEmpleado()
     this.getTipoGasto()
+    this.getPresupuestos()
   }
   captureForm = new FormGroup({
     clasificacion: new FormControl('', [Validators.required]),
@@ -93,8 +93,33 @@ export class SolicitudGastoComponent implements OnInit {
     });
   }
 
-  async onChangeResp(resp: string) {
-    (await this.clasftion.getAllClasificaciones(resp)).subscribe({
+  getPresupuestos() {
+    this.util.getPresupuestosAsignados().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        
+        this.presupuestos = data;
+      },
+      error: (err) => {this.errorHandler.handleError(err);}
+    });
+  }
+
+  async onChangePresupuesto(resp: string){
+    
+    (await this.util.getPresupuestoSelect({'nombre': resp})).subscribe({
+      next: (data: any) => {
+        console.log(':', data); // Depuración de la respuesta
+        this.partidas = data; // Asignando los datos a la variable
+        console.log('Clasificaciones:', this.clasificaciones); // Verificando el valor de 'partidas'
+      },
+      error: (err) => {
+        this.errorHandler.handleError(err);
+      }
+     });
+  }
+
+  async onChangePartida(resp: string) {
+    (await this.clasftion.getAllClasificaciones({'nombre': resp})).subscribe({
       next: (data: any) => {
         console.log('Datos recibidos:', data); // Depuración de la respuesta
         this.clasificaciones = data; // Asignando los datos a la variable

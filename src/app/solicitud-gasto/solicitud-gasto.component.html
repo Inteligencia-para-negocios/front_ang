@@ -41,18 +41,18 @@
               <div class="input-box">
                 <h3>Presupuesto</h3>
                 <div class="select-box">
-                  <select formControlName="presupuesto">
+                  <select formControlName="presupuesto" type="text" (ngModelChange)="onChangePresupuesto($event)">
                     <option hidden>Selecciona el presupuesto</option>
-                    <option *ngFor="let c of arrayContratistas" [value]="[]">{{c.nameProvider}}</option>
+                    <option *ngFor="let pr of presupuestos" [value]="pr.presupuesto">{{pr.presupuesto}}</option>
                   </select>
                 </div>
               </div>
               <div class="input-box">
                 <h3>Partida</h3>
                 <div class="select-box">
-                  <select formControlName="partida" type="text" (ngModelChange)="onChangeResp($event)">
+                  <select formControlName="partida" type="text" (ngModelChange)="onChangePartida($event)">
                     <option hidden>Selecciona la partida</option>
-                    <option *ngFor="let p of partidas" [value]="p.idPartida">{{p.nombre}}</option>
+                    <option *ngFor="let p of partidas" [value]="p.partida">{{p.partida}}</option>
                   </select>
                 </div>
               </div>

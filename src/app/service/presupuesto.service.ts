@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { UtilService } from './util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class PresupuestoService implements OnInit {
   }
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
+    private utils: UtilService
   ) { }
   public headers: any
 
@@ -35,13 +37,8 @@ export class PresupuestoService implements OnInit {
 
   getPresupuestoByX(objeto : any):Observable<any[]>{
     let url = `${environment.baseUrl}Presupuestos/filtro`;
-    const headers = this.auth.getHeaders();
-    let params = new HttpParams();
-    Object.keys(objeto).forEach(key => {
-      params = params.set(key, objeto[key]);
-    });
-    console.log(params);
-    return this.http.get<any[]>(url,{headers, params});
+    const headers = this.utils.crearCabezeraCom(objeto)
+    return this.http.get<any[]>(url,headers);
   }
 
   postDetalle(objeto : any):Observable<any[]>{

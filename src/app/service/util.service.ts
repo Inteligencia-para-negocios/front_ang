@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Puesto, Presupuesto, Status, Partida } from 'src/models/interface';
@@ -15,6 +15,15 @@ export class UtilService {
   private ventanaActual: Window | null = null;
   private ventanaActualID: string | null = null;
   private ventanasAbiertas: Window[] = [];
+
+  crearCabezeraCom(objet:any){
+    const headers = this.auth.getHeaders();
+        let params = new HttpParams();
+        Object.keys(objet).forEach(key => {
+          params = params.set(key, objet[key]);
+        });
+    return {params, headers};
+  }
 
   constructor(private http: HttpClient, private auth: AuthService) {
     this.ventanasAbiertas.push(window);
@@ -92,7 +101,17 @@ export class UtilService {
     return this.http.get<Partida[]>(url,{headers});
   }
 
+  getPresupuestosAsignados(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Presupuesto/Detalle/asignados`;
+    return this.http.get<Partida[]>(url,{headers});
+  }
 
+  getPresupuestoSelect(objet : any): Observable<any[]> {
+    const headers = this.crearCabezeraCom(objet);
+    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    return this.http.get<Partida[]>(url,headers);
+  }
 
   getStatus1(): Observable<Status[]> {
     let url = `${environment.baseUrl}status/get2`;
