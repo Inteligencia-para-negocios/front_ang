@@ -215,7 +215,7 @@ getEmpresas(){
           nombrePresp: (data[0].nombre),
           montoPresp:(this.formatMonto(data[0].montoSolicitado)),
           empresaPresp: (data[0].empresa),//this.formatFecha()
-          fechaInicioPresp: (data[0].fechaInicio),
+          fechaInicioPresp: (this.formatFecha(data[0].fechaInicio)),
           fechaFinalPresp: (this.formatFecha(data[0].fechaFinal)),//this.formatFecha()
           responsablePresp: (data[0].solicitante)
         })

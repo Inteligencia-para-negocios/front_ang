@@ -22,7 +22,7 @@ export class PresupuestoService implements OnInit {
    
   }
   asignacion(objet : any): Observable<any[]> {
-    let headers = this.headers
+    const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuesto/Detalle`;
     return this.http.post<any[]>(url,objet,{headers});
   }
@@ -60,6 +60,19 @@ export class PresupuestoService implements OnInit {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuesto/Detalle`;
     return this.http.get<any[]>(url,{headers});
+  }
+
+
+  updateDetalle(objeto: any) {
+    let url = `${environment.baseUrl}Presupuesto/Detalle/`;
+    const headers = this.auth.getHeaders();
+    return this.http.put<any[]>(url,objeto,{headers});
+  }
+
+  authDetalle(objeto: any) {
+    let url = `${environment.baseUrl}Presupuesto/Detalle/`;
+    const headers = this.auth.getHeaders();
+    return this.http.patch<any[]>(url,objeto,{headers});
   }
 
 }
