@@ -67,32 +67,32 @@
               </div>
             </div>
             <div class="column">
-              <div class="input-box">
-                <h3>Efectivo solicitado</h3>
-                <input type="intiger" placeholder="Efectivo solicitado" required formControlName="efectivoSol"
-                  (ngModelChange)="verifyMounts($event)" />
-              </div>
-              <div class="input-box">
-                <h3>Tipo de Gasto</h3>
-                <div class="select-box">
-                  <select formControlName="tipoGasto">
-                    <option hidden>Selecciona la clasificacion</option>
-                    <option *ngFor="let g of tipoGastos" [value]="[g.idCatalogo]">{{g.nombre}}</option>
-                  </select>
+                <div class="input-box">
+                  <h3>Efectivo solicitado</h3>
+                    <div>
+                        
+                        <input type="intiger" placeholder="Efectivo solicitado" required formControlName="efectivo" />
+                    </div>
                 </div>
-              </div>
-              <div class="input-box">
-                <!-- <h3>Asignaciones</h3>
-                <div class="select-box">
-                  <select formControlName="asignacion">
-                    <option hidden>Selecciona el presupuesto</option>
-                    <option *ngFor="let c of asignaciones" [value]="[c.idAsignacionP]">{{c.montoAsignado }}</option>
-                  </select>
-                </div> -->
-              </div>
-
+                <div class="input-box">
+                    <h3>Gasto</h3>
+                    <div class="select-box">
+                        <select formControlName="tipoGasto" type="text" >
+                            <option hidden>Selecciona tipo de gasto</option>
+                            <option  *ngFor="let g of tipoGastos" [value]="[g.idCatalogo]">{{g.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <h3>Proveedor</h3>
+                    <div class="select-box">
+                        <select formControlName="proveedor">
+                            <option hidden>Selecciona el proveedor</option>
+                            <option *ngFor="let p of proveedores" [value]="[p.idProveedor]">{{p.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-
             <div class="column">
               <div class="input-box address">
                 <h3>Justificante</h3>

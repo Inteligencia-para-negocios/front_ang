@@ -129,12 +129,17 @@ export class UtilService {
     let url = `${environment.baseUrl}Partidas`;
     return this.http.get<Partida[]>(url,{headers});
   }
-
   
   getEmpresas():Observable<Partida[]>{
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Empresas`;
     return this.http.get<Partida[]>(url,{headers});
+  }
+
+  getProveedores():Observable<any[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Proveedores`;
+    return this.http.get<any[]>(url,{headers});
   }
 
   setCodigo(data: string) {
