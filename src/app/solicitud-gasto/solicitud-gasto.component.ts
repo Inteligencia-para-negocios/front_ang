@@ -4,6 +4,7 @@ import { ClassificationService } from '../service/classification.service';
 import { UtilService } from '../service/util.service';
 import { UserService } from '../service/user.service';
 import { ErrorHandlerService } from '../service/error-handler.service';
+import { SolicitudService } from '../service/solicitud.service';
 
 @Component({
   selector: 'app-solicitud-gasto',
@@ -25,7 +26,8 @@ export class SolicitudGastoComponent implements OnInit {
     private classificationService: ClassificationService,
     private utilService: UtilService,
     private userService: UserService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private solicService: SolicitudService
   ) { 
     this.captureForm = this._formBuilder.group({
       empresa: [{ value: '', disabled: true }, Validators.required],
@@ -34,7 +36,7 @@ export class SolicitudGastoComponent implements OnInit {
       presupuesto: ['', Validators.required],
       partida: ['', Validators.required],
       clasificacion: ['', Validators.required],
-      efectivo: ['', Validators.required],
+      monto: ['', Validators.required],
       tipoGasto: ['', Validators.required],
       proveedor: ['', Validators.required],
       justificacion: ['', Validators.required],
@@ -80,7 +82,10 @@ export class SolicitudGastoComponent implements OnInit {
 
   private getPresupuestos(): void {
     this.utilService.getPresupuestosAsignados().subscribe({
-      next: (data: any) => { this.presupuestos = data; },
+      next: (data: any) => {
+        console.log(data);
+         
+        this.presupuestos = data; },
       error: (err) => this.errorHandler.handleError(err),
     });
   }
@@ -93,35 +98,29 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   onChangePresupuesto(resp: string): void {
-    this.utilService.getPresupuestoSelect({ nombre: resp }).subscribe({
-      next: (data: any) => {
+    const select = this.presupuestos.find(pr => pr.idDetallePresupuesto === resp);
+    this.utilService.getPresupuestoSelect({ nombre: select.presupuesto }).subscribe({
+      next: (data: any) => { 
         this.partidas = data;
-      },
-      error: (err) => {
-        this.errorHandler.handleError(err);
-      }
+       },
+      error: (err) => { this.errorHandler.handleError(err);}
     });
   }
   
 
   async onChangePartida(resp: string): Promise<void> {
-    try {
-      const data = await (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
-        next: (data: any) => {
-          this.clasificaciones = data;
-        },
+      (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
+        next: (data: any) => { this.clasificaciones = data; },
+        error: (err) => { this.errorHandler.handleError(err);}
       });
-    } catch (err) {
-      this.errorHandler.handleError(err);
-    }
   }
 
   solicitudGasto(): void {
-    
-    if (this.captureForm.valid) {
-      this.errorHandler.handleError('Se ha registrado la solicitud correctamente.');
-    } else {
-      this.errorHandler.handleError('Faltan campos obligatorios en el formulario.');
-    }
+      this.solicService.createSolicitud(this.captureForm.value).subscribe({
+        next: (data: any) => { 
+          this.errorHandler.handleError('Se ha registrado la solicitud correctamente.'); 
+        },
+        error: (err) => { this.errorHandler.handleError(err);}
+      })
   }
 }

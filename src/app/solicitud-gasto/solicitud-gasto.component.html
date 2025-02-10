@@ -43,12 +43,12 @@
                 <div class="select-box">
                   <select formControlName="presupuesto" type="text" (ngModelChange)="onChangePresupuesto($event)">
                     <option hidden>Selecciona el presupuesto</option>
-                    <option *ngFor="let pr of presupuestos" [value]="pr.presupuesto">{{pr.presupuesto}}</option>
+                    <option *ngFor="let pr of presupuestos" [value]="pr.idDetallePresupuesto">{{pr.presupuesto}}</option>
                   </select>
                 </div>
               </div>
               <div class="input-box">
-                <h3>Partida</h3>
+                <h3>Partida</h3> 
                 <div class="select-box">
                   <select formControlName="partida" type="text" (ngModelChange)="onChangePartida($event)">
                     <option hidden>Selecciona la partida</option>
@@ -71,7 +71,7 @@
                   <h3>Efectivo solicitado</h3>
                     <div>
                         
-                        <input type="intiger" placeholder="Efectivo solicitado" required formControlName="efectivo" />
+                        <input type="intiger" placeholder="Efectivo solicitado" required formControlName="monto" />
                     </div>
                 </div>
                 <div class="input-box">
