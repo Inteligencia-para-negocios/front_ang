@@ -21,4 +21,10 @@ export class SolicitudService {
     let url = `${environment.baseUrl}Solicitudes/`;
     return this.http.post<any[]>(url, objet, {headers});
   }
+
+  getSolicitudes(): Observable<any[]>{
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Solicitudes/`;
+    return this.http.get<any[]>(url, {headers});
+  }
 }

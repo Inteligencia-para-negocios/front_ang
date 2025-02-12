@@ -101,6 +101,12 @@ export class UtilService {
     return this.http.get<Partida[]>(url,{headers});
   }
 
+  getEstatus(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/ESTATUS`;
+    return this.http.get<Partida[]>(url,{headers});
+  }
+
   getPresupuestosAsignados(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuesto/Detalle/asignados`;

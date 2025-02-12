@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+ <app-navbar></app-navbar>
 <div id="content">
     <main>
         <div class="table-data">
@@ -31,69 +31,51 @@
                         <thead>
                             <tr>
                                 <th>Folio</th>
-                                <th>Sucursal</th>
-                                <th>Capturista</th>
                                 <th>Responsble</th>
-                                <th>Chequera</th>
-                                <th>Concepto</th>
-                                <th>Importe</th>
                                 <th>Proveedor</th>
+                                <th>Tipo</th>
                                 <th>Justificacion</th>
+                                <th>Monto</th>
                                 <th>Estado</th>
-                                <th>Estado de efectivo</th>
                                 <th></th>
-
+                                
                             </tr>
                         </thead>
                             <tbody>
-                                <tr *ngFor="let r of reportes">
+                                <tr *ngFor="let s of solicitudes">
                                     <td>
-                                        <h5>{{r.Folio}}</h5>
-                                    </td>
-                                    <td>
-                                        {{r.Sucursal}}
+                                        <h5>{{s.folio}}</h5>
                                     </td>
                                     <td>
-                                        {{r.Capturista}}
+                                        {{s.solicitante}}
                                     </td>
                                     <td>
-                                        {{r.Responsable}}
+                                        {{s.proveedor}}
                                     </td>
                                     <td>
-                                        {{r.Chequera}}
+                                        {{s.tipo}}
                                     </td>
                                     <td>
-                                        {{r.Concepto}}
+                                        {{s.justificacion}}
                                     </td>
                                     <td>
-                                        <h5><span>$</span>{{r.Liberado}}</h5>
+                                        {{s.monto}}
+                                    </td>
+                                    <td *ngIf='s.estatus=="AUTORIZADO"'>
+                                        <span class={{pending}}>{{s.estatus}}</span>
+                                    </td>
+                                    <td *ngIf='s.estatus=="APROBADO"'>
+                                        <span class={{completed}}>{{s.estatus}}</span>
+                                    </td>
+                                    <td *ngIf='s.estatus=="RECHAZADO"'>
+                                        <span class={{pending}}>{{s.estatus}}</span>
                                     </td>
                                     <td>
-                                        {{r.Provedor}}
-                                    </td>
-                                    <td>
-                                        {{r.Justificacion}}
-                                    </td>
-                                    <td *ngIf='r.Autorizado=="PENDIENTE"'>
-                                        <span class={{pending}}>{{r.Autorizado}}</span>
-                                    </td>
-                                    <td *ngIf='r.Autorizado=="APROBADO"'>
-                                        <span class={{completed}}>{{r.Autorizado}}</span>
-                                    </td>
-                                    <td *ngIf='r.Efectivo=="PENDIENTE"'>
-                                        <span class={{pending}}>{{r.Efectivo}}</span>
-                                    </td>
-                                    <td *ngIf='r.Efectivo=="LIBERADO"'>
-                                        <span class={{completed}}>{{r.Efectivo}}</span>
-                                    </td>
-                                    <td>
-                                        <div class="input-box" [formGroup]="auth">
+                                        <div class="input-box">
                                             <div class="select-box">
-                                                <select type="text"
-                                                    formControlName="status" 
-                                                    (ngModelChange)="onChangeSucursal($event,r.Folio,r.idResponsable)">
+                                                <select type="text"formControlName="status" >
                                                     <option hidden>Estatus</option>
-                                                    <option *ngFor="let c of status" [value]="c.idStatus">{{c.nameStatus}}</option>
+                                                    <option *ngFor="let s of status" [value]="s.idStatus">{{s.nombre}}</option>
                                                 </select>
                                             </div>
                                         </div>

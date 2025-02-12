@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ClassificationService } from '../service/classification.service';
 import { UtilService } from '../service/util.service';
 import { UserService } from '../service/user.service';
-import { ErrorHandlerService } from '../service/error-handler.service';
+import { HandlerService } from '../service/handler.service';
 import { SolicitudService } from '../service/solicitud.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class SolicitudGastoComponent implements OnInit {
     private classificationService: ClassificationService,
     private utilService: UtilService,
     private userService: UserService,
-    private errorHandler: ErrorHandlerService,
+    private handler: HandlerService,
     private solicService: SolicitudService
   ) { 
     this.captureForm = this._formBuilder.group({
@@ -62,21 +62,21 @@ export class SolicitudGastoComponent implements OnInit {
           });
         }
       },
-      error: (err) => this.errorHandler.handleError(err),
+      error: (err) => this.handler.handleError(),
     });
   }
 
   private getPartidas(): void {
     this.utilService.getPartida().subscribe({
       next: (data: any) => { this.partidas = data; },
-      error: (err) => this.errorHandler.handleError(err),
+      error: (err) => this.handler.handleError(),
     });
   }
 
   private getTipoGasto(): void {
     this.utilService.getTipoGasto().subscribe({
       next: (data: any) => { this.tipoGastos = data; },
-      error: (err) => this.errorHandler.handleError(err),
+      error: (err) => this.handler.handleError(),
     });
   }
 
@@ -86,14 +86,14 @@ export class SolicitudGastoComponent implements OnInit {
         console.log(data);
          
         this.presupuestos = data; },
-      error: (err) => this.errorHandler.handleError(err),
+      error: (err) => this.handler.handleError(),
     });
   }
 
   private getProveedores(): void {
     this.utilService.getProveedores().subscribe({
       next: (data: any) => { this.proveedores = data; },
-      error: (err) => this.errorHandler.handleError(err),
+      error: (err) => this.handler.handleError(),
     });
   }
 
@@ -103,7 +103,7 @@ export class SolicitudGastoComponent implements OnInit {
       next: (data: any) => { 
         this.partidas = data;
        },
-      error: (err) => { this.errorHandler.handleError(err);}
+      error: (err) => { this.handler.handleError();}
     });
   }
   
@@ -111,16 +111,16 @@ export class SolicitudGastoComponent implements OnInit {
   async onChangePartida(resp: string): Promise<void> {
       (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
         next: (data: any) => { this.clasificaciones = data; },
-        error: (err) => { this.errorHandler.handleError(err);}
+        error: (err) => { this.handler.handleError();}
       });
   }
 
   solicitudGasto(): void {
       this.solicService.createSolicitud(this.captureForm.value).subscribe({
         next: (data: any) => { 
-          this.errorHandler.handleError('Se ha registrado la solicitud correctamente.'); 
+          this.handler.handleSuccess(); 
         },
-        error: (err) => { this.errorHandler.handleError(err);}
+        error: (err) => { this.handler.handleError();}
       })
   }
 }
