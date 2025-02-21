@@ -16,7 +16,7 @@ export class SolicitudService {
     private utils: UtilService
   ) {}
 
-  createSolicitud(objet : any): Observable<any[]> {
+  createSolicitud(objet: any): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
     return this.http.post<any[]>(url, objet, {headers});
@@ -26,5 +26,17 @@ export class SolicitudService {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
     return this.http.get<any[]>(url, {headers});
+  }
+
+  updateSolicitud(objet: any){
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Solicitudes/`;
+    return this.http.put(url, objet, {headers});
+  }
+
+  authSolicitud(objet:any){
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Solicitudes/`;
+    return this.http.patch(url, objet, {headers});
   }
 }

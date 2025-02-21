@@ -15,13 +15,9 @@ export class AuthGastosComponent implements OnInit {
 
   public solicitudes: any[] = []
   public status: any[] = []
-  completed: any = 'status completed';
-  process: any = 'status process';
-  pending: any = 'status pending'
 
   constructor(
     private util: UtilService,
-    private twilio: AuthService,
     private solicitud: SolicitudService
   ) { }
 
@@ -41,9 +37,24 @@ export class AuthGastosComponent implements OnInit {
   getEstatus(){
     this.util.getEstatus().subscribe({
       next: (data: any) => {
+        this.status = [];
         this.status = data;
       }
     })
   }
   
+  onChangeStatus(event: Event, id: string): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const nuevoStatus = selectElement.value;
+    const select = this.status.find(st => st.idCatalogo === nuevoStatus);
+    const obj = { "idSolicitud":id, "estatus":nuevoStatus }
+    if (select.nombre === "AUTORIZADO") 
+      this.solicitud.authSolicitud(obj).subscribe({
+    });
+    else
+      this.solicitud.updateSolicitud(obj).subscribe({
+    });
+    this.getEstatus()
+  }
+
 }

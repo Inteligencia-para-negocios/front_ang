@@ -29,3 +29,26 @@ td span{
     width: 100px;
     height: 100px;
 }
+
+.select-box select{
+    width: 200px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.aprobado{
+	padding: 5px;
+	border-radius: 5px;
+    background-color: var(--tag-1);
+}
+.rechazado{
+	padding: 5px;
+	border-radius: 5px;
+    background-color: var(--tag-4);
+}
+.pendiente{
+	padding: 5px;
+	border-radius: 5px;
+    background-color: var(--light-yellow);
+}

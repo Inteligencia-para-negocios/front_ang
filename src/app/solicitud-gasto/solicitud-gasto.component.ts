@@ -83,8 +83,6 @@ export class SolicitudGastoComponent implements OnInit {
   private getPresupuestos(): void {
     this.utilService.getPresupuestosAsignados().subscribe({
       next: (data: any) => {
-        console.log(data);
-         
         this.presupuestos = data; },
       error: (err) => this.handler.handleError(),
     });

@@ -68,7 +68,7 @@ export class UtilService {
     let url = `${environment.baseUrl}status/getById/${id}`;
     return this.http.get<Status[]>(url);
   }
-
+  
   create(revolvente: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrl}revolvente/create`, revolvente)
   }

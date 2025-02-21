@@ -1,4 +1,4 @@
- <app-navbar></app-navbar>
+<app-navbar></app-navbar>
 <div id="content">
     <main>
         <div class="table-data">
@@ -38,7 +38,6 @@
                                 <th>Monto</th>
                                 <th>Estado</th>
                                 <th></th>
-                                
                             </tr>
                         </thead>
                             <tbody>
@@ -62,20 +61,23 @@
                                         {{s.monto}}
                                     </td>
                                     <td *ngIf='s.estatus=="AUTORIZADO"'>
-                                        <span class={{pending}}>{{s.estatus}}</span>
+                                        <span class='aprobado'>{{s.estatus}}</span>
                                     </td>
                                     <td *ngIf='s.estatus=="APROBADO"'>
-                                        <span class={{completed}}>{{s.estatus}}</span>
+                                        <span class='aprobado'>{{s.estatus}}</span>
                                     </td>
                                     <td *ngIf='s.estatus=="RECHAZADO"'>
-                                        <span class={{pending}}>{{s.estatus}}</span>
+                                        <span class='rechazado'>{{s.estatus}}</span>
+                                    </td>
+                                    <td *ngIf='s.estatus=="PENDIENTE"'>
+                                        <span class='pendiente'>{{s.estatus}}</span>
                                     </td>
                                     <td>
                                         <div class="input-box">
                                             <div class="select-box">
-                                                <select type="text"formControlName="status" >
+                                                <select (change)="onChangeStatus($event, s.idSolicitud)">
                                                     <option hidden>Estatus</option>
-                                                    <option *ngFor="let s of status" [value]="s.idStatus">{{s.nombre}}</option>
+                                                    <option *ngFor="let st of status" [value]="st.idCatalogo">{{ st.nombre }}</option>
                                                 </select>
                                             </div>
                                         </div>
