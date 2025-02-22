@@ -19,7 +19,7 @@ export class GastoService {
 
   getGastos(): Observable<any[]>{
     const headers = this.auth.getHeaders()
-    const url = `${environment.baseUrl}Gastos/`;
+    const url = `${environment.baseUrl}Gastos/filtrado`;
     return this.http.get<any[]>(url,{headers});
   }
 

@@ -5,6 +5,8 @@ import { Status } from 'src/models/interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { SolicitudService } from '../service/solicitud.service';
+import { GastoService } from '../service/gasto.service';
+import { HandlerService } from '../service/handler.service';
 
 @Component({
   selector: 'app-auth-gastos',
@@ -18,7 +20,9 @@ export class AuthGastosComponent implements OnInit {
 
   constructor(
     private util: UtilService,
-    private solicitud: SolicitudService
+    private solicitud: SolicitudService,
+    private gasto: GastoService,
+    private handler: HandlerService
   ) { }
 
   ngOnInit(): void {
@@ -48,11 +52,22 @@ export class AuthGastosComponent implements OnInit {
     const nuevoStatus = selectElement.value;
     const select = this.status.find(st => st.idCatalogo === nuevoStatus);
     const obj = { "idSolicitud":id, "estatus":nuevoStatus }
-    if (select.nombre === "AUTORIZADO") 
+    if (select.nombre === "AUTORIZADO") {
       this.solicitud.authSolicitud(obj).subscribe({
-    });
-    else
+        next: (data: any) => { 
+          this.handler.handleSuccess();
+          this.gasto.createGasto({"solicitud": id}).subscribe()
+         },
+        error: (err) => { console.log(err);
+         this.handler.handleError();}
+      });
+    }else
       this.solicitud.updateSolicitud(obj).subscribe({
+        next: (data: any) => { 
+          this.handler.handleSuccess();
+         },
+        error: (err) => { console.log(err);
+         this.handler.handleError();}
     });
     this.getEstatus()
   }

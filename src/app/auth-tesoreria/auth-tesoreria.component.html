@@ -37,9 +37,7 @@
                                 <th>Folio</th>
                                 <th>Area</th>
                                 <th>Sucursal</th>
-                                <th>Capturista</th>
                                 <th>Responsble</th>
-                                <th>Concepto</th>
                                 <th>Importe</th>
                                 <th>Provedor</th>
                                 <th>Fecha</th>
@@ -50,54 +48,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let c of reportes">
+                            <tr *ngFor="let g of gastos">
                                 <td>
-                                    <h5>{{c.Folio}}</h5>
+                                    <h5>{{g.folio}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{g.area}}</h5>
+                                </td>
+                                <td>
+                                    {{g.empresa}}
+                                </td>
+                                <td>
+                                    {{g.responsable}}
+                                </td>
+                                <td>
+                                    <h5><Span>$</Span>{{g.monto}}</h5>
+                                </td>
+                                <td>
+                                    {{g.proveedor}}
+                                </td>
+                                <td>
+                                    {{formatFecha(g.DateCreate)}}
                                 </td>
                                 <td>
                                     
                                 </td>
                                 <td>
-                                    {{c.Sucursal}}
+                                    {{g.idLiberador}}
+                                </td>
+                                <td *ngIf='g.estatus!="PENDIENTE"'>
+                                    <span class={{completed}}>{{g.estatus}}</span>
+                                </td>
+                                <td *ngIf='g.estatus==="PENDIENTE"'>
+                                    <span class={{pending}}>{{g.estatus}}</span>
+                                </td>
+                                <td *ngIf='g.estatus!="PENDIENTE"'>
+                                    <span class={{completed}}>{{g.estatus}}</span>
+                                </td>
+                                <td *ngIf='g.estatus==="PENDIENTE"'>
+                                    <span class={{pending}}>{{g.estatus}}</span>
                                 </td>
                                 <td>
-                                    {{c.Capturista}}
-                                </td>
-                                <td>
-                                    {{c.Responsable}}
-                                </td>
-                                <td>
-                                    {{c.Concepto}}
-                                </td>
-                                <td>
-                                    <h5><Span>$</Span>{{c.Liberado}}</h5>
-                                </td>
-                                <td>
-                                    {{c.Provedor}}
-                                </td>
-                                <td>
-                                    {{formatFecha(c.DateCreate)}}
-                                </td>
-                                <td>
-                                    {{c.Justificacion}}
-                                </td>
-                                <td>
-                                    {{c.Autorizador}}
-                                </td>
-                                <td *ngIf='c.Autorizado!="PENDIENTE"'>
-                                    <span class={{completed}}>{{c.Autorizado}}</span>
-                                </td>
-                                <td *ngIf='c.Autorizado==="PENDIENTE"'>
-                                    <span class={{pending}}>{{c.Efectivo}}</span>
-                                </td>
-                                <td *ngIf='c.Efectivo!="PENDIENTE"'>
-                                    <span class={{completed}}>{{c.Autorizado}}</span>
-                                </td>
-                                <td *ngIf='c.Efectivo==="PENDIENTE"'>
-                                    <span class={{pending}}>{{c.Efectivo}}</span>
-                                </td>
-                                <td>
-                                    <button (click)="SolVerify(c.idResponsable,c.Folio)" type="button" class="btn-primary">
+                                    <button type="button" class="btn-primary">
                                         Liberar
                                     </button>
                                 </td>
