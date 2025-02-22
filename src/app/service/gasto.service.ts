@@ -37,7 +37,7 @@ export class GastoService {
 
   authGasto(obj:any){
     const headers = this.auth.getHeaders();
-    const url = `${environment.baseUrl}Gastos/`
+    const url = `${environment.baseUrl}Gastos/auth`
     return this.http.patch(url,obj,{headers})
   }
 }

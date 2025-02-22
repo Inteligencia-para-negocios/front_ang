@@ -82,14 +82,14 @@
                                 <td *ngIf='g.estatus==="PENDIENTE"'>
                                     <span class={{pending}}>{{g.estatus}}</span>
                                 </td>
-                                <td *ngIf='g.estatus!="PENDIENTE"'>
-                                    <span class={{completed}}>{{g.estatus}}</span>
+                                <td *ngIf='g.liberador!=null'>
+                                    <span class={{completed}}>Liberado</span>
                                 </td>
-                                <td *ngIf='g.estatus==="PENDIENTE"'>
+                                <td *ngIf='g.liberador===null'>
                                     <span class={{pending}}>{{g.estatus}}</span>
                                 </td>
                                 <td>
-                                    <button onclick="" type="button" class="btn-primary">
+                                    <button (onclick)="liberacion(g)" type="button" class="btn-primary">
                                         Liberar
                                     </button>
                                 </td>

@@ -61,12 +61,18 @@ export class AuthTesoreriaComponent {
     this.gastosService.getGastos().subscribe({
       next: (data: any) => {
         this.gastos = data;
+        console.log(data);
+        
       }
     })
   }
 
-  onClick(){
+  liberacion(obj:any){
+    console.log(obj);
     
+    // this.gastosService.authGasto(obj).subscribe({
+      
+    // })
   }
 
   sendCodeAndReturnPromise(century: any) {
