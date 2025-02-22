@@ -60,10 +60,13 @@ export class AuthTesoreriaComponent {
   getGastos() {
     this.gastosService.getGastos().subscribe({
       next: (data: any) => {
-        console.log(data);
         this.gastos = data;
       }
     })
+  }
+
+  onClick(){
+    
   }
 
   sendCodeAndReturnPromise(century: any) {
