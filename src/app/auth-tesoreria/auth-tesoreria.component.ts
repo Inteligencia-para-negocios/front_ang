@@ -68,11 +68,9 @@ export class AuthTesoreriaComponent {
   }
 
   liberacion(obj:any){
-    console.log(obj);
-    
-    // this.gastosService.authGasto(obj).subscribe({
-      
-    // })
+    const dato = {id: obj.idGasto}
+    console.log(dato);
+    this.gastosService.authGasto(dato).subscribe({})
   }
 
   sendCodeAndReturnPromise(century: any) {
