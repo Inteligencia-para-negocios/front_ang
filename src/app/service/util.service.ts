@@ -97,26 +97,56 @@ export class UtilService {
 
   getTipoGasto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Catalogos/GASTO`;
-    return this.http.get<Partida[]>(url,{headers});
+    let url = `${environment.baseUrl}Catalogos/GTS`;
+    return this.http.get<any[]>(url,{headers});
   }
 
-  getEstatus(): Observable<any[]> {
+  getEstatusPresupuesto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Catalogos/ESTATUS`;
-    return this.http.get<Partida[]>(url,{headers});
+    let url = `${environment.baseUrl}Catalogos/STP`;
+    return this.http.get<any[]>(url,{headers});
+  }
+
+  getEstatusSolicitud(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/STS`;
+    return this.http.get<any[]>(url,{headers});
+  }
+
+  getEstatusCaja(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/STC`;
+    return this.http.get<any[]>(url,{headers});
+  }
+  
+  getEstatusGasto(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/STG`;
+    return this.http.get<any[]>(url,{headers});
+  }
+
+  getConcepto(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/CCP`;
+    return this.http.get<any[]>(url,{headers});
+  }
+
+  getMovimientos(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/MVM`;
+    return this.http.get<any[]>(url,{headers});
   }
 
   getPresupuestosAsignados(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuesto/Detalle/asignados`;
-    return this.http.get<Partida[]>(url,{headers});
+    return this.http.get<any[]>(url,{headers});
   }
 
   getPresupuestoSelect(objet : any): Observable<any[]> {
     const headers = this.crearCabezeraCom(objet);
     let url = `${environment.baseUrl}Presupuesto/Detalle`;
-    return this.http.get<Partida[]>(url,headers);
+    return this.http.get<any[]>(url,headers);
   }
 
   getStatus1(): Observable<Status[]> {
@@ -130,16 +160,16 @@ export class UtilService {
   }
 
 
-  getPartida():Observable<Partida[]>{
+  getPartida():Observable<any[]>{
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Partidas`;
-    return this.http.get<Partida[]>(url,{headers});
+    return this.http.get<any[]>(url,{headers});
   }
   
-  getEmpresas():Observable<Partida[]>{
+  getEmpresas():Observable<any[]>{
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Empresas`;
-    return this.http.get<Partida[]>(url,{headers});
+    return this.http.get<any[]>(url,{headers});
   }
 
   getProveedores():Observable<any[]>{

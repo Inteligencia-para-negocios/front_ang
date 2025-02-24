@@ -1,8 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -12,9 +10,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$ctrlGastos-primary: mat.define-palette(mat.$light-blue-palette,500);
-$ctrlGastos-accent: mat.define-palette(mat.$pink-palette, A100, A100, A400);
-
+$ctrlGastos-primary: mat.define-palette(mat.$indigo-palette);
+$ctrlGastos-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $ctrlGastos-warn: mat.define-palette(mat.$red-palette);
@@ -34,3 +31,17 @@ $ctrlGastos-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($ctrlGastos-theme);
 
+// Si necesitas otro tema, puedes definirlo aquí sin repetir @use y @include mat.core()
+$ctrlGastos-primary-alt: mat.define-palette(mat.$light-blue-palette, 500);
+$ctrlGastos-accent-alt: mat.define-palette(mat.$pink-palette, A100, A100, A400);
+
+$ctrlGastos-theme-alt: mat.define-light-theme((
+  color: (
+    primary: $ctrlGastos-primary-alt,
+    accent: $ctrlGastos-accent-alt,
+    warn: $ctrlGastos-warn, // Puedes reutilizar la paleta de warn
+  )
+));
+
+// Aplicar el segundo tema a componentes específicos (opcional)
+@include mat.button-theme($ctrlGastos-theme-alt);

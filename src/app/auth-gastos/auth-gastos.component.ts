@@ -39,7 +39,7 @@ export class AuthGastosComponent implements OnInit {
   }
 
   getEstatus(){
-    this.util.getEstatus().subscribe({
+    this.util.getEstatusSolicitud().subscribe({
       next: (data: any) => {
         this.status = [];
         this.status = data;

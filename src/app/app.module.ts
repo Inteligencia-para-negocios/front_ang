@@ -108,6 +108,7 @@ import { DashPrespComponent } from './dash-presp/dash-presp.component';
 import { AsignacionPresupuestoComponent } from './prespuestos/asignacion-presupuesto/asignacion-presupuesto.component';
 import { NewPresupuestoComponent } from './prespuestos/new-presupuesto/new-presupuesto.component';
 import { ListPrespComponent } from './prespuestos/list-presp/list-presp.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -217,7 +218,7 @@ import { ListPrespComponent } from './prespuestos/list-presp/list-presp.componen
     ScrollingModule,
     DialogModule,
     PdfViewerModule,
-    
+    MatFormFieldModule,
   ],
   providers: [
     ViewGastosComponent,

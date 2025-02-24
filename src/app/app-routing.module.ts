@@ -44,7 +44,7 @@ import { ListPrespComponent } from './prespuestos/list-presp/list-presp.componen
 
 
 
-const routes: Routes = [
+export const routes: Routes = [
 
 
   //pantall principal al entrar a la aplicacion para loguearse.

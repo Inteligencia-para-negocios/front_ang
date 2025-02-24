@@ -1,0 +1,13 @@
+/* Contenedor para los selects */
+.select-container {
+    display: flex; /* Usa Flexbox para organizar los elementos en una fila */
+    gap: 16px; /* Espacio entre los selects */
+    align-items: center; /* Alinea verticalmente los elementos */
+    flex-wrap: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+  }
+  
+  /* Estilo para cada select */
+  .select-item {
+    flex: 1; /* Hace que cada select ocupe el mismo espacio */
+    min-width: max-content; /* Evita que los selects se desborden */
+  }
