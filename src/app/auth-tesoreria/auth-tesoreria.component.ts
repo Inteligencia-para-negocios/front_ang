@@ -46,7 +46,7 @@ export class AuthTesoreriaComponent {
   }
 
   liberacion(obj: any) {
-    const dato = { id: obj.idGasto };
+    const dato = { id: obj.idGasto, monto: obj.monto };
 
     // Abre el modal
     const dialogRef = this.dialog.open(CapCajaMoviminetoComponent, {

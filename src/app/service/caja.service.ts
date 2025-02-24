@@ -17,4 +17,10 @@ export class CajaService {
       return this.http.get<any[]>(url,{headers});
     }
 
+    createMovimiento(objet:any):Observable<any[]> {
+      const headers = this.auth.getHeaders();
+      let url = `${environment.baseUrl}Cajas/Movimiento`;
+      return this.http.post<any[]>(url, objet, {headers});
+    }
+
 }

@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select'; // Importa MatSelect
 import { CommonModule } from '@angular/common';
 import { CajaService } from '../service/caja.service';
 import { UtilService } from '../service/util.service';
+import { HandlerService } from '../service/handler.service';
 
 
 @Component({
@@ -37,20 +38,19 @@ export class CapCajaMoviminetoComponent implements OnInit {
     private cajaServices: CajaService,
     private utils: UtilService,
     private fb: FormBuilder,
+    private handler: HandlerService,
     private dialogRef: MatDialogRef<CapCajaMoviminetoComponent>,
     @Inject(MAT_DIALOG_DATA) public gasto: any
   ) {
     // Inicializa el formulario con los controles para los selects
     this.formulario = this.fb.group({
-      nombre: ['', Validators.required], // Valor inicial vacío y requerido
-      email: ['', [Validators.required, Validators.email]], // Valor inicial vacío y requerido
-      mensaje: ['', Validators.required] // Valor inicial vacío y requerido
+      idCaja: ['', Validators.required],
+      idMovimiento: ['', [Validators.required]],
+      idConcepto: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    console.log("gasto select ", this.gasto);
-    
     this.getCajas();
     this.getConceptos();
     this.getMovimientos();
@@ -58,7 +58,12 @@ export class CapCajaMoviminetoComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formulario.valid) {
-      console.log('Formulario enviado:', this.formulario.value);
+      const nuevo = this.formulario.value;
+      nuevo.monto =  + this.gasto.monto
+      this.cajaServices.createMovimiento(nuevo).subscribe({
+        next: () => { this.handler.handleSuccess(); },
+        error: (err) => { this.handler.handleError();}
+      })
       this.dialogRef.close(this.formulario.value);
     }
   }

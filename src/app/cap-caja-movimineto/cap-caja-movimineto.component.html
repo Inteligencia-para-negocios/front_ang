@@ -1,32 +1,32 @@
-<h2 mat-dialog-title>Formulario de Ejemplo</h2>
+<h2 mat-dialog-title>Caja Movimiento</h2>
 <mat-dialog-content>
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <!-- Contenedor para los selects -->
     <div class="select-container">
-      <!-- Select para el nombre -->
+      <!-- Select para el caja -->
       <mat-form-field appearance="fill">
         <mat-label>Caja</mat-label>
-        <mat-select formControlName="nombre" required>
+        <mat-select formControlName="idCaja" required>
           <mat-option *ngFor="let c of cajas" [value]="c.idCaja">
             {{ c.nombre }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <!-- Select para el email -->
+      <!-- Select para el movimiento -->
       <mat-form-field appearance="fill">
         <mat-label>Movimiento</mat-label>
-        <mat-select formControlName="email" required>
+        <mat-select formControlName="idMovimiento" required>
           <mat-option *ngFor="let m of movimientos" [value]="m.idCatalogo">
             {{ m.nombre }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <!-- Select para el mensaje -->
+      <!-- Select para el concepto -->
       <mat-form-field appearance="fill">
         <mat-label>Concepto</mat-label>
-        <mat-select formControlName="mensaje" required>
+        <mat-select formControlName="idConcepto" required>
           <mat-option *ngFor="let c of conceptos" [value]="c.idCatalogo">
             {{ c.nombre }}
           </mat-option>
