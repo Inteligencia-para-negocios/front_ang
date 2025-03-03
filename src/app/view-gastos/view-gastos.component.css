@@ -19,6 +19,9 @@
 tr{
 	height: 35px;
 }
+td{
+    width:  max-content;
+}
 
 td span{
 	vertical-align: center;
@@ -155,7 +158,19 @@ td span{
     font-weight: bold; 
 }
 
+.btn-primary{
+	color: white;
+	background-color: var(--blue);
+	border: none;
+	border-radius: 15px;
+    padding:  5px 10px  5px 10px;
+    font-size: 10px;
+    font-weight: bold;
+}  
 
+h5{
+	font-size: 10px;
+}
 
 /* .content .tabs_wrapper #tab_4:checked~.shape {
     left: calc(10px + 130px * 4);

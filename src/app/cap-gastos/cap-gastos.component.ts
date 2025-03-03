@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Area, Cheque, Concept, Empleado, Provedor, Responsable, Sucursal, User } from 'src/models/interface';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cap-gastos',
@@ -10,59 +12,53 @@ import Swal from 'sweetalert2';
 })
 export class CapGastosComponent implements OnInit {
 
-
-  ngOnInit(): void {
-    // this.obtenerEstadoActual()
-  }
-  public cheques: Cheque[] = []
-  public sucursales: Sucursal[] = []
-  public sucursalfilter: Sucursal[] = []
-  public areas: Area[] = []
-  public users: User[] = []
-  public conceptos: Concept[] = []
-  public provider: Provedor[] = []
-  public responsables = []
-  public loading: boolean = true
-  public sucursal: string | undefined
-  public respons: boolean | undefined
-  public sucu: boolean = false
-  public empleados: Empleado[] = [];
-  public revolventes: any[] = []
-  public remanenteChequeSelect: number = 0
-  estadoActual: string = 'remision'; // Estado inicial, puedes cambiarlo según tus necesidades
-  bandera: boolean | undefined
-
-  constructor(
-
-    private _formBuider: FormBuilder,
-  ) { }
-
   captureForm = new FormGroup({
-    clasificacion: new FormControl('', [Validators.required]),
-    partida: new FormControl('', [Validators.required]),
-    idProvedor: new FormControl(''),
-    efectivoSol: new FormControl('', [Validators.required]),
-    area: new FormControl(''),
-    empresaSol: new FormControl('', [Validators.required]),
-    financiamiento: new FormControl('', [Validators.required]),
-    tipoDeGasto: new FormControl(''),
-    justificacion: new FormControl('', [Validators.required]),
+    clasificacion: new FormControl({ value: '', disabled: true }, [Validators.required] ),
+    partida: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    proveedor: new FormControl({ value: '', disabled: true }),
+    efectivoSol: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    area: new FormControl({ value: '', disabled: true }),
+    empresaSol: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    financiamiento: new FormControl({ value: '', disabled: false }, [Validators.required]),
+    tipoDeGasto: new FormControl({ value: '', disabled: true }),
+    justificacion: new FormControl({ value: '', disabled: true }, [Validators.required]),
     efectivoComprobado: new FormControl(sessionStorage.getItem('idUser') || localStorage.getItem('idUser')),
-    comprobante: new FormControl('')
+    comprobante: new FormControl({ value: '', disabled: false })
   })
 
-  cambiarEstado(nuevoEstado: string) {
-    this.estadoActual = nuevoEstado;
-    if (this.estadoActual == 'remision') {
-      this.bandera = false
-      console.log('bandera verdadera cambio', this.bandera)
-    } else {
-      this.bandera = true
-      console.log('bandera negativa cambio', this.bandera)
+  ngOnInit(): void {    
+    const state = this.location.getState() as { gasto?: any };    
+    if (state && state.gasto) {
+      const comprobacion = state['gasto'];
+      this.cargarDatos(comprobacion);
     }
-    console.log(this.estadoActual)
   }
 
+  cargarDatos(comprobacion: any) {
+    let recurrente = ''
+    if(comprobacion.recurrente)
+      recurrente = "RECURRENTE"
+    else
+      recurrente = "NO RECURRENTE"
+    this.captureForm.patchValue({
+      clasificacion: comprobacion.clasificacion,
+      partida: comprobacion.partida,
+      proveedor: comprobacion.proveedor,
+      empresaSol: comprobacion.empresa,
+      area: comprobacion.area,
+      tipoDeGasto: recurrente,
+      efectivoSol: comprobacion.monto,
+      justificacion: comprobacion.justificacion,
+    });
+    console.log("Datos: ",this.captureForm);
+    
+  }
+
+
+  constructor(
+    private location: Location,
+    private _formBuider: FormBuilder,
+  ) { }
 
   usuario = new FormGroup({
     usuario: new FormControl(sessionStorage.getItem('usuario') || localStorage.getItem('usuario'))

@@ -52,3 +52,9 @@ td span{
 	border-radius: 5px;
     background-color: var(--light-yellow);
 }
+h5{
+	font-size: 10px;
+}
+td{
+    width:  max-content;
+}

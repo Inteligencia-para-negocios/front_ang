@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { CorteService } from '../service/corte.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CapChequeService } from '../service/cap-cheque.service';
+import { GastoService } from '../service/gasto.service';
 @Component({
   selector: 'app-view-gastos',
   templateUrl: './view-gastos.component.html',
@@ -15,9 +16,11 @@ import { CapChequeService } from '../service/cap-cheque.service';
 
 export class ViewGastosComponent implements OnInit {
 
+  public gastos: any;
   constructor(
+    private gastosService: GastoService,
     private router: Router,
-    private gastos: ReporteService,
+    private gastosS: ReporteService,
     private utilG: UtilService,
     private cortePar: CorteService,
     private CHEQUE: CapChequeService
@@ -52,11 +55,20 @@ export class ViewGastosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGastos()
+    this.getgastosS()
     console.log(this.idUser)
     this.getMonto()
     this.getC()
     console.log(this.usuario)
 
+  }
+
+  getGastos() {
+    this.gastosService.getGastos().subscribe({
+      next: (data: any) => {
+        this.gastos = data;        
+      }
+    })
   }
 
   getC() {
@@ -83,12 +95,12 @@ export class ViewGastosComponent implements OnInit {
     this.estadoActual = nuevoEstado;
     if (this.estadoActual === 'pendiente') {
       this.bandera = false;
-      this.getGastos();
+      this.getgastosS();
       console.log('bandera verdadera cambio', this.bandera);
     } else if (this.estadoActual === 'revolvente') {
       this.bandera = true;
       console.log('bandera revolvente cambio');
-      this.listaRevolvente() // Supongo que existe una función similar para los gastos revolventes
+      this.listaRevolvente() // Supongo que existe una función similar para los gastosS revolventes
     } else {
       this.bandera = true;
       console.log('bandera negativa cambio');
@@ -112,7 +124,7 @@ export class ViewGastosComponent implements OnInit {
     this.selectFolio = folio
     console.log("Folio seleccionado: ", this.selectFolio)
     if (this.selectFolio) {
-      this.gastos.getId(this.selectFolio).subscribe({
+      this.gastosS.getId(this.selectFolio).subscribe({
         next: (data: any) => {
           console.log('::::::::::::::update gasto')
           this.utilG.setGasto(data);
@@ -135,7 +147,7 @@ export class ViewGastosComponent implements OnInit {
                 position: 'center',
                 icon: 'error',
                 title: 'No ha sido autorizado este gasto',
-                text: 'Reviza el estatus de tus gastos',
+                text: 'Reviza el estatus de tus gastosS',
                 showConfirmButton: false,
                 timer: 2000
               });
@@ -146,15 +158,15 @@ export class ViewGastosComponent implements OnInit {
       })
     }
   }
-  //consulta de visualizacion de gastos con estado de efectivo liberado para su comprobacion de efectivo
-  //solo los que esten con el estatus de liberados podran ser accesados para comprobar los gastos
+  //consulta de visualizacion de gastosS con estado de efectivo liberado para su comprobacion de efectivo
+  //solo los que esten con el estatus de liberados podran ser accesados para comprobar los gastosS
   // consulta
   // resutlado
-  // filtraremos los gastos autorizados para ser comprobados
+  // filtraremos los gastosS autorizados para ser comprobados
   // esto lo sabremos porque para estar liberado tiene que estar aprobado, por lo tanto
   // tendremos 3 estados en el cambio de estatus de los cambios del gasto generado
-  getGastos() {
-    this.gastos.getAll(this.idUser).subscribe({
+  getgastosS() {
+    this.gastosS.getAll(this.idUser).subscribe({
       next: (data: any) => {
         this.reportes = data as ReporteGastos[]
       }
@@ -162,21 +174,21 @@ export class ViewGastosComponent implements OnInit {
   }
 
   listGasComp() {
-    console.log("listado de gastos comprobados")
-    this.gastos.getAllC(this.idUser).subscribe({
+    console.log("listado de gastosS comprobados")
+    this.gastosS.getAllC(this.idUser).subscribe({
       next: (data: any) => {
         this.reportes = data as ReporteGastos[]
-        console.log("gastos comprobados", this.reportes)
+        console.log("gastosS comprobados", this.reportes)
       }
     })
   }
 
   listaRevolvente() {
-    console.log("listado de gastos revovlentes comprobados")
-    this.gastos.getAllRevolventes(this.idUser).subscribe({
+    console.log("listado de gastosS revovlentes comprobados")
+    this.gastosS.getAllRevolventes(this.idUser).subscribe({
       next: (data: any) => {
         this.reportes = data as ReporteGastos[]
-        console.log("Gastos revolventes:  ", this.reportes)
+        console.log("gastosS revolventes:  ", this.reportes)
       }
     })
   }
@@ -203,7 +215,7 @@ export class ViewGastosComponent implements OnInit {
   }
 
   getMonto() {
-    this.gastos.getMonto(this.idUser).subscribe({
+    this.gastosS.getMonto(this.idUser).subscribe({
       next: (data: any) => {
         this.monto = data as any
         console.log("totales", this.monto)
@@ -241,7 +253,7 @@ export class ViewGastosComponent implements OnInit {
       });
     }
   }
-  public gastosComp: ReporteGastos[] = []
+  public gastosSComp: ReporteGastos[] = []
 
   onChangeResp(resp: string) {
     this.idCheque = resp
@@ -260,11 +272,11 @@ export class ViewGastosComponent implements OnInit {
         this.montos = []
         console.log("no hay")
         console.log(error)
-        this.gastosComp = []
+        this.gastosSComp = []
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: 'Gastos sin comprobar',
+          title: 'gastosS sin comprobar',
           text: error.error.message,
           showConfirmButton: false,
           timer: 3000
@@ -297,7 +309,7 @@ export class ViewGastosComponent implements OnInit {
         this.montos = []
         console.log("no hay")
         console.log(error)
-        this.gastosComp = []
+        this.gastosSComp = []
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -310,5 +322,10 @@ export class ViewGastosComponent implements OnInit {
     )
     console.table(body)
   }
-}
 
+  cargarComprobacion(obj:any){
+    console.log("Estoy enviando, ", obj);
+    
+    this.router.navigate(['/captura-gastos'], { state: { gasto: obj } })
+  }
+}

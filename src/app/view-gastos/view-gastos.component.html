@@ -113,75 +113,55 @@
                         <thead>
                             <tr>
                                 <th>Folio</th>
-                                <th *ngIf="bandera">EfeCo</th>
+                                <th>Area</th>
                                 <th>Sucursal</th>
-                                <th>Capturista</th>
                                 <th>Responsble</th>
-                                <th>Chequera</th>
-                                <th>Concepto</th>
                                 <th>Importe</th>
-                                <th>Proveedor</th>
-                                <!-- <th>Fecha</th>  -->
-                                <th>Justificacion</th>
-                                <th>Autorizador</th>
-                                <th>Estado</th>
-                                <th>Estado de efectivo</th>
-                                <th>Comprobado</th>
+                                <th>Provedor</th>
+                                <th>Autorizo</th>
+                                <th>Status</th>
+                                <th>Efectivo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr (click)='edit(c.Folio)' disabled
-                                *ngFor="let c of reportes ">
+                            <tr *ngFor="let g of gastos">
                                 <td>
-                                    <h5>{{c.Folio}}</h5>
-                                </td>
-                                <td *ngIf="bandera">
-                                    {{c.EfeCo}}
+                                    <h5>{{g.folio}}</h5>
                                 </td>
                                 <td>
-                                    {{c.Sucursal}}
+                                    <h5>{{g.area}}</h5>
                                 </td>
                                 <td>
-                                    {{c.Capturista}}
+                                    {{g.empresa}}
                                 </td>
                                 <td>
-                                    {{c.Responsable}}
+                                    {{g.responsable}}
                                 </td>
                                 <td>
-                                    {{c.Chequera}}
+                                    <h5><Span>$</Span>{{g.monto}}</h5>
                                 </td>
                                 <td>
-                                    {{c.Concepto}}
+                                    {{g.proveedor}}
                                 </td>
                                 <td>
-                                    <h5><span>$</span>{{c.Liberado}}</h5>
+                                    {{g.liberador}}
+                                </td>
+                                <td *ngIf='g.estatus!="PENDIENTE"'>
+                                    <span class={{completed}}>{{g.estatus}}</span>
+                                </td>
+                                <td *ngIf='g.estatus==="PENDIENTE"'>
+                                    <span class={{pending}}>{{g.estatus}}</span>
+                                </td>
+                                <td *ngIf='g.liberador!=null'>
+                                    <span class={{completed}}>Liberado</span>
+                                </td>
+                                <td *ngIf='g.liberador===null'>
+                                    <span class={{pending}}>No Liberado</span>
                                 </td>
                                 <td>
-                                    {{c.Provedor}}
-                                </td>
-                                <td>
-                                    {{c.Justificacion}}
-                                </td>
-                                <td>
-                                    {{c.Autorizador}}
-                                </td>
-                                <td *ngIf='c.Autorizado=="PENDIENTE"'>
-                                    <span class={{pending}}>{{c.Autorizado}}</span>
-                                </td>
-                                <td *ngIf='c.Autorizado=="APROBADO"'>
-                                    <span class={{completed}}>{{c.Autorizado}}</span>
-                                </td>
-                                <td *ngIf='c.Efectivo=="PENDIENTE"'>
-                                    <span class={{pending}}>{{c.Efectivo}}</span>
-                                </td>
-                                <td *ngIf='c.Efectivo=="LIBERADO"'>
-                                    <span class={{completed}}>{{c.Efectivo}}</span>
-                                </td>
-                                <td *ngIf='c.Comprobado=="PENDIENTE"'>
-                                    <span class={{pending}}>{{c.Comprobado}}</span>
-                                </td>
-                                <td *ngIf='c.Comprobado=="COMPROBADO"'>
-                                    <span class={{completed}}>{{c.Comprobado}}</span>
+                                    <button [disabled]='!(g.estatus!="PENDIENTE" && g.liberador!=null)' type="button" class="btn-primary" (click)="cargarComprobacion(g)">
+                                        comprobar
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>

@@ -51,25 +51,24 @@ export class AuthGastosComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const nuevoStatus = selectElement.value;
     const select = this.status.find(st => st.idCatalogo === nuevoStatus);
-    const obj = { "idSolicitud":id, "estatus":nuevoStatus }
+    const obj = { "idSolicitud":id, "estatus":nuevoStatus } 
     if (select.nombre === "AUTORIZADO") {
       this.solicitud.authSolicitud(obj).subscribe({
         next: (data: any) => { 
           this.handler.handleSuccess();
           this.gasto.createGasto({"solicitud": id}).subscribe()
-         },
+        },
         error: (err) => { console.log(err);
-         this.handler.handleError();}
+        this.handler.handleError();}
       });
     }else
       this.solicitud.updateSolicitud(obj).subscribe({
         next: (data: any) => { 
           this.handler.handleSuccess();
-         },
+        },
         error: (err) => { console.log(err);
-         this.handler.handleError();}
+        this.handler.handleError();}
     });
     this.getEstatus()
   }
-
 }

@@ -24,25 +24,20 @@
             <div class="todo">
                 <div class="content">
                     <div class="tabs_wrapper">
-                        <input type="radio" name="tabs" id="tab_1"
-                            [checked]="estadoActual === 'remision'"
-                            (click)="cambiarEstado('remision')" />
+                        <input type="radio" name="tabs" id="tab_1"/>
                         <label class="tab" for="tab_1">
                             <span class="title">Remision</span>
                         </label>
-                        <input type="radio" name="tabs" id="tab_2"
-                            [checked]="estadoActual === 'recurrente'"
-                            (click)="cambiarEstado('recurrente')" />
+                        <input type="radio" name="tabs" id="tab_2"/>
                           <label class="tab" for="tab_2">
                             <span class="title">Facturados</span>
                         </label>
-                        <span class="shape"
-                            [ngClass]="{'remision-shape': estadoActual === 'remision', 'facturados-shape': estadoActual === 'facturado'}"></span>
+                        <span class="shape"></span>
                     </div>
                 </div>
             </div>
             <div class="mountFull">
-                <span>{{formatMonto(remanenteChequeSelect)}}</span>
+                <span></span>
             </div>
         </div>
         <div class="table-data">
@@ -55,40 +50,24 @@
                         <div class="column">
                             <div class="input-box">
                                 <h3>Clasificacion de partida</h3>
-                                <div class="select-box">
-                                    <select formControlName="clasificacion" type="text">
-                                        <option hidden>Sucursal a que se le
-                                            emitira el gasto</option>
-                                        <option *ngFor="let s of sucursales"
-                                            [value]="s.idBranch">{{s.nameBranch}}</option>
-                                    </select>
-                                </div>
+                                <input type="text"
+                                    placeholder=""
+                                    formControlName="clasificacion" required>
+                                
                             </div>
                             <div class="input-box">
                                 <h3>Partida</h3>
-                                <div class="select-box">
-                                    <select formControlName="partida"
-                                        type="text"
-                                        (ngModelChange)="onChangeResp($event)">
-                                        <option hidden>Sucursal a que se le
-                                            emitira el gasto</option>
-                                        <option *ngFor="let s of empleados"
-                                            [value]="s.idEmpleado">{{s.Nombre +
-                                            ' ' + s.Paterno + ' ' + s.Materno}}</option>
-                                    </select>
-                                </div>
+                                <input type="text"
+                                    placeholder=""
+                                    formControlName="partida" required>
                             </div>
                         </div>
                         <div class="column">
                             <div class="input-box">
                                 <h3>Proveedor</h3>
-                                <div class="select-box">
-                                    <select formControlName="idProvedor">
-                                        <option hidden> Provedor facturado</option>
-                                        <option *ngFor="let s of provider"
-                                            [value]="s.idProvider">{{s.nameProvider}}</option>
-                                    </select>
-                                </div>
+                                <input type="text"
+                                    placeholder=""
+                                    formControlName="proveedor" required>
                             </div>
                             <div class="input-box" >
                                 <h3>Empresa solicitante</h3>
@@ -104,23 +83,15 @@
                             </div>
                             <div class="input-box" >
                                 <h3>Area</h3>
-                                <div class="select-box">
-                                    <select formControlName="area">
-                                        <option hidden>Area en donde se genera
-                                            el gasto</option>
-                                        <option *ngFor="let area of areas"
-                                            [value]="area.idArea">{{area.nameArea}}</option>
-                                    </select>
-                                </div>
+                                <input type="text"
+                                        placeholder=""
+                                        formControlName="area" required>
                             </div>
                             <div class="input-box">
                                 <h3>Tipo de pago</h3>
-                                <div class="select-box">
-                                    <select formControlName="tipoDeGasto">
-                                        <option hidden>Cheque de asignacion</option>
-                                       
-                                    </select>
-                                </div>
+                                <input type="text"
+                                        placeholder=""
+                                        formControlName="tipoDeGasto" required>
                             </div>
                         </div>
                         <div class="column">
@@ -128,16 +99,13 @@
                                 <h3>Efectivo solicitado</h3>
                                 <input type="intiger"
                                     placeholder="Ingresa el monto"
-                                    formControlName="efectivoSol" required />
+                                    formControlName="efectivoSol" required >
                             </div>
                             <div class="input-box">
                                 <h3>Efectivo Comprobado</h3>
-                                <div class="select-box">
-                                    <select formControlName="efectivoComprobado">
-                                        <option hidden>Cheque de asignacion</option>
-                                       
-                                    </select>
-                                </div>
+                                <input type="intiger"
+                                    placeholder="Ingresa el monto"
+                                    formControlName="efectivoComprobado" required />
                             </div>
                              <label for="file-input" class="drop-container">
                             <span class="drop-title">Drop files here</span>

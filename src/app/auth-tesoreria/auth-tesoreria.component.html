@@ -40,8 +40,6 @@
                                 <th>Responsble</th>
                                 <th>Importe</th>
                                 <th>Provedor</th>
-                                <th>Fecha</th>
-                                <th>Justificacion</th>
                                 <th>Autorizo</th>
                                 <th>Status</th>
                                 <th>Efectivo</th>
@@ -68,13 +66,7 @@
                                     {{g.proveedor}}
                                 </td>
                                 <td>
-                                    
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                    {{g.idLiberador}}
+                                    {{g.liberador}}
                                 </td>
                                 <td *ngIf='g.estatus!="PENDIENTE"'>
                                     <span class={{completed}}>{{g.estatus}}</span>
