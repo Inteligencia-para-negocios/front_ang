@@ -18,7 +18,7 @@ export class SolicitudGastoComponent implements OnInit {
   public clasificaciones: any[] = [];
   public tipoGastos: any[] = [];
   public proveedores: any[] = [];
-  
+  public bandera = false;
   public captureForm: FormGroup;
 
   constructor(
@@ -40,6 +40,8 @@ export class SolicitudGastoComponent implements OnInit {
       tipoGasto: ['', Validators.required],
       proveedor: ['', Validators.required],
       justificacion: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      fechaLimite: ['', Validators.required],
     });
   }
   
@@ -107,18 +109,23 @@ export class SolicitudGastoComponent implements OnInit {
   
 
   async onChangePartida(resp: string): Promise<void> {
-      (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
-        next: (data: any) => { this.clasificaciones = data; },
-        error: (err) => { this.handler.handleError();}
-      });
+    (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
+      next: (data: any) => { this.clasificaciones = data; },
+      error: (err) => { this.handler.handleError(); }
+    });
   }
 
   solicitudGasto(): void {
-      this.solicService.createSolicitud(this.captureForm.value).subscribe({
-        next: (data: any) => { 
-          this.handler.handleSuccess(); 
-        },
-        error: (err) => { this.handler.handleError();}
-      })
+    this.solicService.createSolicitud(this.captureForm.value).subscribe({
+      next: (data: any) => { this.handler.handleSuccess(); },
+      error: (err) => { this.handler.handleError(); }
+    })
+  }
+
+  onChangeTipo(event: string){
+    if (event == "RECURRENTE" ) 
+      this.bandera = true;
+    else
+      this.bandera = false;  
   }
 }

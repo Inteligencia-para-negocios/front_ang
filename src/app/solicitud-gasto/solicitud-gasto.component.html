@@ -77,9 +77,9 @@
                 <div class="input-box">
                     <h3>Gasto</h3>
                     <div class="select-box">
-                        <select formControlName="tipoGasto" type="text" >
+                        <select formControlName="tipoGasto" type="text" (ngModelChange)="onChangeTipo($event)">
                             <option hidden>Selecciona tipo de gasto</option>
-                            <option  *ngFor="let g of tipoGastos" [value]="[g.idCatalogo]">{{g.nombre}}</option>
+                            <option  *ngFor="let g of tipoGastos" [value]="[g.nombre]">{{g.nombre}}</option>
                         </select>
                     </div>
                 </div>
@@ -92,6 +92,20 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="column" *ngIf="bandera">
+              <div class="input-box">
+                <h3>Fecha Inicio</h3>
+                  <div>
+                    <input type="intiger" placeholder="Efectivo solicitado" required formControlName="monto" />
+                  </div>
+              </div>
+              <div class="input-box">
+                  <h3>Fecha final</h3>
+                  <div>
+                    <input type="intiger" placeholder="Efectivo solicitado" required formControlName="monto" />
+                  </div>
+              </div>
             </div>
             <div class="column">
               <div class="input-box address">

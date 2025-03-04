@@ -77,9 +77,12 @@
                             </div>
                             <div class="input-box" >
                                 <h3>Fuente de financiamiento</h3>
-                                <input type="text"
-                                    placeholder=""
-                                    formControlName="financiamiento" required>
+                                <div class="select-box">
+                                    <select formControlName="financiamiento">
+                                        <option hidden>Selecciona el empresa</option>
+                                        <option *ngFor="let e of empresas" [value]="[e.idEmpresa]">{{e.nombre}}</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="input-box" >
                                 <h3>Area</h3>
@@ -110,7 +113,7 @@
                              <label for="file-input" class="drop-container">
                             <span class="drop-title">Drop files here</span>
                             or
-                            <input type="file" accept="image/*" required="" id="file-input" formControlName="comprobante">
+                            <input type="file" accept="image/*" required="" id="file-input" (change)="onFileSelect($event)">
                           </label>
                         </div>
                         <div class="input-box address">

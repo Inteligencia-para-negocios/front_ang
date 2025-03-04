@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Area, Cheque, Concept, Empleado, Provedor, Responsable, Sucursal, User } from 'src/models/interface';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+import { UtilService } from '../service/util.service';
+import { HandlerService } from '../service/handler.service';
+import { GastoService } from '../service/gasto.service';
 
 @Component({
   selector: 'app-cap-gastos',
@@ -11,7 +14,19 @@ import { Location } from '@angular/common';
   styleUrls: ['./cap-gastos.component.css']
 })
 export class CapGastosComponent implements OnInit {
+  
+  public formData = new FormData();
+  public empresas: any[] = [];
+  private gastoSec = "" ;
+  constructor(
+    private location: Location,
+    private _formBuider: FormBuilder,
+    private util: UtilService,
+    private handler: HandlerService,
+    private gastoServices: GastoService
+  ) { }
 
+  
   captureForm = new FormGroup({
     clasificacion: new FormControl({ value: '', disabled: true }, [Validators.required] ),
     partida: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -23,10 +38,11 @@ export class CapGastosComponent implements OnInit {
     tipoDeGasto: new FormControl({ value: '', disabled: true }),
     justificacion: new FormControl({ value: '', disabled: true }, [Validators.required]),
     efectivoComprobado: new FormControl(sessionStorage.getItem('idUser') || localStorage.getItem('idUser')),
-    comprobante: new FormControl({ value: '', disabled: false })
+    comprobante: new FormControl({ value: null, disabled: false })
   })
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this.getEmpresas();
     const state = this.location.getState() as { gasto?: any };    
     if (state && state.gasto) {
       const comprobacion = state['gasto'];
@@ -36,6 +52,7 @@ export class CapGastosComponent implements OnInit {
 
   cargarDatos(comprobacion: any) {
     let recurrente = ''
+    this.gastoSec = comprobacion.idGasto;
     if(comprobacion.recurrente)
       recurrente = "RECURRENTE"
     else
@@ -50,80 +67,43 @@ export class CapGastosComponent implements OnInit {
       efectivoSol: comprobacion.monto,
       justificacion: comprobacion.justificacion,
     });
-    console.log("Datos: ",this.captureForm);
-    
   }
 
-
-  constructor(
-    private location: Location,
-    private _formBuider: FormBuilder,
-  ) { }
-
-  usuario = new FormGroup({
-    usuario: new FormControl(sessionStorage.getItem('usuario') || localStorage.getItem('usuario'))
-  })
-
-  onChangeResp(resp: string) {
-    console.log("Log:::::responsable: : : : : : ", resp)
+  getEmpresas(){
+    this.util.getEmpresas().subscribe({
+      next: (data: any) => { this.empresas = data; },
+      error: (err) => this.handler.handleError(),
+    });
   }
 
   capturaGasto() {
-    console.info('::::: captura de gastos')
-    console.log(this.captureForm.value)
-    if (this.captureForm.value) {
-      console.log("remisionados para cortes parciales")
-      this._formBuider.group({
-        idBranch: new FormControl(''),
-        idProvedor: new FormControl(''),
-        cheque: new FormControl(''),
-        efectivoLib: new FormControl(''),
-        area: new FormControl(''),
-        idConcept: new FormControl(''),
-        responsable: new FormControl(''),
-        justificacion: new FormControl(''),
-        idUser: new FormControl(' '),
-        factura: new FormControl('')
-      })
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se ha registrado el gasto',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+    const formData = new FormData(); // Crear una nueva instancia en cada petición
+  
+    formData.append('idGasto', this.gastoSec);
+    formData.append('monto', this.captureForm.value.efectivoComprobado?.toString() || '');
+    formData.append('idEmpresa', this.captureForm.value.financiamiento?.toString() || '');
+  
+    if (this.archivoSeleccionado) {
+      formData.append('archivo', this.archivoSeleccionado);
     } else {
-      console.log("facturados para ver en contabilidad")
-      this._formBuider.group({
-        idBranch: new FormControl(''),
-        idProvedor: new FormControl(''),
-        cheque: new FormControl(''),
-        efectivoLib: new FormControl(''),
-        area: new FormControl(''),
-        idConcept: new FormControl(''),
-        responsable: new FormControl(''),
-        justificacion: new FormControl(''),
-        idUser: new FormControl(' '),
-      })
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se ha registrado el gasto',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      console.error("No se ha seleccionado un archivo.");
+      return; // Evitar enviar la solicitud sin archivo
+    }
+  
+    this.gastoServices.comprobacion(formData).subscribe({
+      next: (data: any) => { this.handler.handleSuccess(); },
+      error: (err) => { this.handler.handleError(); }
+    });
+  }
+  
+
+  archivoSeleccionado!: File; // Variable para almacenar el archivo seleccionado
+  onFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.archivoSeleccionado = input.files[0]; // Guardar archivo en variable
+      console.log("Archivo seleccionado:", this.archivoSeleccionado);
     }
   }
 
-  // getFAMSucursales() {
-  //   this.sucursalfilter = this.sucursales.filter((sucursal) => sucursal.sede === 'FORANEA' || sucursal.sede === 'LOCAL');
-  // }
-
-  //se necesita realizar una peticiion para las necesidades del cheque y asu poder tener en cuenta todas las cosas que se necesitan
-  formatMonto(monto: number): string {
-    return `$${monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-  }
-
 }
-
-// ${ version } ${ account - id } ${ interface - id } ${ srcaddr } ${ dstaddr } ${ srcport } ${ dstport } ${ protocol } ${ packets } ${ bytes } ${ start } ${ end } ${ action } ${ log - status }

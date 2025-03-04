@@ -40,4 +40,11 @@ export class GastoService {
     const url = `${environment.baseUrl}Gastos/auth`
     return this.http.patch(url,obj,{headers})
   }
+
+  comprobacion(obj: FormData){
+    let headers = this.auth.getHeaders()
+    headers = headers.delete('content-type');
+    const url = `${environment.baseUrl}Gasto/Comprobado/`;
+    return this.http.post(url,obj,{headers});
+  }
 }
