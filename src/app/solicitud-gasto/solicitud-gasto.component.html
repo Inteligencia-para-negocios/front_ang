@@ -79,7 +79,7 @@
                     <div class="select-box">
                         <select formControlName="tipoGasto" type="text" (ngModelChange)="onChangeTipo($event)">
                             <option hidden>Selecciona tipo de gasto</option>
-                            <option  *ngFor="let g of tipoGastos" [value]="[g.nombre]">{{g.nombre}}</option>
+                            <option  *ngFor="let g of tipoGastos" [value]="[g.idCatalogo]">{{g.nombre}}</option>
                         </select>
                     </div>
                 </div>
@@ -97,14 +97,23 @@
               <div class="input-box">
                 <h3>Fecha Inicio</h3>
                   <div>
-                    <input type="intiger" placeholder="Efectivo solicitado" required formControlName="monto" />
+                    <input type="date" required formControlName="fechaInicio" />
                   </div>
               </div>
               <div class="input-box">
                   <h3>Fecha final</h3>
                   <div>
-                    <input type="intiger" placeholder="Efectivo solicitado" required formControlName="monto" />
+                    <input type="date" required formControlName="fechaLimite" />
                   </div>
+              </div>
+              <div class="input-box">
+                <h3>Periodo</h3>
+                <div class="select-box">
+                  <select formControlName="periodo" type="text" (ngModelChange)="onChangePresupuesto($event)">
+                    <option hidden>Selecciona el periodo</option>
+                    <option *ngFor="let p of periodos" [value]="p.idCatalogo">{{p.nombre}}</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="column">

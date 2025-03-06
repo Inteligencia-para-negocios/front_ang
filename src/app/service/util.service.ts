@@ -178,6 +178,12 @@ export class UtilService {
     return this.http.get<any[]>(url,{headers});
   }
 
+  getPeriodos(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Catalogos/PRD`;
+    return this.http.get<any[]>(url,{headers});
+  }
+
   setCodigo(data: string) {
     this.codigo = data;
   }

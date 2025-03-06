@@ -7,6 +7,7 @@ import { AuthService } from '../service/auth.service';
 import { SolicitudService } from '../service/solicitud.service';
 import { GastoService } from '../service/gasto.service';
 import { HandlerService } from '../service/handler.service';
+import { GastoRecurrenteService } from '../service/gasto-recurrente.service';
 
 @Component({
   selector: 'app-auth-gastos',
@@ -22,7 +23,8 @@ export class AuthGastosComponent implements OnInit {
     private util: UtilService,
     private solicitud: SolicitudService,
     private gasto: GastoService,
-    private handler: HandlerService
+    private handler: HandlerService,
+    private gastoRecu: GastoRecurrenteService
   ) { }
 
   ngOnInit(): void {
@@ -47,16 +49,29 @@ export class AuthGastosComponent implements OnInit {
     })
   }
   
-  onChangeStatus(event: Event, id: string): void {
+  onChangeStatus(event: Event, solicitud: any): void {
     const selectElement = event.target as HTMLSelectElement;
     const nuevoStatus = selectElement.value;
     const select = this.status.find(st => st.idCatalogo === nuevoStatus);
-    const obj = { "idSolicitud":id, "estatus":nuevoStatus } 
+    const obj = { "idSolicitud":solicitud.idSolicitud, "estatus":nuevoStatus } 
     if (select.nombre === "AUTORIZADO") {
       this.solicitud.authSolicitud(obj).subscribe({
         next: (data: any) => { 
           this.handler.handleSuccess();
-          this.gasto.createGasto({"solicitud": id}).subscribe()
+          this.gasto.createGasto({"solicitud": solicitud.idSolicitud}).subscribe({
+            next: (data: any) => {
+              if(solicitud.tipo=="RECURRENTE")
+              {
+                const gastoRecurrente = {
+                  "idGasto":data, 
+                  "fechaInicio":solicitud.fechaInicio, 
+                  "fechaLimite":solicitud.fechaLimite, 
+                  "periodo":solicitud.periodo
+                }
+                this.gastoRecu.createGasto(gastoRecurrente).subscribe({})
+              }
+            }
+          })
         },
         error: (err) => { console.log(err);
         this.handler.handleError();}

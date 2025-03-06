@@ -75,7 +75,7 @@
                                     <td>
                                         <div class="input-box">
                                             <div class="select-box">
-                                                <select (change)="onChangeStatus($event, s.idSolicitud)">
+                                                <select (change)="onChangeStatus($event, s)">
                                                     <option hidden>Estatus</option>
                                                     <option *ngFor="let st of status" [value]="st.idCatalogo">{{ st.nombre }}</option>
                                                 </select>

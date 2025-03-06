@@ -18,6 +18,7 @@ export class SolicitudGastoComponent implements OnInit {
   public clasificaciones: any[] = [];
   public tipoGastos: any[] = [];
   public proveedores: any[] = [];
+  public periodos: any[] = [];
   public bandera = false;
   public captureForm: FormGroup;
 
@@ -40,8 +41,9 @@ export class SolicitudGastoComponent implements OnInit {
       tipoGasto: ['', Validators.required],
       proveedor: ['', Validators.required],
       justificacion: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
-      fechaLimite: ['', Validators.required],
+      fechaInicio: [null, Validators.required],
+      fechaLimite: [null, Validators.required],
+      periodo: [null, Validators.required],
     });
   }
   
@@ -51,6 +53,7 @@ export class SolicitudGastoComponent implements OnInit {
     this.getPresupuestos();
     this.getProveedores();
     this.getPartidas();
+    this.getPeriodos();
   }
 
   private getDatosEmpleado(): void {
@@ -97,12 +100,19 @@ export class SolicitudGastoComponent implements OnInit {
     });
   }
 
+  private getPeriodos(): void {
+    this.utilService.getPeriodos().subscribe({
+      next: (data: any) => { this.periodos = data; },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
   onChangePresupuesto(resp: string): void {
     const select = this.presupuestos.find(pr => pr.idDetallePresupuesto === resp);
     this.utilService.getPresupuestoSelect({ nombre: select.presupuesto }).subscribe({
       next: (data: any) => { 
         this.partidas = data;
-       },
+      },
       error: (err) => { this.handler.handleError();}
     });
   }
@@ -116,6 +126,8 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   solicitudGasto(): void {
+    console.log(this.captureForm.value);
+    
     this.solicService.createSolicitud(this.captureForm.value).subscribe({
       next: (data: any) => { this.handler.handleSuccess(); },
       error: (err) => { this.handler.handleError(); }
@@ -123,7 +135,8 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   onChangeTipo(event: string){
-    if (event == "RECURRENTE" ) 
+    const select = this.tipoGastos.find(pr => pr.idCatalogo === event);
+    if (select.nombre == "RECURRENTE" ) 
       this.bandera = true;
     else
       this.bandera = false;  
