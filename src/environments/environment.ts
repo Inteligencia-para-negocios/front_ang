@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl:'http:192.168.1.14/api/v1/'
+    baseUrl:'https://pharaohnet.cloud:8000/api/v1/'
   };
