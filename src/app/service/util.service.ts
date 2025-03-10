@@ -11,9 +11,7 @@ import { AuthService } from './auth.service';
 export class UtilService {
   private gasto: any;
   private codigo: string | undefined;
-
-  private ventanaActual: Window | null = null;
-  private ventanaActualID: string | null = null;
+  
   private ventanasAbiertas: Window[] = [];
 
   crearCabezeraCom(objet:any){
@@ -199,28 +197,6 @@ export class UtilService {
   getGasto(): any {
     return this.gasto;
   }
-
-  // generarIdentificadorUnico(): string {
-  //   // Implementa la generación de un identificador único aquí
-  //   // Puede ser un GUID o cualquier otro método que prefieras
-  //   // Por ejemplo, usando la fecha y hora actual:
-  //   return `ventana_${Date.now()}`;
-  // }
-
-  // asignarIdentificadorVentanaActual(): void {
-  //   if (!this.ventanaActualID) {
-  //     this.ventanaActualID = this.generarIdentificadorUnico();
-  //     this.ventanaActual = window;
-  //   }
-  // }
-
-  // obtenerIdentificadorVentanaActual(): string | null {
-  //   return this.ventanaActualID;
-  // }
-
-  // obtenerVentanaActual(): Window | null {
-  //   return this.ventanaActual;
-  // }
 
   formatMonto(monto: number): string {
     return `$${monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;

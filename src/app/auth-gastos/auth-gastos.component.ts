@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Swal from 'sweetalert2';
 import { UtilService } from '../service/util.service';
-import { Status } from 'src/models/interface';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../service/auth.service';
 import { SolicitudService } from '../service/solicitud.service';
 import { GastoService } from '../service/gasto.service';
 import { HandlerService } from '../service/handler.service';
@@ -34,26 +30,20 @@ export class AuthGastosComponent implements OnInit {
 
   getSolicitudes() {
     this.solicitud.getSolicitudes().subscribe({
-      next: (data: any) => {
-        this.solicitudes = data;
-      }
+      next: (data: any) => { this.solicitudes = data; }
     })
   }
 
   getEstatus(){
     this.util.getEstatusSolicitud().subscribe({
-      next: (data: any) => {
-        this.status = [];
-        this.status = data;
-      }
+      next: (data: any) => { this.status = data; }
     })
   }
   
   onChangeStatus(event: Event, solicitud: any): void {
     const selectElement = event.target as HTMLSelectElement;
-    const nuevoStatus = selectElement.value;
-    const select = this.status.find(st => st.idCatalogo === nuevoStatus);
-    const obj = { "idSolicitud":solicitud.idSolicitud, "estatus":nuevoStatus } 
+    const select = this.status.find(st => st.idCatalogo === selectElement.value);
+    const obj = { "idSolicitud":solicitud.idSolicitud, "estatus":select.nombre } 
     if (select.nombre === "AUTORIZADO") {
       this.solicitud.authSolicitud(obj).subscribe({
         next: (data: any) => { 
@@ -73,17 +63,13 @@ export class AuthGastosComponent implements OnInit {
             }
           })
         },
-        error: (err) => { console.log(err);
-        this.handler.handleError();}
+        error: () => { this.handler.handleError(); }
       });
     }else
       this.solicitud.updateSolicitud(obj).subscribe({
-        next: (data: any) => { 
-          this.handler.handleSuccess();
-        },
-        error: (err) => { console.log(err);
-        this.handler.handleError();}
+        next: () => { this.handler.handleSuccess();},
+        error: () => { this.handler.handleError(); }
     });
-    this.getEstatus()
+    this.getSolicitudes()
   }
 }

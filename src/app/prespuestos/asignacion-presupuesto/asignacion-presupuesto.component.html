@@ -48,7 +48,7 @@
                                 <div class="select-box">
                                     <select formControlName="partida">
                                         <option hidden *ngIf="asignacionForm">Selecciona la partida</option>
-                                        <option *ngFor="let p of partidas" [value]="[p.nombre]">{{p.nombre}}</option>
+                                        <option *ngFor="let p of partidas" [value]="[p.idPartida]">{{p.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
                                 <h3>Responsable</h3>
                                 <div class="select-box">
                                     <select formControlName="responsable">
-                                        <option hidden *ngIf="asignacionForm">Selecciona el presupuesto</option>
-                                        <option *ngFor="let r of responsables" [value]="[r.nombre]">{{r.nombre}}
+                                        <option hidden *ngIf="asignacionForm">Selecciona el Empleado</option>
+                                        <option *ngFor="let r of responsables" [value]="[r.idEmpleado]">{{r.nombre}}
                                         </option>
                                     </select>
                                 </div>
@@ -74,7 +74,7 @@
                                 <div class="select-box">
                                     <select formControlName="empresa">
                                         <option hidden *ngIf="asignacionForm">Selecciona la empresa</option>
-                                        <option *ngFor="let r of empresas" [value]="[r.nombre]">{{r.nombre}}
+                                        <option *ngFor="let r of empresas" [value]="[r.idEmpresa]">{{r.nombre}}
                                         </option>
                                     </select>
                                 </div>

@@ -65,7 +65,7 @@ export class SolicitudGastoComponent implements OnInit {
             area: data[0].area,
             encargado: data[0].nombre
           });
-        }
+        } 
       },
       error: (err) => this.handler.handleError(),
     });
@@ -126,8 +126,6 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   solicitudGasto(): void {
-    console.log(this.captureForm.value);
-    
     this.solicService.createSolicitud(this.captureForm.value).subscribe({
       next: (data: any) => { this.handler.handleSuccess(); },
       error: (err) => { this.handler.handleError(); }

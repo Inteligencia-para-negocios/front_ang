@@ -25,7 +25,7 @@ export class PresupuestoService implements OnInit {
   }
   asignacion(objet : any): Observable<any[]> {
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    let url = `${environment.baseUrl}Asignaciones`;
     return this.http.post<any[]>(url,objet,{headers});
   }
 
