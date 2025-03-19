@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl:'http://pharaohnet.cloud:8000/api/v1/'
+    baseUrl:'https://contl.onrender.com/api/v1/'
   };
