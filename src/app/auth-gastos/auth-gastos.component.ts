@@ -43,7 +43,7 @@ export class AuthGastosComponent implements OnInit {
   onChangeStatus(event: Event, solicitud: any): void {
     const selectElement = event.target as HTMLSelectElement;
     const select = this.status.find(st => st.idCatalogo === selectElement.value);
-    const obj = { "idSolicitud":solicitud.idSolicitud, "estatus":select.nombre } 
+    const obj = { "idSolicitud":solicitud.idSolicitud, "estatus":selectElement.value } 
     if (select.nombre === "AUTORIZADO") {
       this.solicitud.authSolicitud(obj).subscribe({
         next: (data: any) => { 

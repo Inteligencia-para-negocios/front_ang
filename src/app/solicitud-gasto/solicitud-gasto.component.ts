@@ -13,7 +13,7 @@ import { SolicitudService } from '../service/solicitud.service';
 })
 export class SolicitudGastoComponent implements OnInit {
 
-  public presupuestos: any[] = [];
+  public presupuestos: any = new Set();
   public partidas: any[] = [];
   public clasificaciones: any[] = [];
   public tipoGastos: any[] = [];
@@ -88,7 +88,10 @@ export class SolicitudGastoComponent implements OnInit {
   private getPresupuestos(): void {
     this.utilService.getPresupuestosAsignados().subscribe({
       next: (data: any) => {
-        this.presupuestos = data; },
+        data.forEach((element: any) => {
+          this.presupuestos.add(element.presupuesto)
+        });
+      },
       error: (err) => this.handler.handleError(),
     });
   }
@@ -108,8 +111,9 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   onChangePresupuesto(resp: string): void {
-    const select = this.presupuestos.find(pr => pr.idDetallePresupuesto === resp);
-    this.utilService.getPresupuestoSelect({ nombre: select.presupuesto }).subscribe({
+    console.log("este es el select",resp);
+    
+    this.utilService.getPresupuestoSelect({ nombre: resp }).subscribe({
       next: (data: any) => { 
         this.partidas = data;
       },

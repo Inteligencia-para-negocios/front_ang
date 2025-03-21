@@ -43,7 +43,7 @@
                 <div class="select-box">
                   <select formControlName="presupuesto" type="text" (ngModelChange)="onChangePresupuesto($event)">
                     <option hidden>Selecciona el presupuesto</option>
-                    <option *ngFor="let pr of presupuestos" [value]="pr.idDetallePresupuesto">{{pr.presupuesto}}</option>
+                    <option *ngFor="let pr of presupuestos" [value]="pr">{{pr}}</option>
                   </select>
                 </div>
               </div>

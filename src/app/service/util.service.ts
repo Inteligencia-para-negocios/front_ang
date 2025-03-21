@@ -137,13 +137,13 @@ export class UtilService {
 
   getPresupuestosAsignados(): Observable<any[]> {
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Presupuesto/Detalle/asignados`;
+    let url = `${environment.baseUrl}Asignaciones/asignados`;
     return this.http.get<any[]>(url,{headers});
   }
 
   getPresupuestoSelect(objet : any): Observable<any[]> {
     const headers = this.crearCabezeraCom(objet);
-    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    let url = `${environment.baseUrl}/Asignaciones`;
     return this.http.get<any[]>(url,headers);
   }
 
