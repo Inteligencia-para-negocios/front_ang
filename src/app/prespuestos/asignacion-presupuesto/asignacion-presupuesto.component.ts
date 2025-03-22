@@ -213,7 +213,7 @@ getEmpresas(){
       next: (data: any) => {
         this.presupuestoForm.patchValue({
           nombrePresp: (data[0].nombre),
-          montoPresp:(this.formatMonto(data[0].montoSolicitado)),
+          montoPresp:(this.formatMonto(data[0].montoDisponible)),
           empresaPresp: (data[0].empresa),//this.formatFecha()
           fechaInicioPresp: (this.formatFecha(data[0].fechaInicio)),
           fechaFinalPresp: (this.formatFecha(data[0].fechaFinal)),//this.formatFecha()

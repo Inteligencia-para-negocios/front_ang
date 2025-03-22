@@ -55,19 +55,19 @@ export class PresupuestoService implements OnInit {
 
   getList(): Observable<any[]>{
     const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Presupuesto/Detalle`;
+    let url = `${environment.baseUrl}Asignaciones`;
     return this.http.get<any[]>(url,{headers});
   }
 
 
   updateDetalle(objeto: any) {
-    let url = `${environment.baseUrl}Presupuesto/Detalle/`;
+    let url = `${environment.baseUrl}Asignaciones`;
     const headers = this.auth.getHeaders();
     return this.http.put<any[]>(url,objeto,{headers});
   }
 
   authDetalle(objeto: any) {
-    let url = `${environment.baseUrl}Presupuesto/Detalle/`;
+    let url = `${environment.baseUrl}Asignaciones`;
     const headers = this.auth.getHeaders();
     return this.http.patch<any[]>(url,objeto,{headers});
   }
