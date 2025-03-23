@@ -5,6 +5,7 @@ import { PresupuestoService } from 'src/app/service/presupuesto.service';
 import { UtilService } from 'src/app/service/util.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
+import { HandlerService } from 'src/app/service/handler.service';
 @Component({
   selector: 'app-list-presp',
   templateUrl: './list-presp.component.html',
@@ -20,10 +21,15 @@ export class ListPrespComponent implements OnInit{
   notCompleted: any = 'not-completed'
   public reportes: any[] = []
   public presupuestos: any[] = []
+  public estatus: any[] = []
   public pages: any;
   celular: any;
   
-  constructor(private _presp : PresupuestoService, public _util: UtilService,   private twilio: AuthService, private _user: UserService
+  constructor(private _presp : PresupuestoService, 
+    public _util: UtilService,   
+    private twilio: AuthService, 
+    private handler: HandlerService,
+    private _user: UserService
   ){}
   estadoActual: string = 'PENDIENTE'; // Estado inicial, puedes cambiarlo según tus necesidades
   bandera: boolean | undefined
@@ -36,6 +42,7 @@ export class ListPrespComponent implements OnInit{
   ngOnInit(): void {
     this.getAllSolicitudes()
     this.getSolicitudesX()
+    this.getEstatus()
   }
   sendCodeAndReturnPromise(century: any) {
     return new Promise((resolve, reject) => {
@@ -61,66 +68,18 @@ export class ListPrespComponent implements OnInit{
     console.log(estatus)
   }
     
-  onChangeEstatus(idEstatus:any,selectedEstatus: any) {
-    const objeto = {
-      idPresupuestoD: idEstatus,
-      estatus: selectedEstatus
-    }
-
-    if(selectedEstatus == "AUTORIZADO"){
-      this._presp.authDetalle(objeto).subscribe({
-        next: (data: any) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            background: "#d6ede2",
-            title: data.message,
-            showConfirmButton: false,
-            timer: 2500
-          });
-          console.log(data.message);
-          // resolve("TE DOY PURA VRGA"); // Resolvemos la Promesa con el valor de this.celular
-        },
-        error: (error: any) => {
-          Swal.fire({
-            position: 'top-right',
-            background: '#f5dcdc',
-            title: error.error.message,
-            showConfirmButton: false,
-            timer: 2500
-          });
-          console.log(error.error.message)
-          // reject(error); // Rechazamos la Promesa en caso de error
-        }
+  onChangeEstatus(idAsignacion:any,idEstatus: any) {
+    const select = this.estatus.find(st => st.idCatalogo === idEstatus);
+    if(select.nombre == "AUTORIZADO")
+      this._presp.authDetalle({idAsignacion, idEstatus}).subscribe({
+        next: (data: any) => { this.handler.handleSuccess() },
+        error: (error: any) => { this.handler.handleError() }
       });
-    }
-    console.log("Estatus",objeto)
-    this._presp.updateDetalle(objeto).pipe().subscribe({
-        next: (data: any) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            background: "#d6ede2",
-            title: data.message,
-            showConfirmButton: false,
-            timer: 2500
-          });
-          console.log(data.message);
-          // resolve("TE DOY PURA VRGA"); // Resolvemos la Promesa con el valor de this.celular
-        },
-        error: (error: any) => {
-          Swal.fire({
-            position: 'top-right',
-            background: '#f5dcdc',
-            title: error.error.message,
-            showConfirmButton: false,
-            timer: 2500
-          });
-          console.log(error.error.message)
-          // reject(error); // Rechazamos la Promesa en caso de error
-        }
+    else
+      this._presp.updateDetalle({idAsignacion, idEstatus}).subscribe({
+        next: (data: any) => { this.handler.handleSuccess() },
+        error: (error: any) => { this.handler.handleError() }
       });
-  
   }
 
 
@@ -184,7 +143,17 @@ export class ListPrespComponent implements OnInit{
       console.log("Folio seleccionado: ", this.selectFolio)
       if (this.selectFolio) {
       }
-    }
-      
+  }
+  
+  getEstatus(){
+    this._util.getEstatusSolicitud().subscribe({
+      next: (data: any) => {
+        this.estatus = data;
+        console.log(this.estatus);
+        
+      }
+    })
+  }
+
 
 }
