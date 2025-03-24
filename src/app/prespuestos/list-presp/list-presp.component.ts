@@ -68,7 +68,8 @@ export class ListPrespComponent implements OnInit{
     console.log(estatus)
   }
     
-  onChangeEstatus(idAsignacion:any,idEstatus: any) {
+  onChangeEstatus(idAsignacion:any,idEstatus: any){
+    console.log("ASIGNACIONES ->", idAsignacion,idEstatus)
     const select = this.estatus.find(st => st.idCatalogo === idEstatus);
     if(select.nombre == "AUTORIZADO")
       this._presp.authDetalle({idAsignacion, idEstatus}).subscribe({

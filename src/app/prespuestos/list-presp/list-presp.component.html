@@ -107,7 +107,7 @@
                                         <div class="select-box1">
                                             <select type="text"
                                                 formControlName="status" 
-                                                (ngModelChange)="onChangeEstatus(c.idDetallePresupuesto,$event)">
+                                                (ngModelChange)="onChangeEstatus(c.idAsignacion,$event)">
                                                 <option hidden value="">Estatus</option>
                                                 <option *ngFor="let st of estatus" [value]="st.idCatalogo">{{ st.nombre }}</option>
                                             </select>
