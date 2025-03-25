@@ -110,8 +110,6 @@ export class SolicitudGastoComponent implements OnInit {
   }
 
   onChangePresupuesto(resp: string): void {
-    console.log("este es el select",resp);
-    
     this.utilService.getPresupuestoSelect({ nombre: resp }).subscribe({
       next: (data: any) => { 
         this.partidas = data;
