@@ -50,7 +50,7 @@
               <div class="input-box">
                 <h3>Partida</h3> 
                 <div class="select-box">
-                  <select formControlName="partida" type="text" (ngModelChange)="onChangePartida($event)">
+                  <select type="text" (change)="onChangePartida($event)">
                     <option hidden>Selecciona la partida</option>
                     <option *ngFor="let p of partidas" [value]="p.partida">{{p.partida}}</option>
                   </select>

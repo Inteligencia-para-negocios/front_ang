@@ -35,7 +35,6 @@ export class SolicitudGastoComponent implements OnInit {
       area: [{ value: '', disabled: true }, Validators.required],
       encargado: [{ value: '', disabled: true }, Validators.required],
       presupuesto: ['', Validators.required],
-      partida: ['', Validators.required],
       clasificacion: ['', Validators.required],
       monto: ['', Validators.required],
       tipoGasto: ['', Validators.required],
@@ -122,8 +121,11 @@ export class SolicitudGastoComponent implements OnInit {
   }
   
 
-  async onChangePartida(resp: string): Promise<void> {
-    (await this.classificationService.getAllClasificaciones({ nombre: resp })).subscribe({
+  async onChangePartida(event: Event): Promise<void> {
+    const selectElement = event.target as HTMLSelectElement;
+    console.log(selectElement.value);
+    
+    (await this.classificationService.getAllClasificaciones({ nombre: selectElement.value })).subscribe({
       next: (data: any) => { this.clasificaciones = data; },
       error: (err) => { this.handler.handleError(); }
     });
