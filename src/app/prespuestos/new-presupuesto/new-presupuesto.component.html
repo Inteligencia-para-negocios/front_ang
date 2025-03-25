@@ -23,8 +23,7 @@
         <div class="table-data fixed">
             <div class="todo todo2">
                 <section>
-                    <form action class="form" [formGroup]="captureForm"
-                        (submit)="onRegisterPresupuesto()">
+                    <form action class="form" [formGroup]="captureForm">
                         <div class="input-box">
                             <h3>Nombre presupuesto</h3>
                             <input type="float"
@@ -41,10 +40,10 @@
                             <div class="input-box">
                                 <h3>Empresa</h3>
                                 <div class="select-box">
-                                    <select formControlName="empresa">
+                                    <select formControlName="idEmpresa">
                                         (ngModelChange)="onCaptureConcept($event)"
                                         <option hidden *ngIf="captureForm">Selecciona la empresa</option>
-                                        <option *ngFor="let c of empresas" [value]="[c.nombre]">{{c.nombre}}</option>
+                                        <option *ngFor="let c of empresas" [value]="[c.idEmpresa]">{{c.nombre}}</option>
                                     </select>
                                 </div>
                             </div>

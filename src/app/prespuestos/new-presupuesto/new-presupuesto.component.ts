@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { timeout } from 'rxjs';
 import { ProviderService } from '../../service/provider.service';
 import { PresupuestoService } from '../../service/presupuesto.service';
+import { HandlerService } from 'src/app/service/handler.service';
 
 @Component({
   selector: 'app-new-presupuesto',
@@ -34,7 +35,8 @@ export class NewPresupuestoComponent {
   constructor(
     private _formBuider: FormBuilder,
     private router: Router,
-    private _UTIL_SERVICE: UtilService,
+    private handler: HandlerService,
+    private util: UtilService,
     private _Providers_: ProviderService,
     private _presupuesto: PresupuestoService,
 
@@ -55,128 +57,48 @@ export class NewPresupuestoComponent {
     monto: new FormControl('', [Validators.required]),
     fechaInicio: new FormControl('', [Validators.required]),
     fechaFinal: new FormControl('', [Validators.required]),
-    empresa: new FormControl('', Validators.required)
+    idEmpresa: new FormControl('', Validators.required)
   })
 
   ngOnInit(): void {
-    // this.onRegisterPresupuesto()
     this.getEmpresas()
     this.getPresupuestos()
     
   }
 
-  onFileSelected(event: any) {
-    const selectedFile = event.target.files[0];
-    console.log("=>", selectedFile)
-    if (selectedFile) {
-      const reader = new FileReader();
-      const formData = new FormData();
-      formData.append('document', selectedFile);
-      reader.onload = (e: any) => {
-        this.pdfSrc = e.target.result;
-        // Actualiza la vista
-        this.cdRef.detectChanges();
-      };
-      if (selectedFile) {
-        this.pdfSrc = ''; // Replace with the actual URL
-        console.log("-->", this.pdfSrc)
-      }
-
-      reader.readAsArrayBuffer(selectedFile);
-    }
-  }
-
   registroPresupuesto() {
-    console.log("Usuario : ", sessionStorage.getItem('idUser'))
-    console.log(this.captureForm.value)
     this._presupuesto.create(this.captureForm.value).pipe(
       timeout(5000) // 5000 milisegundos = 5 segundos
     ).subscribe(
       (response) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Presupuesto registrado',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        this.handler.handleSuccess()
         this.getPresupuestos();
         this.captureForm = this._formBuider.group({
           nombre: new FormControl('', [Validators.required]),
           monto: new FormControl('', [Validators.required]),
           fechaInicio: new FormControl('', [Validators.required]),
           fechaFinal: new FormControl('', [Validators.required]),
-          empresa: new FormControl(this.empresas[0], Validators.required),
+          idEmpresa: new FormControl(this.empresas[0], Validators.required),
         })
       },
       (error) => {
-        console.log(error)
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: error.error.title,
-          text: error.error.mesagge,
-          showConfirmButton: false,
-          timer: 3000
-        });
+        this.handler.handleError
       }
     );
   }
 
   getEmpresas(){
-      this._UTIL_SERVICE.getEmpresas().subscribe({
-        next: (data: any) => {
-          console.log(data)
-            this.empresas = data
-            console.log(this.empresas)
-          },
-          error(err) {
-                console.error(err);
-                Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: err.error.sqlMessage,
-                showConfirmButton: false,
-                timer: 3000
-              }); 
-            },
-          })
+    this.util.getEmpresas().subscribe({
+      next: (data: any) => { this.empresas = data },
+      error: () => { this.handler.handleError(); }
+    })
   }
 
   getPresupuestos(){
-      this._presupuesto.getPresupuesto().subscribe({
-        next: (data: any) => {
-          console.log(data)
-            this.arrayPresupuestos = data
-            console.log(this.arrayPresupuestos)
-          },
-          error(err) {
-                console.error(err);
-                Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: err.error.sqlMessage,
-                showConfirmButton: false,
-                timer: 3000
-              }); 
-            },
-          })
-  }
-
-  onRegisterPresupuesto() {
-    console.log(this.captureForm.value)
-  }
-
-  onCaptureService(selectConcept: Concept) {
-    console.log('Service - > ', selectConcept)
-  }
-
-  onCapturePresupuesto(selectConcept: any) {
-    console.log('Presupuesto - >', selectConcept)
-  }
-
-  onCaptureContratista(value: any) {
-    console.log(value);
+    this._presupuesto.getPresupuesto().subscribe({
+      next: (data: any) => { this.arrayPresupuestos = data },
+      error: () => { this.handler.handleError(); }
+    })
   }
 
   formatMonto(monto: number): string {
@@ -191,15 +113,6 @@ export class NewPresupuestoComponent {
     const monthName = monthNames[monthIndex];
     const year = parsedDate.getFullYear().toString();
     return `${day}/${monthName}/${year}`;
-  }
-
-  verifyPresp() {
-    if (this.arrayPresupuestos.length > 0) {
-      this.presp = true
-    } else {
-      this.presp = false
-    }
-    return this.presp
   }
 
 }
