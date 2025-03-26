@@ -55,14 +55,14 @@ export const routes: Routes = [
   {
     path: 'dashboardFull', component: DashboardAdminComponent
     ,canActivate: [AuthGuard], data: {
-    roles: ['ADMINISTRADOR']
+    roles: ['ADMINISTRADOR','SISTEMAS','OPERACIONES','GERENTE','ENLACE','CAJERO','GESTION EMPRESARIAL','AUDITORIA','BANCA','FACTURACION','TESORERIA']
    }
   },
   {
     path: 'listap', component: ListPrespComponent
     ,canActivate: [AuthGuard], data: {
-    roles: ['ADMINISTRADOR']
-   }
+      roles: ['ADMINISTRADOR','SISTEMAS','OPERACIONES','GERENTE','ENLACE','CAJERO','GESTION EMPRESARIAL','AUDITORIA','BANCA','FACTURACION','TESORERIA']
+    }
   },
   {
     path: 'revolvente', component: GastoRevComponent
@@ -154,19 +154,19 @@ export const routes: Routes = [
   {
     path: 'create', component: NewPresupuestoComponent, 
   canActivate: [AuthGuard], data: {
-      roles: ['ADMINISTRADOR']
+    roles: ['ADMINISTRADOR','SISTEMAS','OPERACIONES','GERENTE','ENLACE','CAJERO','GESTION EMPRESARIAL','AUDITORIA','BANCA','FACTURACION','TESORERIA']
     }
   },
   {
     path: 'asignacion', component: AsignacionPresupuestoComponent, 
   canActivate: [AuthGuard], data: {
-      roles: ['ADMINISTRADOR']
+    roles: ['ADMINISTRADOR','SISTEMAS','OPERACIONES','GERENTE','ENLACE','CAJERO','GESTION EMPRESARIAL','AUDITORIA','BANCA','FACTURACION','TESORERIA']
     }
   },
   {
     path: 'presupuesto', component: PresupuestoComponent,
     canActivate: [AuthGuard], data: {
-      roles: ['ADMINISTRADOR',]
+      roles: ['ADMINISTRADOR','SISTEMAS','OPERACIONES','GERENTE','ENLACE','CAJERO','GESTION EMPRESARIAL','AUDITORIA','BANCA','FACTURACION','TESORERIA']
     }
   },
   // {
