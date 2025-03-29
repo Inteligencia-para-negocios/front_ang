@@ -1,0 +1,169 @@
+import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
+import { ClassificationService } from '../../services/classification.service';
+import { UtilService } from '../../services/util.service';
+import { UserService } from '../../services/user.service';
+import { HandlerService } from '../../services/handler.service';
+import { SolicitudService } from '../../services/solicitud.service';
+
+@Component({
+  selector: 'app-solicitud-gasto',
+  templateUrl: './solicitud-gasto.component.html',
+  styleUrls: ['./solicitud-gasto.component.css'],
+})
+export class SolicitudGastoComponent implements OnInit {
+  public presupuestos: any = new Set();
+  public partidas: any[] = [];
+  public clasificaciones: any[] = [];
+  public tipoGastos: any[] = [];
+  public proveedores: any[] = [];
+  public periodos: any[] = [];
+  public bandera = false;
+  public captureForm: FormGroup;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private classificationService: ClassificationService,
+    private utilService: UtilService,
+    private userService: UserService,
+    private handler: HandlerService,
+    private solicService: SolicitudService
+  ) {
+    this.captureForm = this._formBuilder.group({
+      empresa: [{ value: '', disabled: true }, Validators.required],
+      area: [{ value: '', disabled: true }, Validators.required],
+      encargado: [{ value: '', disabled: true }, Validators.required],
+      presupuesto: ['', Validators.required],
+      clasificacion: ['', Validators.required],
+      monto: ['', Validators.required],
+      tipoGasto: ['', Validators.required],
+      proveedor: ['', Validators.required],
+      justificacion: ['', Validators.required],
+      fechaInicio: [null, Validators.required],
+      fechaLimite: [null, Validators.required],
+      periodo: [null, Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
+    this.getDatosEmpleado();
+    this.getTipoGasto();
+    this.getPresupuestos();
+    this.getProveedores();
+    this.getPartidas();
+    this.getPeriodos();
+  }
+
+  private getDatosEmpleado(): void {
+    this.userService.getUsuarioDetalle().subscribe({
+      next: (data: any) => {
+        if (data.length > 0) {
+          this.captureForm.patchValue({
+            empresa: data[0].empresa,
+            area: data[0].area,
+            encargado: data[0].nombre,
+          });
+        }
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  private getPartidas(): void {
+    this.utilService.getPartida().subscribe({
+      next: (data: any) => {
+        this.partidas = data;
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  private getTipoGasto(): void {
+    this.utilService.getTipoGasto().subscribe({
+      next: (data: any) => {
+        this.tipoGastos = data;
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  private getPresupuestos(): void {
+    this.utilService.getPresupuestosAsignados().subscribe({
+      next: (data: any) => {
+        data.forEach((element: any) => {
+          this.presupuestos.add(element.presupuesto);
+        });
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  private getProveedores(): void {
+    this.utilService.getProveedores().subscribe({
+      next: (data: any) => {
+        this.proveedores = data;
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  private getPeriodos(): void {
+    this.utilService.getPeriodos().subscribe({
+      next: (data: any) => {
+        this.periodos = data;
+      },
+      error: (err) => this.handler.handleError(),
+    });
+  }
+
+  onChangePresupuesto(resp: string): void {
+    this.utilService.getPresupuestoSelect({ nombre: resp }).subscribe({
+      next: (data: any) => {
+        this.partidas = data;
+      },
+      error: (err) => {
+        this.handler.handleError();
+      },
+    });
+  }
+
+  async onChangePartida(event: Event): Promise<void> {
+    const selectElement = event.target as HTMLSelectElement;
+    console.log(selectElement.value);
+
+    (
+      await this.classificationService.getAllClasificaciones({
+        nombre: selectElement.value,
+      })
+    ).subscribe({
+      next: (data: any) => {
+        this.clasificaciones = data;
+      },
+      error: (err) => {
+        this.handler.handleError();
+      },
+    });
+  }
+
+  solicitudGasto(): void {
+    this.solicService.createSolicitud(this.captureForm.value).subscribe({
+      next: (data: any) => {
+        this.handler.handleSuccess();
+      },
+      error: (err) => {
+        this.handler.handleError();
+      },
+    });
+  }
+
+  onChangeTipo(event: string) {
+    const select = this.tipoGastos.find((pr) => pr.idCatalogo === event);
+    if (select.nombre == 'RECURRENTE') this.bandera = true;
+    else this.bandera = false;
+  }
+}
