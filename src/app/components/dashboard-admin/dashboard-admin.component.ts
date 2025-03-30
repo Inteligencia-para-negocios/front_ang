@@ -25,7 +25,7 @@ export class DashboardAdminComponent {
   ngOnInit(): void {
     this.chartActyvitiCash();
     this.chartTypeCash();
-    this._UTIL_SERVICE_.verificarVentanaActiva();
+    //this._UTIL_SERVICE_.verificarVentanaActiva();
   }
   chartActyvitiCash() {
     this.chartActyviti = new Chart('actyviti', {

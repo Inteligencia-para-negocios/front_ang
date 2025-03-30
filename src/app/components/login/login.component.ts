@@ -34,18 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('usuarios :', this.loginForm.value);
     this.auth.login(this.loginForm.value).subscribe({
       next: (data: any) => {
         const token = data.token;
         if (token) {
           localStorage.setItem('auth_token', token);
-          console.log('ssss', token);
           this.router.navigate(['/dashboardFull']);
         }
       },
       error(err) {
-        console.error(err);
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -65,7 +62,6 @@ export class LoginComponent implements OnInit {
     const token = this.auth.getToken();
     if (token) {
       this.auth_token = token ? token : '';
-      console.log('read locally: ', this.auth_token);
       this.router.navigate(['/dashboardFull']);
       // if (usuario) this.usuario = JSON.parse(usuario)
     } else {

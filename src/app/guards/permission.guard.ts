@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 import { AuthService } from '../services/auth.service';
 
 interface TokenPayload {
-  permissions: string[];
+  permisos: string[];
   // Puedes agregar otros campos que esperes del token
 }
 
@@ -15,8 +15,10 @@ export class PermissionGuard implements CanActivate {
   constructor(private router: Router, private auth: AuthService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
+    
     const token = localStorage.getItem('auth_token');
-    const requiredPermissions: string[] = route.data['permissions'] || [];
+    
+    const requiredPermissions: string[] = route.data['permiso'] || [];
 
     // Si no hay token, redirigir al login con returnUrl
     if (!token) {
@@ -25,15 +27,15 @@ export class PermissionGuard implements CanActivate {
 
     try {
       const payload: TokenPayload = jwtDecode(token);
-
+      
       // Validar que el token tenga la propiedad de permisos y sea un arreglo
-      if (!payload.permissions || !Array.isArray(payload.permissions)) {
+      if (!payload.permisos || !Array.isArray(payload.permisos)) {
         throw new Error('Token inválido: permisos no definidos');
       }
-
+      
       // Verificar si el usuario tiene al menos uno de los permisos requeridos
-      const hasPermission = requiredPermissions.some(permission => payload.permissions.includes(permission));
-
+      const hasPermission = requiredPermissions.some(permiso => payload.permisos.includes(permiso));
+      
       // Si el usuario tiene el permiso, se le permite acceder, de lo contrario se redirige a la página de acceso denegado
       return hasPermission? true: this.router.createUrlTree(['/unAuth'], { queryParams: { returnUrl: state.url } });
     } catch (error) {
