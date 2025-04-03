@@ -67,7 +67,7 @@ export const routes: Routes = [
   { path: 'publicidad', component: PublicidadVerifyComponent },
   { path: 'splashV', component: SplashVerifyComponent },
   { path: 'cortes-parciales', component: CorteParcialComponent },
-  { path: 'tesoreria', component: TesoreriaComponent, canActivate: [PermissionGuard], data: { permiso: ['VIEW_GASTO'] } },
+  { path: 'tesoreria', component: TesoreriaComponent},
   { path: 'liberacion', component: AuthTesoreriaComponent, canActivate: [PermissionGuard], data: { permiso: ['UPDATE_GASTO'] } },
   { path: 'listcut', component: CutListComponent },
 ];
