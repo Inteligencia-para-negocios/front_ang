@@ -6,70 +6,65 @@ import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PresupuestoService implements OnInit {
-
   ngOnInit() {
-    this.getHeaders()
+    this.getHeaders();
   }
   constructor(
     private http: HttpClient,
     private auth: AuthService,
     private utils: UtilService
-  ) { }
-  public headers: any
+  ) {}
+  public headers: any;
 
-  getHeaders(){
-   
-  }
-  asignacion(objet : any): Observable<any[]> {
+  getHeaders() {}
+  asignacion(objet: any): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}asignaciones`;
-    return this.http.post<any[]>(url,objet,{headers});
+    return this.http.post<any[]>(url, objet, { headers });
   }
 
-  getPresupuesto():Observable<any[]>{
-      const headers = this.auth.getHeaders();
-      let url = `${environment.baseUrl}Presupuestos`;
-      return this.http.get<any[]>(url,{headers});
+  getPresupuesto(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Presupuestos`;
+    return this.http.get<any[]>(url, { headers });
   }
 
-  getPresupuestoByX(objeto : any):Observable<any[]>{
+  getPresupuestoByX(objeto: any): Observable<any[]> {
     let url = `${environment.baseUrl}Presupuestos/filtro`;
-    const headers = this.utils.crearCabezeraCom(objeto)
-    return this.http.get<any[]>(url,headers);
+    const headers = this.utils.crearCabezeraCom(objeto);
+    return this.http.get<any[]>(url, headers);
   }
 
-  postDetalle(objeto : any):Observable<any[]>{
+  postDetalle(objeto: any): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}`;
-    return this.http.post<any[]>(url,objeto,{headers});
+    return this.http.post<any[]>(url, objeto, { headers });
   }
 
-  create(objet : any): Observable<any[]> {
+  create(objet: any): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Presupuestos/`;
-    return this.http.post<any[]>(url, objet, {headers});
+    return this.http.post<any[]>(url, objet, { headers });
   }
 
-  getList(): Observable<any[]>{
+  getList(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}asignaciones`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
-
 
   updateDetalle(objeto: any) {
     let url = `${environment.baseUrl}asignaciones`;
     const headers = this.auth.getHeaders();
-    return this.http.put<any[]>(url,objeto,{headers});
+    return this.http.put<any[]>(url, objeto, { headers });
   }
 
   authDetalle(objeto: any) {
     let url = `${environment.baseUrl}asignaciones/auth`;
     const headers = this.auth.getHeaders();
-    return this.http.patch<any[]>(url,objeto,{headers});
+    return this.http.patch<any[]>(url, objeto, { headers });
   }
-
 }

@@ -6,10 +6,9 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SolicitudService {
-
   constructor(
     private http: HttpClient,
     private auth: AuthService,
@@ -19,24 +18,24 @@ export class SolicitudService {
   createSolicitud(objet: any): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
-    return this.http.post<any[]>(url, objet, {headers});
+    return this.http.post<any[]>(url, objet, { headers });
   }
 
-  getSolicitudes(): Observable<any[]>{
+  getSolicitudes(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
-    return this.http.get<any[]>(url, {headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
-  updateSolicitud(objet: any){
+  updateSolicitud(objet: any) {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
-    return this.http.put(url, objet, {headers});
+    return this.http.put(url, objet, { headers });
   }
 
-  authSolicitud(objet:any){
+  authSolicitud(objet: any) {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Solicitudes/`;
-    return this.http.patch(url, objet, {headers});
+    return this.http.patch(url, objet, { headers });
   }
 }

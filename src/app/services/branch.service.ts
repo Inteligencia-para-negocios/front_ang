@@ -5,33 +5,31 @@ import { environment } from 'src/environments/environment';
 import { Sucursal } from 'src/models/interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SucursalService {
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private http: HttpClient) { }
-
-  getAll(): Observable<Sucursal[]>{
+  getAll(): Observable<Sucursal[]> {
     let url = `${environment.baseUrl}branch/get`;
     return this.http.get<Sucursal[]>(url);
   }
 
-  get_all(){
-    return this.http.get(`${environment.baseUrl}branch/get`)
+  get_all() {
+    return this.http.get(`${environment.baseUrl}branch/get`);
   }
 
-  getById(id:any): Observable<Sucursal[]>{
+  getById(id: any): Observable<Sucursal[]> {
     let url = `${environment.baseUrl}/branch/getById/${id}`;
     return this.http.get<Sucursal[]>(url);
   }
 
-  crear(sucursal:any): Observable<Sucursal[]>{
+  crear(sucursal: any): Observable<Sucursal[]> {
     let url = `${environment.baseUrl}branch/create`;
-    return this.http.post<Sucursal[]>(url,sucursal);
+    return this.http.post<Sucursal[]>(url, sucursal);
   }
 
-  eliminar(id:any):Observable<Sucursal[]>{
+  eliminar(id: any): Observable<Sucursal[]> {
     let url = `${environment.baseUrl}/branch/delete/${id}`;
     return this.http.delete<Sucursal[]>(url);
   }

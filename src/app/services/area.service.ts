@@ -5,12 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Area } from 'src/models/interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AreaService {
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Area[]> {
     let url = `${environment.baseUrl}areas/get`;

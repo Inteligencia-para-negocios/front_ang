@@ -94,6 +94,7 @@ export class SolicitudGastoComponent implements OnInit {
 
   private getPresupuestos(): void {
     this.utilService.getPresupuestosAsignados().subscribe({
+      
       next: (data: any) => {
         data.forEach((element: any) => {
           this.presupuestos.add(element.presupuesto);

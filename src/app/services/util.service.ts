@@ -6,21 +6,21 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilService {
   private gasto: any;
   private codigo: string | undefined;
-  
+
   private ventanasAbiertas: Window[] = [];
 
-  crearCabezeraCom(objet:any){
+  crearCabezeraCom(objet: any) {
     const headers = this.auth.getHeaders();
-        let params = new HttpParams();
-        Object.keys(objet).forEach(key => {
-          params = params.set(key, objet[key]);
-        });
-    return {params, headers};
+    let params = new HttpParams();
+    Object.keys(objet).forEach((key) => {
+      params = params.set(key, objet[key]);
+    });
+    return { params, headers };
   }
 
   constructor(private http: HttpClient, private auth: AuthService) {
@@ -32,7 +32,6 @@ export class UtilService {
     });
   }
 
-
   private removerVentana(ventana: Window): void {
     const index = this.ventanasAbiertas.indexOf(ventana);
     if (index !== -1) {
@@ -42,8 +41,8 @@ export class UtilService {
 
   // Función para verificar si ya existe una ventana activa de la aplicación
   verificarVentanaActiva(): void {
-    console.log("estoy evaluando",this.ventanasAbiertas)
-    
+    console.log('estoy evaluando', this.ventanasAbiertas);
+
     if (this.ventanasAbiertas.length > 1) {
       // Mostrar una alerta o mensaje para informar al usuario
       alert('Ya existe una ventana activa de la aplicación.');
@@ -53,11 +52,11 @@ export class UtilService {
     }
   }
 
-  verificador(objet: any): Observable<any[]>{
+  verificador(objet: any): Observable<any[]> {
     let url = `${environment.baseUrl}checador/get`;
-    return this.http.post<any[]>(url,objet);
+    return this.http.post<any[]>(url, objet);
   }
-  healt(): Observable<any[]>{
+  healt(): Observable<any[]> {
     let url = `${environment.baseUrl}checador/healt`;
     return this.http.get<any[]>(url);
   }
@@ -66,9 +65,12 @@ export class UtilService {
     let url = `${environment.baseUrl}status/getById/${id}`;
     return this.http.get<Status[]>(url);
   }
-  
+
   create(revolvente: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}revolvente/create`, revolvente)
+    return this.http.post<any>(
+      `${environment.baseUrl}revolvente/create`,
+      revolvente
+    );
   }
 
   crear(presupuesto: any): Observable<Presupuesto[]> {
@@ -96,55 +98,55 @@ export class UtilService {
   getTipoGasto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/GTS`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getEstatusPresupuesto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/STP`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getEstatusSolicitud(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/STS`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getEstatusCaja(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/STC`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
-  
+
   getEstatusGasto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/STG`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getConcepto(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/CCP`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getMovimientos(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/MVM`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getPresupuestosAsignados(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Asignaciones/asignados`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
-  getPresupuestoSelect(objet : any): Observable<any[]> {
+  getPresupuestoSelect(objet: any): Observable<any[]> {
     const headers = this.crearCabezeraCom(objet);
     let url = `${environment.baseUrl}/Asignaciones`;
-    return this.http.get<any[]>(url,headers);
+    return this.http.get<any[]>(url, headers);
   }
 
   getStatus1(): Observable<Status[]> {
@@ -157,29 +159,28 @@ export class UtilService {
     return this.http.post<any[]>(url, ruta);
   }
 
-
-  getPartida():Observable<any[]>{
+  getPartida(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Partidas`;
-    return this.http.get<any[]>(url,{headers});
-  }
-  
-  getEmpresas():Observable<any[]>{
-    const headers = this.auth.getHeaders();
-    let url = `${environment.baseUrl}Empresas`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
-  getProveedores():Observable<any[]>{
+  getEmpresas(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
+    let url = `${environment.baseUrl}Empresas`;
+    return this.http.get<any[]>(url, { headers });
+  }
+
+  getProveedores(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Proveedores`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   getPeriodos(): Observable<any[]> {
     const headers = this.auth.getHeaders();
     let url = `${environment.baseUrl}Catalogos/PRD`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
   setCodigo(data: string) {
@@ -204,13 +205,24 @@ export class UtilService {
 
   formatFecha(fechaISO: string): string {
     const parsedDate = new Date(fechaISO);
-    const day = parsedDate.getDate().toString().padStart(2, '0') ;
-    const monthNames = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const monthNames = [
+      'ene',
+      'feb',
+      'mar',
+      'abr',
+      'may',
+      'jun',
+      'jul',
+      'ago',
+      'sep',
+      'oct',
+      'nov',
+      'dic',
+    ];
     const monthIndex = parsedDate.getMonth();
     const monthName = monthNames[monthIndex];
     const year = parsedDate.getFullYear().toString();
     return `${day}/${monthName}/${year}`;
   }
-
-
 }

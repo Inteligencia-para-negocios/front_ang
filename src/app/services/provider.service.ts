@@ -5,12 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Area, Empleado, Provedor } from 'src/models/interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProviderService {
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Provedor[]> {
     let url = `${environment.baseUrl}provider/get`;
@@ -32,8 +30,7 @@ export class ProviderService {
     return this.http.delete<Provedor>(url);
   }
 
-
-  getContatistas(){
+  getContatistas() {
     let url = `${environment.baseUrl}provider/contratista`;
     return this.http.get<Provedor[]>(url);
   }

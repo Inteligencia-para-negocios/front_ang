@@ -4,16 +4,13 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class CorteService {
-  private cortes: any [] = [];
-  private id : number = 0
-  constructor(
-    private http : HttpClient
-  ) { }
-  
+  private cortes: any[] = [];
+  private id: number = 0;
+  constructor(private http: HttpClient) {}
+
   getAll(): Observable<any[]> {
     let url = `${environment.baseUrl}efes/getLocal`;
     return this.http.get<any[]>(url);
@@ -24,22 +21,20 @@ export class CorteService {
     return this.http.get<any[]>(url);
   }
 
-
-  getListCorteP(id : any):Observable<any[]>{
+  getListCorteP(id: any): Observable<any[]> {
     let url = `${environment.baseUrl}parciales/getParcial`;
     return this.http.get<any[]>(url);
   }
 
-  createCorteParcial(id:any):Observable<any[]>{
+  createCorteParcial(id: any): Observable<any[]> {
     let url = `${environment.baseUrl}parciales/genCorteParcial${id}`;
     return this.http.get<any[]>(url);
   }
 
-  getListCorteDetalle(id:any): Observable<any[]>{
+  getListCorteDetalle(id: any): Observable<any[]> {
     let url = `${environment.baseUrl}parciales/getList${id}`;
     return this.http.get<any[]>(url);
   }
-
 
   ajusteCorte(dispositivo: any): Observable<any[]> {
     let url = `${environment.baseUrl}ajuste/create`;
@@ -55,45 +50,39 @@ export class CorteService {
     return this.http.post<any[]>(url, dispositivo);
   }
 
-
   getDetalleTesoreria(dispositivo: any): Observable<any> {
     let url = `${environment.baseUrl}ajuste/getDetalleTesoreria`;
     return this.http.post<any>(url, dispositivo);
   }
-  
+
   entregas(corte: any): Observable<any[]> {
     let url = `${environment.baseUrl}ajuste/entregaEfectivoX`;
     return this.http.post<any[]>(url, corte);
   }
 
-  updateEntrega(corte : any): Observable<any []>{
+  updateEntrega(corte: any): Observable<any[]> {
     let url = `${environment.baseUrl}ajuste/entregaEfectivoX`;
-    return this.http.put<any[]>(url,corte)
+    return this.http.put<any[]>(url, corte);
   }
 
-  detalleX(id : any): Observable<any[]> {
+  detalleX(id: any): Observable<any[]> {
     let url = `${environment.baseUrl}ajuste/getDetalle`;
-    return this.http.post<any[]>(url,id);
+    return this.http.post<any[]>(url, id);
   }
-
-
 
   setCortes(cortes: any[]) {
     this.cortes = cortes;
   }
 
-  getCortes(): any []{
+  getCortes(): any[] {
     return this.cortes;
   }
-  
-  setIdNumCorte(id: any){
-    this.id = id
+
+  setIdNumCorte(id: any) {
+    this.id = id;
   }
 
-  getIdNumCorte(){
-    return this.id
+  getIdNumCorte() {
+    return this.id;
   }
-
-
-
 }

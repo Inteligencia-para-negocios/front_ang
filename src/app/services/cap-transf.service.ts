@@ -5,11 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Transfer } from 'src/models/interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CapTransfService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Transfer[]> {
     let url = `${environment.baseUrl}transfer/get`;
@@ -26,8 +25,8 @@ export class CapTransfService {
     return this.http.post<Transfer[]>(url, transfer);
   }
 
-//   eliminar(id: any): Observable<Transfer[]> {
-//     let url = `${environment.baseUrl}transfer/delete/${id}`;
-//     return this.http.delete<Transfer[]>(url);
-//   }
+  //   eliminar(id: any): Observable<Transfer[]> {
+  //     let url = `${environment.baseUrl}transfer/delete/${id}`;
+  //     return this.http.delete<Transfer[]>(url);
+  //   }
 }

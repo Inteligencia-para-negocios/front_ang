@@ -5,19 +5,18 @@ import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GastoRecurrenteService {
-
   constructor(
     private http: HttpClient,
     private utils: UtilService,
     private auth: AuthService
-  ) { }
+  ) {}
 
-  createGasto(obj:any){
-      const headers = this.auth.getHeaders()
-      const url = `${environment.baseUrl}Gasto/Recurrente/` ;
-      return this.http.post(url,obj,{headers});
-    }
+  createGasto(obj: any) {
+    const headers = this.auth.getHeaders();
+    const url = `${environment.baseUrl}Gasto/Recurrente/`;
+    return this.http.post(url, obj, { headers });
+  }
 }

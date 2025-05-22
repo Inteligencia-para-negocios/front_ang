@@ -6,45 +6,43 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GastoService {
-
   constructor(
     private http: HttpClient,
     private utils: UtilService,
     private auth: AuthService
-  ) {
-   }
+  ) {}
 
-  getGastos(): Observable<any[]>{
-    const headers = this.auth.getHeaders()
+  getGastos(): Observable<any[]> {
+    const headers = this.auth.getHeaders();
     const url = `${environment.baseUrl}Gastos/filtrado`;
-    return this.http.get<any[]>(url,{headers});
+    return this.http.get<any[]>(url, { headers });
   }
 
-  createGasto(obj:any){
-    const headers = this.auth.getHeaders()
+  createGasto(obj: any) {
+    const headers = this.auth.getHeaders();
     const url = `${environment.baseUrl}Gastos/`;
-    return this.http.post(url,obj,{headers});
+    return this.http.post(url, obj, { headers });
   }
 
-  updateGasto(obj:any){
+  updateGasto(obj: any) {
     const headers = this.auth.getHeaders();
-    const url = `${environment.baseUrl}Gastos/`
-    return this.http.put(url,obj,{headers});
+    const url = `${environment.baseUrl}Gastos/`;
+    return this.http.put(url, obj, { headers });
   }
 
-  authGasto(obj:any){
+  authGasto(obj: any) {
     const headers = this.auth.getHeaders();
-    const url = `${environment.baseUrl}Gastos/auth`
-    return this.http.patch(url,obj,{headers})
+    const url = `${environment.baseUrl}Gastos/auth`;
+    return this.http.patch(url, obj, { headers });
   }
 
-  comprobacion(obj: FormData){
-    let headers = this.auth.getHeaders()
+  comprobacion(obj: FormData) {
+    let headers = this.auth.getHeaders();
     headers = headers.delete('content-type');
     const url = `${environment.baseUrl}Gasto/Comprobado/`;
-    return this.http.post(url,obj,{headers});
+    return this.http.post(url, obj, { headers });
   }
 }
