@@ -210,10 +210,9 @@ export class AsignacionPresupuestoComponent {
   }
 
   onCapturePresupuesto(selectPresupuesto: any) {
-    const objet = {
-      idPresupuesto: selectPresupuesto,
-    };
-    this._presupuesto.getPresupuestoByX(objet).subscribe({
+    console.log(selectPresupuesto);
+    
+    this._presupuesto.getPresupuestoByX(selectPresupuesto).subscribe({
       next: (data: any) => {
         this.presupuestoForm.patchValue({
           nombrePresp: data[0].nombre,
